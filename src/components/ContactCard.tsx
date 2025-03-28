@@ -28,34 +28,40 @@ const ContactCard = () => {
   ];
 
   return (
-    <Card className="w-full max-w-md bg-white/90 backdrop-blur-sm shadow-xl rounded-xl">
-      <div className="p-6">
-        <h2 className="text-2xl font-bold text-primary mb-4">Contact Us</h2>
-        
-        <div className="space-y-4 mb-6">
-          {contactInfo.map((item, index) => (
-            <a 
-              key={index}
-              href={item.link}
-              className="flex items-center gap-3 hover:text-primary transition-colors"
-            >
-              <div className="bg-muted p-2 rounded-full">{item.icon}</div>
-              <div>
-                <p className="text-sm text-muted-foreground">{item.label}</p>
-                <p className="font-medium">{item.value}</p>
-              </div>
-            </a>
-          ))}
+    <div className="relative">
+      {/* Lens distortion effect background */}
+      <div className="absolute inset-0 bg-white/20 backdrop-blur-[15px] rounded-xl transform rotate-1 scale-105"></div>
+      <div className="absolute inset-0 bg-white/10 backdrop-blur-[10px] rounded-xl transform -rotate-1 scale-[1.02]"></div>
+      
+      <Card className="w-full max-w-md bg-white/30 backdrop-blur-md shadow-xl rounded-xl relative z-10 border-white/40">
+        <div className="p-6">
+          <h2 className="text-2xl font-bold text-primary mb-4">Contact Us</h2>
+          
+          <div className="space-y-4 mb-6">
+            {contactInfo.map((item, index) => (
+              <a 
+                key={index}
+                href={item.link}
+                className="flex items-center gap-3 hover:text-primary transition-colors"
+              >
+                <div className="bg-white/30 backdrop-blur-sm p-2 rounded-full">{item.icon}</div>
+                <div>
+                  <p className="text-sm text-muted-foreground">{item.label}</p>
+                  <p className="font-medium">{item.value}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+          
+          <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" className="block">
+            <Button className="w-full gap-2 bg-primary/90 backdrop-blur-sm hover:bg-primary shadow-lg">
+              <MapPin className="h-4 w-4" />
+              Get Directions
+            </Button>
+          </a>
         </div>
-        
-        <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" className="block">
-          <Button className="w-full gap-2 bg-primary hover:bg-primary/90">
-            <MapPin className="h-4 w-4" />
-            Get Directions
-          </Button>
-        </a>
-      </div>
-    </Card>
+      </Card>
+    </div>
   );
 };
 
