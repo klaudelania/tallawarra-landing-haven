@@ -1,13 +1,47 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import { useEffect, useState } from "react";
+import Slideshow from "../components/Slideshow";
+import Navbar from "../components/Navbar";
+import ContactCard from "../components/ContactCard";
+import HeroContent from "../components/HeroContent";
 
 const Index = () => {
+  const [showContact, setShowContact] = useState(false);
+
+  useEffect(() => {
+    // Delay showing the contact card
+    const timer = setTimeout(() => {
+      setShowContact(true);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
-      </div>
-    </div>
+    <main className="relative min-h-screen">
+      {/* Background Slideshow */}
+      <Slideshow />
+      
+      {/* Navbar */}
+      <Navbar />
+      
+      {/* Hero Section */}
+      <section className="container relative min-h-screen pt-24 pb-16 flex flex-col justify-center items-start md:items-center">
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <HeroContent />
+          
+          <div className={`justify-self-center md:justify-self-end transition-all duration-700 ${
+            showContact ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          }`}>
+            <ContactCard />
+          </div>
+        </div>
+        
+        <footer className="absolute bottom-4 left-0 right-0 text-center text-white/70 text-sm">
+          © {new Date().getFullYear()} Tallawarra Residential Subdivision. All rights reserved.
+        </footer>
+      </section>
+    </main>
   );
 };
 
