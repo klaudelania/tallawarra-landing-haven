@@ -30,10 +30,10 @@ const ContactCard = () => {
   return (
     <div className="relative">
       {/* Lens distortion effect background */}
-      <div className="absolute inset-0 bg-white/20 backdrop-blur-[15px] rounded-xl transform rotate-1 scale-105"></div>
-      <div className="absolute inset-0 bg-white/10 backdrop-blur-[10px] rounded-xl transform -rotate-1 scale-[1.02]"></div>
+      <div className="absolute inset-0 bg-white/10 backdrop-blur-[10px] rounded-xl transform rotate-1 scale-105"></div>
+      <div className="absolute inset-0 bg-white/5 backdrop-blur-[5px] rounded-xl transform -rotate-1 scale-[1.02]"></div>
       
-      <Card className="w-full max-w-md bg-white/30 backdrop-blur-md shadow-xl rounded-xl relative z-10 border-white/40">
+      <Card className="w-full max-w-md bg-white/20 backdrop-blur-lg shadow-xl rounded-xl relative z-10 border border-white/60">
         <div className="p-6">
           <h2 className="text-2xl font-bold text-primary mb-4">Contact Us</h2>
           
@@ -44,7 +44,7 @@ const ContactCard = () => {
                 href={item.link}
                 className="flex items-center gap-3 hover:text-primary transition-colors"
               >
-                <div className="bg-white/30 backdrop-blur-sm p-2 rounded-full">{item.icon}</div>
+                <div className="bg-white/20 backdrop-blur-sm p-2 rounded-full border border-white/40">{item.icon}</div>
                 <div>
                   <p className="text-sm text-muted-foreground">{item.label}</p>
                   <p className="font-medium">{item.value}</p>
@@ -54,7 +54,7 @@ const ContactCard = () => {
           </div>
           
           <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" className="block">
-            <Button className="w-full gap-2 bg-primary/90 backdrop-blur-sm hover:bg-primary shadow-lg">
+            <Button className="w-full gap-2 bg-primary/80 backdrop-blur-sm hover:bg-primary shadow-lg border border-white/20">
               <MapPin className="h-4 w-4" />
               Get Directions
             </Button>
