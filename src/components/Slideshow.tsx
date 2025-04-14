@@ -1,16 +1,15 @@
-
 import { useState, useEffect, useCallback } from "react";
 
-// Replace these with your own image imports or paths
+// Your custom uploaded images
 const images = [
-  "/slideshow/image1.jpg", // Replace with your image paths
+  "/slideshow/image1.jpg",
   "/slideshow/image2.jpg", 
   "/slideshow/image3.jpg",
   "/slideshow/image4.jpg",
   "/slideshow/image5.jpg"
 ];
 
-// You can add a message to guide users when images aren't available yet
+// Fallback placeholder images in case custom images fail
 const placeholderImages = [
   "https://images.unsplash.com/photo-1433086966358-54859d0ed716?q=80&w=2000&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?q=80&w=2000&auto=format&fit=crop",
@@ -18,9 +17,6 @@ const placeholderImages = [
   "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?q=80&w=2000&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1426604966848-d7adac402bff?q=80&w=2000&auto=format&fit=crop"
 ];
-
-// Use placeholder images if custom images fail to load
-const imagesToUse = images;
 
 const Slideshow = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
