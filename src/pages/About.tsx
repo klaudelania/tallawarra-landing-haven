@@ -15,12 +15,12 @@ const About = () => {
       <Navbar />
       
       <section className="container relative min-h-screen pt-28 pb-16 flex justify-center">
-        <div className="relative">
+        <div className="relative max-w-xl">
           {/* Lens distortion effect background - matching ContactCard */}
           <div className="absolute inset-0 bg-white/10 backdrop-blur-[10px] rounded-xl transform rotate-1 scale-105"></div>
           <div className="absolute inset-0 bg-white/5 backdrop-blur-[5px] rounded-xl transform -rotate-1 scale-[1.02]"></div>
           
-          <div className="bg-white/20 backdrop-blur-lg rounded-xl shadow-xl p-8 text-white relative z-10 w-full max-w-2xl border border-white/60">
+          <div className="bg-white/20 backdrop-blur-lg rounded-xl p-8 text-white relative z-10 w-full border border-white/60">
             <Link to="/" className="absolute top-4 right-4">
               <Button variant="ghost" size="icon" className="text-white hover:bg-white/20">
                 <X size={24} />
