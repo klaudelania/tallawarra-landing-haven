@@ -36,42 +36,57 @@ const Slideshow = () => {
   const [loadingProgress, setLoadingProgress] = useState(0);
   const { toast } = useToast();
 
-  // Improved image loading with better fallback handling
+  // Improved image loading with detailed error logging
   useEffect(() => {
     const loadImages = async () => {
       console.log("Starting to load slideshow images");
       const loadedImages: string[] = [];
       let failedCount = 0;
       
+      // Try to load images with different path prefixes to handle various deployment environments
       for (let i = 0; i < defaultImages.length; i++) {
         const imagePath = defaultImages[i];
-        try {
-          // Test if the image can be loaded
-          const img = new Image();
-          const loadPromise = new Promise<void>((resolve, reject) => {
-            img.onload = () => {
-              console.log(`Successfully loaded image ${i + 1} from: ${imagePath}`);
-              resolve();
-            };
-            img.onerror = () => {
-              console.log(`Failed to load image ${i + 1} from: ${imagePath}`);
-              reject();
-            };
-          });
-          
-          img.src = imagePath;
+        const alternativePaths = [
+          imagePath, // Try direct path first
+          `${window.location.origin}${imagePath}`, // Try with origin
+          `./public${imagePath}`, // Try with public prefix
+          `../public${imagePath}` // Try with different relative path
+        ];
+        
+        let loaded = false;
+        
+        // Try each path variant until one works
+        for (const path of alternativePaths) {
+          if (loaded) break;
           
           try {
-            await loadPromise;
-            loadedImages.push(imagePath);
-          } catch {
-            // If direct path fails, use fallback
-            console.log(`Using fallback for image ${i + 1}`);
-            loadedImages.push(fallbackImages[i % fallbackImages.length]);
-            failedCount++;
+            const img = new Image();
+            
+            await new Promise<void>((resolve, reject) => {
+              img.onload = () => {
+                console.log(`Successfully loaded image ${i + 1} from: ${path}`);
+                loaded = true;
+                resolve();
+              };
+              img.onerror = () => {
+                console.log(`Failed to load image ${i + 1} from: ${path}`);
+                reject();
+              };
+              img.src = path;
+            });
+            
+            if (loaded) {
+              loadedImages.push(path);
+              break; // We found a working path, move to next image
+            }
+          } catch (error) {
+            // Will try next path or fall back to fallback image
           }
-        } catch (error) {
-          console.error(`Error loading image ${i + 1}:`, error);
+        }
+        
+        // If none of the paths worked, use fallback
+        if (!loaded) {
+          console.log(`All paths failed for image ${i + 1}, using fallback`);
           loadedImages.push(fallbackImages[i % fallbackImages.length]);
           failedCount++;
         }
@@ -86,9 +101,12 @@ const Slideshow = () => {
       if (failedCount > 0) {
         toast({
           title: "Image loading notice",
-          description: `${failedCount} images using fallback sources. Images may not match expected content.`,
-          duration: 5000,
+          description: `${failedCount} ${failedCount === 1 ? 'image' : 'images'} using fallback sources. Images may not match expected content.`,
+          duration: 8000,
         });
+        
+        // Log more detailed information about the failure
+        console.error(`Failed to load ${failedCount} images. Please ensure images are in the correct location: /public/slideshow/`);
       }
     };
     
