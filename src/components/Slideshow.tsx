@@ -6,7 +6,12 @@ const images = [
   "/slideshow/image2.jpg", 
   "/slideshow/image3.jpg",
   "/slideshow/image4.jpg",
-  "/slideshow/image5.jpg"
+  "/slideshow/image5.jpg",
+  "/slideshow/image6.jpg",
+  "/slideshow/image7.jpg",
+  "/slideshow/image8.jpg",
+  "/slideshow/image9.jpg",
+  "/slideshow/image10.jpg"
 ];
 
 // Fallback placeholder images in case custom images fail
@@ -15,7 +20,12 @@ const placeholderImages = [
   "https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?q=80&w=2000&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=2000&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?q=80&w=2000&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1426604966848-d7adac402bff?q=80&w=2000&auto=format&fit=crop"
+  "https://images.unsplash.com/photo-1426604966848-d7adac402bff?q=80&w=2000&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=2000&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2000&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?q=80&w=2000&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?q=80&w=2000&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=80&w=2000&auto=format&fit=crop"
 ];
 
 const Slideshow = () => {
