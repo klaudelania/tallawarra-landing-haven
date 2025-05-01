@@ -1,9 +1,12 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const { user } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,13 +30,19 @@ const Navbar = () => {
       }`}
     >
       <div className="container flex items-center justify-between">
-        <div className="text-2xl md:text-3xl font-bold text-white">
+        <Link to="/" className="text-2xl md:text-3xl font-bold text-white">
           TALLAWARRA
-        </div>
+        </Link>
         <div className="hidden md:block">
-          <Button variant="outline" className="text-white border-white hover:bg-white/20 hover:text-white">
-            Contact Us
-          </Button>
+          {user ? (
+            <Button variant="outline" className="text-white border-white hover:bg-white/20 hover:text-white" asChild>
+              <Link to="/dashboard">Dashboard</Link>
+            </Button>
+          ) : (
+            <Button variant="outline" className="text-white border-white hover:bg-white/20 hover:text-white" asChild>
+              <Link to="/signin">Sign In</Link>
+            </Button>
+          )}
         </div>
       </div>
     </nav>
