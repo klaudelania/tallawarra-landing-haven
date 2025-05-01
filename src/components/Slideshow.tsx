@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useCallback } from "react";
 import { Toaster } from "./ui/toaster";
 import { useToast } from "../hooks/use-toast";
@@ -18,12 +19,12 @@ const defaultImages = [
   "/slideshow/image12.jpg"
 ];
 
-// Higher quality landscape fallback images
+// More appropriate fallback images - simplified URLs
 const fallbackImages = [
-  "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1600&q=80", // Mountain landscape
-  "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1600&q=80", // Forest
-  "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1600&q=80", // Sunlight forest
-  "https://images.unsplash.com/photo-1518623489648-a173ef7824f3?auto=format&fit=crop&w=1600&q=80", // Water landscape
+  "/fallback/landscape1.jpg",
+  "/fallback/landscape2.jpg",
+  "/fallback/landscape3.jpg",
+  "/fallback/landscape4.jpg",
 ];
 
 const Slideshow = () => {
@@ -42,86 +43,40 @@ const Slideshow = () => {
       const loadedImages: string[] = [];
       let failedCount = 0;
       
-      for (let i = 0; i < defaultImages.length; i++) {
-        const imagePath = defaultImages[i];
+      // Create an array of promises for loading all images
+      const imagePromises = defaultImages.map(async (imagePath, i) => {
+        // Try loading the images with different path formats
+        const standardPath = imagePath;
+        const originPath = `${window.location.origin}${imagePath}`;
+        const basePath = `/public${imagePath}`;
+        const relativePath = imagePath.startsWith('/') ? imagePath.slice(1) : imagePath;
         
-        // Create multiple possible paths to try
-        // This handles differences between environments
-        const pathsToTry = [
-          // Absolute paths
-          imagePath, // Standard path
-          `${window.location.origin}${imagePath}`, // With origin
-          
-          // Vite-specific paths
-          `${import.meta.env.BASE_URL || ''}${imagePath.startsWith('/') ? imagePath.slice(1) : imagePath}`,
-          
-          // Additional variations
-          `/public${imagePath}`,
-          `public${imagePath}`,
-          `${window.location.pathname}${imagePath}`,
-          
-          // No leading slash
-          imagePath.startsWith('/') ? imagePath.slice(1) : imagePath
-        ];
+        // Log the path variations we're trying for debugging
+        console.log(`Trying paths for image ${i + 1}:`, [standardPath, originPath, basePath, relativePath]);
         
-        // Log all paths we're going to try
-        console.log(`Trying paths for image ${i + 1}:`, pathsToTry);
-        
-        let loaded = false;
-        let loadedPath = '';
-        
-        // Try each path until one works
-        for (const path of pathsToTry) {
-          if (loaded) break;
-          
+        // Try each path sequentially
+        for (const path of [standardPath, originPath, basePath, relativePath]) {
           try {
-            const img = new Image();
-            const success = await new Promise<boolean>((resolve) => {
-              // Set timeout to prevent hanging
-              const timeout = setTimeout(() => {
-                console.log(`Timeout loading image from: ${path}`);
-                resolve(false);
-              }, 3000);
-              
-              img.onload = () => {
-                clearTimeout(timeout);
-                console.log(`Successfully loaded image ${i + 1} from: ${path}`);
-                resolve(true);
-              };
-              
-              img.onerror = () => {
-                clearTimeout(timeout);
-                console.log(`Failed to load image ${i + 1} from: ${path}`);
-                resolve(false);
-              };
-              
-              img.src = path;
-            });
-            
-            if (success) {
-              loaded = true;
-              loadedPath = path;
-              break;
+            const response = await fetch(path, { method: 'HEAD' });
+            if (response.ok) {
+              console.log(`Successfully verified image ${i + 1} at: ${path}`);
+              loadedImages[i] = path;
+              return true;
             }
           } catch (error) {
-            console.error(`Error trying path ${path}:`, error);
+            console.log(`Error checking path ${path}:`, error);
           }
         }
         
-        // If any path worked, use it
-        if (loaded) {
-          loadedImages.push(loadedPath);
-          console.log(`Using path for image ${i + 1}: ${loadedPath}`);
-        } else {
-          // If all paths failed, use fallback
-          console.log(`All paths failed for image ${i + 1}, using fallback`);
-          loadedImages.push(fallbackImages[i % fallbackImages.length]);
-          failedCount++;
-        }
-        
-        // Update loading progress
-        setLoadingProgress(Math.round(((i + 1) / defaultImages.length) * 100));
-      }
+        // If all paths fail, use fallback
+        console.log(`All paths failed for image ${i + 1}, using fallback`);
+        loadedImages[i] = fallbackImages[i % fallbackImages.length];
+        failedCount++;
+        return false;
+      });
+      
+      // Wait for all image loading attempts to complete
+      await Promise.all(imagePromises);
       
       console.log("Final image paths:", loadedImages);
       setImageUrls(loadedImages);
@@ -130,22 +85,29 @@ const Slideshow = () => {
       if (failedCount > 0) {
         toast({
           title: "Image loading notice",
-          description: `${failedCount} ${failedCount === 1 ? 'image' : 'images'} using fallback sources. Environment: ${import.meta.env.MODE}`,
+          description: `${failedCount} ${failedCount === 1 ? 'image' : 'images'} using fallback sources.`,
           duration: 10000,
         });
         
         console.error(`Failed to load ${failedCount} images.`);
-        console.info("Debug info for image paths:");
-        console.log("BASE_URL:", import.meta.env.BASE_URL);
+        console.info("Environment info for debugging:");
         console.log("Current URL:", window.location.href);
-        console.log("Environment:", import.meta.env.MODE);
         console.log("Protocol:", window.location.protocol);
         console.log("Host:", window.location.host);
+        console.log("Origin:", window.location.origin);
       }
     };
     
     loadImages();
   }, [toast]);
+
+  // Preload fallback images to ensure they're available when needed
+  useEffect(() => {
+    fallbackImages.forEach(src => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, []);
 
   const goToNextSlide = useCallback(() => {
     if (!imagesLoaded) return;
@@ -200,6 +162,10 @@ const Slideshow = () => {
               src={imageUrl}
               alt={`Tallawarra project image ${index + 1}`}
               className="object-cover w-full h-full"
+              onError={(e) => {
+                console.error(`Error loading image at runtime: ${imageUrl}`);
+                e.currentTarget.src = fallbackImages[index % fallbackImages.length];
+              }}
             />
           </div>
         ))}
