@@ -88,17 +88,6 @@ const Navbar = () => {
     },
   ];
 
-  const handleProtectedNavigation = (e: React.MouseEvent, path: string) => {
-    if (!user) {
-      e.preventDefault();
-      toast({
-        title: "Sign in required",
-        description: "Please sign in to access this section",
-        variant: "default",
-      });
-    }
-  };
-
   const NavLinks = () => (
     <NavigationMenu className="hidden md:flex">
       <NavigationMenuList className="flex gap-4">
@@ -114,36 +103,24 @@ const Navbar = () => {
           </NavigationMenuItem>
         ))}
         
-        {/* Protected menu items - auth required */}
+        {/* Previously protected menu items - now accessible to all */}
         {protectedMenuItems.map((item) => (
           <NavigationMenuItem key={item.title}>
             <DropdownMenu>
               <DropdownMenuTrigger 
                 className="text-white hover:text-white/80 transition-colors px-2 py-1 flex items-center gap-1"
-                onClick={(e) => {
-                  if (!user) {
-                    e.preventDefault();
-                    toast({
-                      title: "Sign in required",
-                      description: "Please sign in to access this section",
-                      variant: "default",
-                    });
-                  }
-                }}
               >
                 {item.title} <ChevronDown size={14} />
               </DropdownMenuTrigger>
-              {user && (
-                <DropdownMenuContent className="bg-background/90 backdrop-blur-md border border-white/20">
-                  {item.submenu.map((subitem) => (
-                    <DropdownMenuItem key={subitem.path} className="text-white hover:text-white/80">
-                      <Link to={subitem.path} className="w-full">
-                        {subitem.title}
-                      </Link>
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              )}
+              <DropdownMenuContent className="bg-background/90 backdrop-blur-md border border-white/20">
+                {item.submenu.map((subitem) => (
+                  <DropdownMenuItem key={subitem.path} className="text-white hover:text-white/80">
+                    <Link to={subitem.path} className="w-full">
+                      {subitem.title}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
             </DropdownMenu>
           </NavigationMenuItem>
         ))}
@@ -183,41 +160,29 @@ const Navbar = () => {
             </Link>
           ))}
           
-          {/* Protected menu items - auth required */}
+          {/* Previously protected menu items - now accessible to all */}
           {protectedMenuItems.map((item) => (
             <div key={item.title} className="flex flex-col">
               <Collapsible>
                 <CollapsibleTrigger
                   className="px-4 py-2 text-lg hover:bg-accent rounded-md transition-colors flex items-center justify-between w-full"
-                  onClick={(e) => {
-                    if (!user) {
-                      e.stopPropagation();
-                      toast({
-                        title: "Sign in required",
-                        description: "Please sign in to access this section",
-                        variant: "default",
-                      });
-                    }
-                  }}
                 >
                   {item.title}
                   <ChevronDown size={18} />
                 </CollapsibleTrigger>
-                {user && (
-                  <CollapsibleContent>
-                    <div className="pl-8 flex flex-col gap-2 mt-2">
-                      {item.submenu.map((subitem) => (
-                        <Link
-                          key={subitem.path}
-                          to={subitem.path}
-                          className="px-4 py-1 text-md hover:bg-accent rounded-md transition-colors"
-                        >
-                          {subitem.title}
-                        </Link>
-                      ))}
-                    </div>
-                  </CollapsibleContent>
-                )}
+                <CollapsibleContent>
+                  <div className="pl-8 flex flex-col gap-2 mt-2">
+                    {item.submenu.map((subitem) => (
+                      <Link
+                        key={subitem.path}
+                        to={subitem.path}
+                        className="px-4 py-1 text-md hover:bg-accent rounded-md transition-colors"
+                      >
+                        {subitem.title}
+                      </Link>
+                    ))}
+                  </div>
+                </CollapsibleContent>
               </Collapsible>
             </div>
           ))}
