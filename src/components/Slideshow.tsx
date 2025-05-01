@@ -1,6 +1,5 @@
 
 import { useState, useEffect, useCallback } from "react";
-import ImageUploader from "./ImageUploader";
 import { Toaster } from "./ui/toaster";
 
 // Your custom uploaded images
@@ -35,29 +34,13 @@ const placeholderImages = [
   "https://images.unsplash.com/photo-1501854140801-50d01698950b?q=80&w=2000&auto=format&fit=crop"
 ];
 
-const STORAGE_KEY = "tallawarra-slideshow-images";
-
 const Slideshow = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [nextImageIndex, setNextImageIndex] = useState(1);
   const [transitioning, setTransitioning] = useState(false);
   const [imagesLoaded, setImagesLoaded] = useState(false);
-  const [userImages, setUserImages] = useState<string[]>([]);
 
   useEffect(() => {
-    // Load user uploaded images from localStorage
-    const savedImages = localStorage.getItem(STORAGE_KEY);
-    if (savedImages) {
-      try {
-        const parsedImages = JSON.parse(savedImages);
-        if (Array.isArray(parsedImages)) {
-          setUserImages(parsedImages);
-        }
-      } catch (error) {
-        console.error("Error loading saved images:", error);
-      }
-    }
-
     // Check if the custom images are accessible
     const checkImagesExist = async () => {
       try {
@@ -73,20 +56,9 @@ const Slideshow = () => {
     checkImagesExist();
   }, []);
 
-  const handleImageUploaded = (imageUrl: string) => {
-    setUserImages(prev => {
-      const newImages = [...prev, imageUrl];
-      // Save to localStorage
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(newImages));
-      return newImages;
-    });
-  };
-
   const goToNextSlide = useCallback(() => {
     setTransitioning(true);
-    const allImages = userImages.length > 0 
-      ? userImages 
-      : (imagesLoaded ? defaultImages : placeholderImages);
+    const allImages = imagesLoaded ? defaultImages : placeholderImages;
     
     setNextImageIndex((currentImageIndex + 1) % allImages.length);
     
@@ -95,7 +67,7 @@ const Slideshow = () => {
       setTransitioning(false);
       setNextImageIndex((nextImageIndex + 1) % allImages.length);
     }, 1000);
-  }, [currentImageIndex, nextImageIndex, imagesLoaded, userImages]);
+  }, [currentImageIndex, nextImageIndex, imagesLoaded]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -106,9 +78,7 @@ const Slideshow = () => {
   }, [goToNextSlide]);
 
   // Determine which set of images to use
-  const finalImages = userImages.length > 0 
-    ? userImages 
-    : (imagesLoaded ? defaultImages : placeholderImages);
+  const finalImages = imagesLoaded ? defaultImages : placeholderImages;
 
   return (
     <>
@@ -132,10 +102,6 @@ const Slideshow = () => {
           </div>
         ))}
         <div className="absolute inset-0 bg-black/50"></div>
-      </div>
-      
-      <div className="fixed bottom-8 right-8 z-10">
-        <ImageUploader onImageUploaded={handleImageUploaded} />
       </div>
       
       <Toaster />
