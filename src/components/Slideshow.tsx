@@ -2,36 +2,36 @@
 import { useState, useEffect, useCallback } from "react";
 import { Toaster } from "./ui/toaster";
 
-// Your custom uploaded images
+// Updated image paths to point to the new "slide show" folder
 const defaultImages = [
-  "/slideshow/image1.jpg",
-  "/slideshow/image2.jpg", 
-  "/slideshow/image3.jpg",
-  "/slideshow/image4.jpg",
-  "/slideshow/image5.jpg",
-  "/slideshow/image6.jpg",
-  "/slideshow/image7.jpg",
-  "/slideshow/image8.jpg",
-  "/slideshow/image9.jpg",
-  "/slideshow/image10.jpg",
-  "/slideshow/image11.jpg",
-  "/slideshow/image12.jpg"
+  "/slide show/image1.jpg",
+  "/slide show/image2.jpg", 
+  "/slide show/image3.jpg",
+  "/slide show/image4.jpg",
+  "/slide show/image5.jpg",
+  "/slide show/image6.jpg",
+  "/slide show/image7.jpg",
+  "/slide show/image8.jpg",
+  "/slide show/image9.jpg",
+  "/slide show/image10.jpg",
+  "/slide show/image11.jpg",
+  "/slide show/image12.jpg"
 ];
 
-// Fallback placeholder images in case custom images fail
+// Update fallback images to use the same paths
 const placeholderImages = [
-  "/slideshow/image1.jpg",
-  "/slideshow/image2.jpg", 
-  "/slideshow/image3.jpg",
-  "/slideshow/image4.jpg",
-  "/slideshow/image5.jpg",
-  "/slideshow/image6.jpg",
-  "/slideshow/image7.jpg",
-  "/slideshow/image8.jpg",
-  "/slideshow/image9.jpg",
-  "/slideshow/image10.jpg",
-  "/slideshow/image11.jpg",
-  "/slideshow/image12.jpg"
+  "/slide show/image1.jpg",
+  "/slide show/image2.jpg", 
+  "/slide show/image3.jpg",
+  "/slide show/image4.jpg",
+  "/slide show/image5.jpg",
+  "/slide show/image6.jpg",
+  "/slide show/image7.jpg",
+  "/slide show/image8.jpg",
+  "/slide show/image9.jpg",
+  "/slide show/image10.jpg",
+  "/slide show/image11.jpg",
+  "/slide show/image12.jpg"
 ];
 
 const Slideshow = () => {
