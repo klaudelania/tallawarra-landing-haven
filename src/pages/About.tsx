@@ -1,6 +1,9 @@
 
 import Navbar from "../components/Navbar";
 import Slideshow from "../components/Slideshow";
+import { X } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 const About = () => {
   return (
@@ -12,7 +15,14 @@ const About = () => {
       <Navbar />
       
       <section className="container relative min-h-screen pt-28 pb-16">
-        <div className="bg-background/60 backdrop-blur-md rounded-lg shadow-lg p-8 text-white">
+        <div className="bg-background/60 backdrop-blur-md rounded-lg shadow-lg p-8 text-white relative">
+          <Link to="/" className="absolute top-4 right-4">
+            <Button variant="ghost" size="icon" className="text-white hover:bg-white/20">
+              <X size={24} />
+              <span className="sr-only">Close</span>
+            </Button>
+          </Link>
+          
           <h1 className="text-4xl font-bold mb-6">About Tallawarra</h1>
           
           <div className="space-y-6">
