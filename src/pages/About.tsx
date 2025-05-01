@@ -23,9 +23,9 @@ const About = () => {
             </Button>
           </Link>
           
-          <h1 className="text-4xl font-bold mb-6">About Tallawarra</h1>
+          <h1 className="text-4xl font-bold mb-6 text-center">About Tallawarra</h1>
           
-          <div className="space-y-6">
+          <div className="space-y-6 px-4 md:px-8 text-justify">
             <p>
               Tallawarra is a premium residential subdivision located in the heart of natural beauty, 
               offering a perfect balance between modern living and serene environment.
@@ -37,18 +37,18 @@ const About = () => {
             </p>
             
             <p>
-              Founded in 2020, Tallawarra has quickly become one of the most sought-after residential 
+              Tallawarra is poised to become one of the most sought-after residential 
               areas with its thoughtfully designed spaces and community-focused amenities.
             </p>
             
-            <h2 className="text-2xl font-semibold mt-8 mb-4">Our Mission</h2>
+            <h2 className="text-2xl font-semibold mt-8 mb-4 text-center">Our Mission</h2>
             <p>
               To develop sustainable, well-connected communities that enhance the quality of life 
               for our residents while preserving the natural environment.
             </p>
 
             <div className="mt-10 pt-6 border-t border-white/20">
-              <h2 className="text-2xl font-semibold mb-4">Bridgehill's Vision for Tallawarra</h2>
+              <h2 className="text-2xl font-semibold mb-4 text-center">Bridgehill's Vision for Tallawarra</h2>
               
               <p>
                 Bridgehill is proud to introduce Tallawarra — a thoughtfully planned, lakeside community 
@@ -77,7 +77,7 @@ const About = () => {
                 the Illawarra for future generations.
               </p>
               
-              <h3 className="text-xl font-semibold mt-6 mb-3">Our Urban Principles</h3>
+              <h3 className="text-xl font-semibold mt-6 mb-3 text-center">Our Urban Principles</h3>
               <ul className="list-disc pl-6 space-y-2">
                 <li>Creating beautiful, high-quality places that reflect the identity of the area</li>
                 <li>Encouraging housing diversity and flexible density to meet real community needs</li>
