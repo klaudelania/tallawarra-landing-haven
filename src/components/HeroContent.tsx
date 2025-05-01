@@ -49,7 +49,7 @@ const HeroContent = () => {
       </motion.p>
 
       <motion.div variants={itemVariants}>
-        <Button className="bg-primary hover:bg-primary/90 text-white px-8 py-6 text-lg">
+        <Button className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white border border-white/60 font-medium px-8 py-6 text-lg rounded-xl shadow-lg">
           Explore Home Sites
         </Button>
       </motion.div>

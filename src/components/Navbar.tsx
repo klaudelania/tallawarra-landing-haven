@@ -112,10 +112,10 @@ const Navbar = () => {
               >
                 {item.title} <ChevronDown size={14} />
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-background/90 backdrop-blur-md border border-white/20">
+              <DropdownMenuContent className="bg-white/20 backdrop-blur-lg rounded-xl border border-white/60 shadow-lg">
                 {item.submenu.map((subitem) => (
-                  <DropdownMenuItem key={subitem.path} className="text-white hover:text-white/80">
-                    <Link to={subitem.path} className="w-full">
+                  <DropdownMenuItem key={subitem.path} className="text-white hover:bg-white/20 hover:text-white rounded-lg transition-colors">
+                    <Link to={subitem.path} className="w-full px-4 py-2">
                       {subitem.title}
                     </Link>
                   </DropdownMenuItem>
@@ -147,14 +147,14 @@ const Navbar = () => {
           <Menu size={24} />
         </Button>
       </SheetTrigger>
-      <SheetContent side="top" className="pt-12">
+      <SheetContent side="top" className="pt-12 bg-white/20 backdrop-blur-lg border border-white/60">
         <div className="flex flex-col gap-4">
           {/* Public menu items - no auth required */}
           {publicMenuItems.map((item) => (
             <Link
               key={item.path}
               to={item.path}
-              className="px-4 py-2 text-lg hover:bg-accent rounded-md transition-colors"
+              className="px-4 py-2 text-lg hover:bg-white/20 text-white rounded-md transition-colors"
             >
               {item.title}
             </Link>
@@ -165,7 +165,7 @@ const Navbar = () => {
             <div key={item.title} className="flex flex-col">
               <Collapsible>
                 <CollapsibleTrigger
-                  className="px-4 py-2 text-lg hover:bg-accent rounded-md transition-colors flex items-center justify-between w-full"
+                  className="px-4 py-2 text-lg hover:bg-white/20 text-white rounded-md transition-colors flex items-center justify-between w-full"
                 >
                   {item.title}
                   <ChevronDown size={18} />
@@ -176,7 +176,7 @@ const Navbar = () => {
                       <Link
                         key={subitem.path}
                         to={subitem.path}
-                        className="px-4 py-1 text-md hover:bg-accent rounded-md transition-colors"
+                        className="px-4 py-1 text-md hover:bg-white/20 text-white rounded-md transition-colors"
                       >
                         {subitem.title}
                       </Link>
@@ -191,7 +191,7 @@ const Navbar = () => {
             href="https://www.bridgehill.com.au/"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-4 py-2 text-lg hover:bg-accent rounded-md transition-colors flex items-center gap-2"
+            className="px-4 py-2 text-lg hover:bg-white/20 text-white rounded-md transition-colors flex items-center gap-2"
           >
             Bridgehill Group <ExternalLink size={18} />
           </a>
