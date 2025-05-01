@@ -1,5 +1,6 @@
+
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { X } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -150,7 +152,18 @@ const SignIn = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-900 to-gray-800 p-4">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-xl p-8">
+      <div className="w-full max-w-md bg-white rounded-lg shadow-xl p-8 relative">
+        {/* Close Button */}
+        <Button 
+          variant="ghost" 
+          size="icon" 
+          className="absolute right-4 top-4 text-gray-500 hover:text-gray-700 hover:bg-gray-100"
+          onClick={() => navigate("/")}
+          aria-label="Close"
+        >
+          <X size={20} />
+        </Button>
+
         <h1 className="text-2xl font-bold text-center mb-6">
           {isRegistering ? "Create an Account" : "Sign In"}
         </h1>
