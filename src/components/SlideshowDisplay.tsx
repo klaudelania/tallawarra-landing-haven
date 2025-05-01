@@ -6,11 +6,12 @@ interface SlideshowDisplayProps {
   fallbackImages: string[];
 }
 
+// Fallback images are now hardcoded URLs that should work in any environment
 const fallbackImages = [
-  "/fallback/landscape1.jpg",
-  "/fallback/landscape2.jpg",
-  "/fallback/landscape3.jpg",
-  "/fallback/landscape4.jpg",
+  "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&h=900&q=80",
+  "https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&h=900&q=80",
+  "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&h=900&q=80",
+  "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&h=900&q=80",
 ];
 
 const SlideshowDisplay: React.FC<SlideshowDisplayProps> = ({ imageUrls }) => {
