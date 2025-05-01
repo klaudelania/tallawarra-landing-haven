@@ -39,14 +39,14 @@ const Index = () => {
         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <HeroContent />
           
-          <div className="flex flex-col gap-6">
-            <div className={`justify-self-center md:justify-self-end transition-all duration-700 ${
+          <div className="flex flex-col gap-6 items-center md:items-end">
+            <div className={`w-full max-w-md transition-all duration-700 ${
               showContact ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
             }`}>
               <ContactCard />
             </div>
             
-            <div className={`justify-self-center md:justify-self-end transition-all duration-700 ${
+            <div className={`w-full max-w-md transition-all duration-700 ${
               showCalendar ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
             }`}>
               <CalendarWidget />

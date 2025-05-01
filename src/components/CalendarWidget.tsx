@@ -6,7 +6,7 @@ const CalendarWidget = () => {
   const date = new Date();
   
   return (
-    <div className="rounded-lg p-4 bg-background/50 backdrop-blur-md border border-white/20 shadow-lg">
+    <div className="rounded-lg p-4 bg-background/50 backdrop-blur-md border border-white/20 shadow-lg w-full max-w-md">
       <h2 className="text-xl font-semibold text-white mb-4">Calendar</h2>
       <Calendar
         mode="single"
