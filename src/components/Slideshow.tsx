@@ -1,7 +1,10 @@
+
 import { useState, useEffect, useCallback } from "react";
+import ImageUploader from "./ImageUploader";
+import { Toaster } from "./ui/toaster";
 
 // Your custom uploaded images
-const images = [
+const defaultImages = [
   "/slideshow/image1.jpg",
   "/slideshow/image2.jpg", 
   "/slideshow/image3.jpg",
@@ -32,18 +35,34 @@ const placeholderImages = [
   "https://images.unsplash.com/photo-1501854140801-50d01698950b?q=80&w=2000&auto=format&fit=crop"
 ];
 
+const STORAGE_KEY = "tallawarra-slideshow-images";
+
 const Slideshow = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [nextImageIndex, setNextImageIndex] = useState(1);
   const [transitioning, setTransitioning] = useState(false);
   const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [userImages, setUserImages] = useState<string[]>([]);
 
   useEffect(() => {
+    // Load user uploaded images from localStorage
+    const savedImages = localStorage.getItem(STORAGE_KEY);
+    if (savedImages) {
+      try {
+        const parsedImages = JSON.parse(savedImages);
+        if (Array.isArray(parsedImages)) {
+          setUserImages(parsedImages);
+        }
+      } catch (error) {
+        console.error("Error loading saved images:", error);
+      }
+    }
+
     // Check if the custom images are accessible
     const checkImagesExist = async () => {
       try {
         // This will just verify one image to avoid too many requests
-        const response = await fetch(images[0], { method: 'HEAD' });
+        const response = await fetch(defaultImages[0], { method: 'HEAD' });
         setImagesLoaded(response.ok);
       } catch (error) {
         console.log('Using placeholder images instead');
@@ -54,17 +73,29 @@ const Slideshow = () => {
     checkImagesExist();
   }, []);
 
+  const handleImageUploaded = (imageUrl: string) => {
+    setUserImages(prev => {
+      const newImages = [...prev, imageUrl];
+      // Save to localStorage
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(newImages));
+      return newImages;
+    });
+  };
+
   const goToNextSlide = useCallback(() => {
     setTransitioning(true);
-    const finalImages = imagesLoaded ? images : placeholderImages;
-    setNextImageIndex((currentImageIndex + 1) % finalImages.length);
+    const allImages = userImages.length > 0 
+      ? userImages 
+      : (imagesLoaded ? defaultImages : placeholderImages);
+    
+    setNextImageIndex((currentImageIndex + 1) % allImages.length);
     
     setTimeout(() => {
       setCurrentImageIndex(nextImageIndex);
       setTransitioning(false);
-      setNextImageIndex((nextImageIndex + 1) % finalImages.length);
+      setNextImageIndex((nextImageIndex + 1) % allImages.length);
     }, 1000);
-  }, [currentImageIndex, nextImageIndex, imagesLoaded]);
+  }, [currentImageIndex, nextImageIndex, imagesLoaded, userImages]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -74,30 +105,41 @@ const Slideshow = () => {
     return () => clearInterval(timer);
   }, [goToNextSlide]);
 
-  const finalImages = imagesLoaded ? images : placeholderImages;
+  // Determine which set of images to use
+  const finalImages = userImages.length > 0 
+    ? userImages 
+    : (imagesLoaded ? defaultImages : placeholderImages);
 
   return (
-    <div className="fixed inset-0 -z-10 overflow-hidden">
-      {finalImages.map((image, index) => (
-        <div
-          key={index}
-          className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ${
-            index === currentImageIndex 
-              ? "opacity-100" 
-              : index === nextImageIndex && transitioning 
-                ? "opacity-30" 
-                : "opacity-0"
-          }`}
-        >
-          <img
-            src={image}
-            alt={`Tallawarra project image ${index + 1}`}
-            className="object-cover w-full h-full"
-          />
-        </div>
-      ))}
-      <div className="absolute inset-0 bg-black/50"></div>
-    </div>
+    <>
+      <div className="fixed inset-0 -z-10 overflow-hidden">
+        {finalImages.map((image, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ${
+              index === currentImageIndex 
+                ? "opacity-100" 
+                : index === nextImageIndex && transitioning 
+                  ? "opacity-30" 
+                  : "opacity-0"
+            }`}
+          >
+            <img
+              src={image}
+              alt={`Tallawarra project image ${index + 1}`}
+              className="object-cover w-full h-full"
+            />
+          </div>
+        ))}
+        <div className="absolute inset-0 bg-black/50"></div>
+      </div>
+      
+      <div className="fixed bottom-8 right-8 z-10">
+        <ImageUploader onImageUploaded={handleImageUploaded} />
+      </div>
+      
+      <Toaster />
+    </>
   );
 };
 
