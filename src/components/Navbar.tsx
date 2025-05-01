@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -209,15 +210,15 @@ const Navbar = () => {
     >
       <div className="container flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
-          <span className="text-2xl md:text-3xl font-bold text-white">
-            TALLAWARRA
-          </span>
           <img 
             src="/logo/logowhite.png" 
             alt="Tallawarra Logo" 
-            className="h-[105%]" // Make it 5% taller than the text
-            style={{ maxHeight: "32px" }} // Base height reference for smaller screens
+            className="h-[115%]" // Make it 15% taller than the text
+            style={{ maxHeight: "36px" }} // Base height reference for smaller screens
           />
+          <span className="text-2xl md:text-3xl font-bold text-white">
+            TALLAWARRA
+          </span>
         </Link>
 
         <div className="flex items-center gap-4">
