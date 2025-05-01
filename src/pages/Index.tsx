@@ -38,7 +38,7 @@ const Index = () => {
         </div>
         
         <footer className="absolute bottom-4 left-0 right-0 text-center text-white/70 text-sm">
-          © {new Date().getFullYear()} Tallawarra Residential Subdivision. All rights reserved.
+          © {new Date().getFullYear()} Tallawarra Residential Subdivision | <a href="https://www.tallawarra.com.au" className="hover:text-white transition-colors">www.tallawarra.com.au</a> | All rights reserved.
         </footer>
       </section>
     </main>
