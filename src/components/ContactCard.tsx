@@ -39,7 +39,7 @@ const ContactCard = () => {
       <div className="absolute inset-0 bg-white/10 backdrop-blur-[10px] rounded-xl transform rotate-1 scale-105"></div>
       <div className="absolute inset-0 bg-white/5 backdrop-blur-[5px] rounded-xl transform -rotate-1 scale-[1.02]"></div>
       
-      <Card className="w-full max-w-md bg-white/20 backdrop-blur-lg shadow-xl rounded-xl relative z-10 border border-white/60">
+      <Card className="w-full max-w-xs bg-white/20 backdrop-blur-lg shadow-xl rounded-xl relative z-10 border border-white/60">
         <div className="p-6">
           <h2 className="text-2xl font-bold text-white mb-4">Contact Us</h2>
           

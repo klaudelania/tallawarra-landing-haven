@@ -40,13 +40,13 @@ const Index = () => {
           <HeroContent />
           
           <div className="flex flex-col gap-6 items-center md:items-end">
-            <div className={`w-full max-w-md transition-all duration-700 ${
+            <div className={`w-full max-w-xs transition-all duration-700 ${
               showContact ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
             }`}>
               <ContactCard />
             </div>
             
-            <div className={`w-full max-w-md transition-all duration-700 ${
+            <div className={`w-full max-w-xs transition-all duration-700 ${
               showCalendar ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
             }`}>
               <CalendarWidget />
