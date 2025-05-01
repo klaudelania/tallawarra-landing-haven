@@ -18,6 +18,7 @@ const SlideshowDisplay: React.FC<SlideshowDisplayProps> = ({ imageUrls }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [nextImageIndex, setNextImageIndex] = useState(1);
   const [transitioning, setTransitioning] = useState(false);
+  const [loadedImages, setLoadedImages] = useState<Record<number, boolean>>({});
 
   const goToNextSlide = useCallback(() => {
     if (imageUrls.length === 0) return;
@@ -39,6 +40,14 @@ const SlideshowDisplay: React.FC<SlideshowDisplayProps> = ({ imageUrls }) => {
     return () => clearInterval(timer);
   }, [goToNextSlide]);
 
+  // Pre-cache image to check if it loads properly
+  const handleImageLoad = (index: number) => {
+    setLoadedImages(prev => ({
+      ...prev,
+      [index]: true
+    }));
+  };
+
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden">
       {imageUrls.map((imageUrl, index) => (
@@ -56,6 +65,7 @@ const SlideshowDisplay: React.FC<SlideshowDisplayProps> = ({ imageUrls }) => {
             src={imageUrl}
             alt={`Tallawarra project image ${index + 1}`}
             className="object-cover w-full h-full"
+            onLoad={() => handleImageLoad(index)}
             onError={(e) => {
               console.error(`Error loading image at runtime: ${imageUrl}`);
               e.currentTarget.src = fallbackImages[index % fallbackImages.length];
