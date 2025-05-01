@@ -10,20 +10,26 @@ const ContactCard = () => {
     {
       icon: <Phone className="h-5 w-5 text-white" />,
       label: "Call Us",
-      value: "+61 2 1234 5678",
-      link: "tel:+61212345678"
+      value: "1800 899 928",
+      link: "tel:1800899928"
+    },
+    {
+      icon: <Phone className="h-5 w-5 text-white" />,
+      label: "International",
+      value: "+61 2 8732 8600",
+      link: "tel:+61287328600"
     },
     {
       icon: <Mail className="h-5 w-5 text-white" />,
       label: "Email",
-      value: "info@tallawarra.com",
-      link: "mailto:info@tallawarra.com"
+      value: "info@bridgehill.com.au",
+      link: "mailto:info@bridgehill.com.au"
     },
     {
       icon: <Globe className="h-5 w-5 text-white" />,
       label: "Website",
-      value: "tallawarra.com",
-      link: "https://tallawarra.com"
+      value: "bridgehill.com.au",
+      link: "https://www.bridgehill.com.au"
     }
   ];
 
