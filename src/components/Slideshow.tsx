@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Toaster } from "./ui/toaster";
 import { useToast } from "../hooks/use-toast";
 
-// Define image paths with correct structure
+// Define image paths
 const defaultImages = [
   "/slideshow/image1.jpg",
   "/slideshow/image2.jpg", 
@@ -35,7 +35,7 @@ const Slideshow = () => {
   const [loadingProgress, setLoadingProgress] = useState(0);
   const { toast } = useToast();
 
-  // Completely revised image loading approach
+  // Multi-approach image loading strategy
   useEffect(() => {
     const loadImages = async () => {
       console.log("Starting to load slideshow images");
@@ -43,34 +43,78 @@ const Slideshow = () => {
       let failedCount = 0;
       
       for (let i = 0; i < defaultImages.length; i++) {
-        // First, try with import.meta.env.BASE_URL which is the correct Vite approach
         const imagePath = defaultImages[i];
-        const pathToTry = `${import.meta.env.BASE_URL}${imagePath.startsWith('/') ? imagePath.slice(1) : imagePath}`;
         
-        try {
-          const img = new Image();
+        // Create multiple possible paths to try
+        // This handles differences between environments
+        const pathsToTry = [
+          // Absolute paths
+          imagePath, // Standard path
+          `${window.location.origin}${imagePath}`, // With origin
           
-          const loaded = await new Promise<boolean>((resolve) => {
-            img.onload = () => {
-              console.log(`Successfully loaded image ${i + 1} from: ${pathToTry}`);
-              resolve(true);
-            };
-            img.onerror = () => {
-              console.log(`Failed to load image ${i + 1} from: ${pathToTry}`);
-              resolve(false);
-            };
-            img.src = pathToTry;
-          });
+          // Vite-specific paths
+          `${import.meta.env.BASE_URL || ''}${imagePath.startsWith('/') ? imagePath.slice(1) : imagePath}`,
           
-          if (loaded) {
-            loadedImages.push(pathToTry);
-          } else {
-            console.log(`Using fallback for image ${i + 1}`);
-            loadedImages.push(fallbackImages[i % fallbackImages.length]);
-            failedCount++;
+          // Additional variations
+          `/public${imagePath}`,
+          `public${imagePath}`,
+          `${window.location.pathname}${imagePath}`,
+          
+          // No leading slash
+          imagePath.startsWith('/') ? imagePath.slice(1) : imagePath
+        ];
+        
+        // Log all paths we're going to try
+        console.log(`Trying paths for image ${i + 1}:`, pathsToTry);
+        
+        let loaded = false;
+        let loadedPath = '';
+        
+        // Try each path until one works
+        for (const path of pathsToTry) {
+          if (loaded) break;
+          
+          try {
+            const img = new Image();
+            const success = await new Promise<boolean>((resolve) => {
+              // Set timeout to prevent hanging
+              const timeout = setTimeout(() => {
+                console.log(`Timeout loading image from: ${path}`);
+                resolve(false);
+              }, 3000);
+              
+              img.onload = () => {
+                clearTimeout(timeout);
+                console.log(`Successfully loaded image ${i + 1} from: ${path}`);
+                resolve(true);
+              };
+              
+              img.onerror = () => {
+                clearTimeout(timeout);
+                console.log(`Failed to load image ${i + 1} from: ${path}`);
+                resolve(false);
+              };
+              
+              img.src = path;
+            });
+            
+            if (success) {
+              loaded = true;
+              loadedPath = path;
+              break;
+            }
+          } catch (error) {
+            console.error(`Error trying path ${path}:`, error);
           }
-        } catch (error) {
-          console.error(`Error loading image ${i + 1}:`, error);
+        }
+        
+        // If any path worked, use it
+        if (loaded) {
+          loadedImages.push(loadedPath);
+          console.log(`Using path for image ${i + 1}: ${loadedPath}`);
+        } else {
+          // If all paths failed, use fallback
+          console.log(`All paths failed for image ${i + 1}, using fallback`);
           loadedImages.push(fallbackImages[i % fallbackImages.length]);
           failedCount++;
         }
@@ -79,19 +123,24 @@ const Slideshow = () => {
         setLoadingProgress(Math.round(((i + 1) / defaultImages.length) * 100));
       }
       
+      console.log("Final image paths:", loadedImages);
       setImageUrls(loadedImages);
       setImagesLoaded(true);
       
       if (failedCount > 0) {
         toast({
           title: "Image loading notice",
-          description: `${failedCount} ${failedCount === 1 ? 'image' : 'images'} using fallback sources. Images may not match expected content.`,
-          duration: 8000,
+          description: `${failedCount} ${failedCount === 1 ? 'image' : 'images'} using fallback sources. Environment: ${import.meta.env.MODE}`,
+          duration: 10000,
         });
         
-        console.error(`Failed to load ${failedCount} images. Please check that your images are in the public/slideshow/ directory.`);
-        console.log("Current base URL:", import.meta.env.BASE_URL);
-        console.log("Window location:", window.location.href);
+        console.error(`Failed to load ${failedCount} images.`);
+        console.info("Debug info for image paths:");
+        console.log("BASE_URL:", import.meta.env.BASE_URL);
+        console.log("Current URL:", window.location.href);
+        console.log("Environment:", import.meta.env.MODE);
+        console.log("Protocol:", window.location.protocol);
+        console.log("Host:", window.location.host);
       }
     };
     
