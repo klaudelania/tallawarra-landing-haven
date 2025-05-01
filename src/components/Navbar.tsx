@@ -56,6 +56,14 @@ const Navbar = () => {
         { title: "Events", path: "/events" }
       ]
     },
+    { 
+      title: "Explore", 
+      path: "/explore",
+    },
+    { 
+      title: "Invest", 
+      path: "/invest",
+    },
   ];
 
   const handleProtectedNavigation = (e: React.MouseEvent, path: string) => {

@@ -10,6 +10,8 @@ import Dashboard from "./pages/Dashboard";
 import About from "./pages/About";
 import News from "./pages/News";
 import Events from "./pages/Events";
+import Explore from "./pages/Explore";
+import Invest from "./pages/Invest";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./context/AuthContext";
@@ -35,8 +37,38 @@ const App = () => (
               } 
             />
             <Route path="/about" element={<About />} />
-            <Route path="/news" element={<News />} />
-            <Route path="/events" element={<Events />} />
+            <Route 
+              path="/news" 
+              element={
+                <ProtectedRoute>
+                  <News />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/events" 
+              element={
+                <ProtectedRoute>
+                  <Events />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/explore" 
+              element={
+                <ProtectedRoute>
+                  <Explore />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/invest" 
+              element={
+                <ProtectedRoute>
+                  <Invest />
+                </ProtectedRoute>
+              } 
+            />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
