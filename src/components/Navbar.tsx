@@ -36,8 +36,12 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const menuItems = [
+  // Separate menu items into public and protected
+  const publicMenuItems = [
     { title: "About", path: "/about" },
+  ];
+  
+  const protectedMenuItems = [
     { title: "News", path: "/news" },
     { title: "Events", path: "/events" },
   ];
@@ -56,7 +60,20 @@ const Navbar = () => {
   const NavLinks = () => (
     <NavigationMenu className="hidden md:flex">
       <NavigationMenuList className="flex gap-4">
-        {menuItems.map((item) => (
+        {/* Public menu items - no auth required */}
+        {publicMenuItems.map((item) => (
+          <NavigationMenuItem key={item.path}>
+            <Link
+              to={item.path}
+              className="text-white hover:text-white/80 transition-colors px-2 py-1"
+            >
+              {item.title}
+            </Link>
+          </NavigationMenuItem>
+        ))}
+        
+        {/* Protected menu items - auth required */}
+        {protectedMenuItems.map((item) => (
           <NavigationMenuItem key={item.path}>
             <Link
               to={item.path}
@@ -67,6 +84,8 @@ const Navbar = () => {
             </Link>
           </NavigationMenuItem>
         ))}
+        
+        {/* External link - always public */}
         <NavigationMenuItem>
           <a
             href="https://www.bridgehill.com.au/"
@@ -90,7 +109,19 @@ const Navbar = () => {
       </SheetTrigger>
       <SheetContent side="top" className="pt-12">
         <div className="flex flex-col gap-4">
-          {menuItems.map((item) => (
+          {/* Public menu items - no auth required */}
+          {publicMenuItems.map((item) => (
+            <Link
+              key={item.path}
+              to={item.path}
+              className="px-4 py-2 text-lg hover:bg-accent rounded-md transition-colors"
+            >
+              {item.title}
+            </Link>
+          ))}
+          
+          {/* Protected menu items - auth required */}
+          {protectedMenuItems.map((item) => (
             <Link
               key={item.path}
               to={item.path}
@@ -100,6 +131,7 @@ const Navbar = () => {
               {item.title}
             </Link>
           ))}
+          
           <a
             href="https://www.bridgehill.com.au/"
             target="_blank"
