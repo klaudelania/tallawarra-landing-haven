@@ -34,6 +34,7 @@ const Slideshow = () => {
   const [transitioning, setTransitioning] = useState(false);
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const [useAbsoluteUrls, setUseAbsoluteUrls] = useState(false);
+  const [failedImages, setFailedImages] = useState<number[]>([]);
   const { toast } = useToast();
   
   // Get the appropriate image URLs based on our loading state
@@ -64,7 +65,7 @@ const Slideshow = () => {
         setUseAbsoluteUrls(true);
         toast({
           title: "Image loading issue",
-          description: "Using alternative image loading method"
+          description: "Using absolute paths"
         });
       }
     };
@@ -75,14 +76,19 @@ const Slideshow = () => {
   const goToNextSlide = useCallback(() => {
     setTransitioning(true);
     
-    setNextImageIndex((currentImageIndex + 1) % finalImages.length);
+    // Make sure we skip failed images
+    let nextIndex = (nextImageIndex + 1) % finalImages.length;
+    while (failedImages.includes(nextIndex)) {
+      nextIndex = (nextIndex + 1) % finalImages.length;
+    }
+    
+    setNextImageIndex(nextIndex);
     
     setTimeout(() => {
       setCurrentImageIndex(nextImageIndex);
       setTransitioning(false);
-      setNextImageIndex((nextImageIndex + 1) % finalImages.length);
     }, 1000);
-  }, [currentImageIndex, nextImageIndex, finalImages.length]);
+  }, [currentImageIndex, nextImageIndex, finalImages.length, failedImages]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -91,6 +97,32 @@ const Slideshow = () => {
 
     return () => clearInterval(timer);
   }, [goToNextSlide]);
+
+  const handleImageError = (index: number) => {
+    console.log("Image failed to load:", finalImages[index]);
+    setFailedImages(prev => [...prev, index]);
+    
+    // If too many images fail, show a toast
+    if (failedImages.length > finalImages.length / 2) {
+      toast({
+        title: "Image loading issues",
+        description: "Some slideshow images failed to load"
+      });
+    }
+  };
+
+  const getImageUrl = (index: number) => {
+    if (failedImages.includes(index)) {
+      // Use a reliable placeholder when the actual image fails
+      const placeholders = [
+        "https://images.unsplash.com/photo-1518770660439-4636190af475",
+        "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
+        "https://images.unsplash.com/photo-1649972904349-6e44c42644a7",
+      ];
+      return placeholders[index % placeholders.length];
+    }
+    return finalImages[index];
+  };
 
   return (
     <>
@@ -107,14 +139,10 @@ const Slideshow = () => {
             }`}
           >
             <img
-              src={image}
+              src={getImageUrl(index)}
               alt={`Tallawarra project image ${index + 1}`}
               className="object-cover w-full h-full"
-              onError={(e) => {
-                console.log("Image failed to load:", image);
-                // Add a fallback if needed
-                e.currentTarget.src = "https://images.unsplash.com/photo-1518770660439-4636190af475";
-              }}
+              onError={() => handleImageError(index)}
             />
           </div>
         ))}
