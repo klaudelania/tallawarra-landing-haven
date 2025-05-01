@@ -33,11 +33,14 @@ const Navbar = () => {
         <Link to="/" className="text-2xl md:text-3xl font-bold text-white">
           TALLAWARRA
         </Link>
-        <div className="hidden md:block">
+        <div className="hidden md:flex items-center gap-4">
           {user ? (
-            <Button variant="outline" className="text-white border-white hover:bg-white/20 hover:text-white" asChild>
-              <Link to="/dashboard">Dashboard</Link>
-            </Button>
+            <>
+              <span className="text-white">Welcome, {user.name}</span>
+              <Button variant="outline" className="text-white border-white hover:bg-white/20 hover:text-white" asChild>
+                <Link to="/dashboard">Dashboard</Link>
+              </Button>
+            </>
           ) : (
             <Button variant="outline" className="text-white border-white hover:bg-white/20 hover:text-white" asChild>
               <Link to="/signin">Sign In</Link>

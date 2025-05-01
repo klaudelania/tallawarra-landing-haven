@@ -5,30 +5,143 @@ import { useAuth } from "../context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+
+// Define the registration schema using Zod
+const registerSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  surname: z.string().min(2, "Surname must be at least 2 characters"),
+  email: z.string().email("Invalid email address"),
+  username: z.string().min(3, "Username must be at least 3 characters").optional(),
+  gender: z.string().min(1, "Please select a gender"),
+  age: z.coerce.number().int().min(18, "You must be at least 18 years old"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+  confirmPassword: z.string()
+}).refine(data => data.password === data.confirmPassword, {
+  message: "Passwords do not match",
+  path: ["confirmPassword"]
+});
+
+const loginSchema = z.object({
+  usernameOrEmail: z.string().min(3, "Username or email required"),
+  password: z.string().min(1, "Password required")
+});
+
+type RegisterFormValues = z.infer<typeof registerSchema>;
+type LoginFormValues = z.infer<typeof loginSchema>;
 
 const SignIn = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [isRegistering, setIsRegistering] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, register, isRegistered } = useAuth();
   const { toast } = useToast();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  // Register form
+  const registerForm = useForm<RegisterFormValues>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: {
+      name: "",
+      surname: "",
+      email: "",
+      username: "",
+      gender: "",
+      age: undefined,
+      password: "",
+      confirmPassword: ""
+    }
+  });
+  
+  // Login form
+  const loginForm = useForm<LoginFormValues>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      usernameOrEmail: "",
+      password: ""
+    }
+  });
+
+  // Handle registration form submission
+  const onRegisterSubmit = async (data: RegisterFormValues) => {
     setIsLoading(true);
     
     try {
-      await login(email, password);
+      // Check if email is already registered
+      if (isRegistered(data.email)) {
+        toast({
+          title: "Registration Failed",
+          description: "This email is already registered. Please login instead.",
+          variant: "destructive",
+        });
+        setIsLoading(false);
+        return;
+      }
+
+      // If username is provided, check if it's already taken
+      if (data.username && isRegistered(data.username)) {
+        toast({
+          title: "Registration Failed",
+          description: "This username is already taken. Please choose another.",
+          variant: "destructive",
+        });
+        setIsLoading(false);
+        return;
+      }
+      
+      await register({
+        name: data.name,
+        surname: data.surname,
+        email: data.email,
+        username: data.username,
+        gender: data.gender,
+        age: data.age,
+        password: data.password
+      });
+      
       toast({
-        title: "Success",
-        description: "You have been signed in",
+        title: "Registration Successful",
+        description: "Your account has been created and you are now logged in.",
+      });
+      
+      navigate("/dashboard");
+    } catch (error) {
+      toast({
+        title: "Registration Failed",
+        description: error instanceof Error ? error.message : "An unexpected error occurred",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Handle login form submission
+  const onLoginSubmit = async (data: LoginFormValues) => {
+    setIsLoading(true);
+    
+    try {
+      await login(data.usernameOrEmail, data.password);
+      toast({
+        title: "Login Successful",
+        description: "Welcome back!",
       });
       navigate("/dashboard");
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Failed to sign in. Please check your credentials.",
+        title: "Login Failed",
+        description: "Invalid username/email or password. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -39,50 +152,217 @@ const SignIn = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-900 to-gray-800 p-4">
       <div className="w-full max-w-md bg-white rounded-lg shadow-xl p-8">
-        <h1 className="text-2xl font-bold text-center mb-6">Sign In</h1>
+        <h1 className="text-2xl font-bold text-center mb-6">
+          {isRegistering ? "Create an Account" : "Sign In"}
+        </h1>
         <p className="text-gray-600 text-center mb-6">
-          Enter any email and password to continue to Tallawarra Residential Subdivision
+          {isRegistering 
+            ? "Join Tallawarra Residential Subdivision"
+            : "Welcome back to Tallawarra Residential Subdivision"}
         </p>
         
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-2">
-            <label htmlFor="email" className="text-sm font-medium">
-              Email
-            </label>
-            <Input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@example.com"
-              required
-              className="w-full"
-            />
-          </div>
-          
-          <div className="space-y-2">
-            <label htmlFor="password" className="text-sm font-medium">
-              Password
-            </label>
-            <Input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              required
-              className="w-full"
-            />
-          </div>
-          
-          <Button
-            type="submit"
-            className="w-full bg-green-600 hover:bg-green-700"
-            disabled={isLoading}
-          >
-            {isLoading ? "Signing in..." : "Sign In"}
-          </Button>
-        </form>
+        {isRegistering ? (
+          <Form {...registerForm}>
+            <form onSubmit={registerForm.handleSubmit(onRegisterSubmit)} className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <FormField
+                  control={registerForm.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>First Name</FormLabel>
+                      <FormControl>
+                        <Input placeholder="John" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                
+                <FormField
+                  control={registerForm.control}
+                  name="surname"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Last Name</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Doe" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              
+              <FormField
+                control={registerForm.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input placeholder="you@example.com" type="email" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={registerForm.control}
+                name="username"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Username (optional)</FormLabel>
+                    <FormControl>
+                      <Input placeholder="johndoe" {...field} />
+                    </FormControl>
+                    <FormDescription>
+                      Leave blank to use your email as username
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <div className="grid grid-cols-2 gap-4">
+                <FormField
+                  control={registerForm.control}
+                  name="gender"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Gender</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="male">Male</SelectItem>
+                          <SelectItem value="female">Female</SelectItem>
+                          <SelectItem value="other">Other</SelectItem>
+                          <SelectItem value="prefer-not-to-say">Prefer not to say</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                
+                <FormField
+                  control={registerForm.control}
+                  name="age"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Age</FormLabel>
+                      <FormControl>
+                        <Input type="number" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              
+              <FormField
+                control={registerForm.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input type="password" placeholder="••••••••" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={registerForm.control}
+                name="confirmPassword"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Confirm Password</FormLabel>
+                    <FormControl>
+                      <Input type="password" placeholder="••••••••" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <Button
+                type="submit"
+                className="w-full bg-green-600 hover:bg-green-700"
+                disabled={isLoading}
+              >
+                {isLoading ? "Registering..." : "Register"}
+              </Button>
+              
+              <div className="text-center mt-4">
+                <Button
+                  variant="link"
+                  onClick={() => setIsRegistering(false)}
+                  type="button"
+                >
+                  Already have an account? Sign In
+                </Button>
+              </div>
+            </form>
+          </Form>
+        ) : (
+          <Form {...loginForm}>
+            <form onSubmit={loginForm.handleSubmit(onLoginSubmit)} className="space-y-4">
+              <FormField
+                control={loginForm.control}
+                name="usernameOrEmail"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Username or Email</FormLabel>
+                    <FormControl>
+                      <Input placeholder="johndoe or you@example.com" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={loginForm.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input type="password" placeholder="••••••••" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <Button
+                type="submit"
+                className="w-full bg-green-600 hover:bg-green-700"
+                disabled={isLoading}
+              >
+                {isLoading ? "Signing in..." : "Sign In"}
+              </Button>
+              
+              <div className="text-center mt-4">
+                <Button
+                  variant="link"
+                  onClick={() => setIsRegistering(true)}
+                  type="button"
+                >
+                  Need an account? Register
+                </Button>
+              </div>
+            </form>
+          </Form>
+        )}
       </div>
     </div>
   );
