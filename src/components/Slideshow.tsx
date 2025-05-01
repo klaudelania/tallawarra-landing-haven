@@ -1,37 +1,36 @@
-
 import { useState, useEffect, useCallback } from "react";
 import { Toaster } from "./ui/toaster";
 
-// Updated image paths to point to the new "slide show" folder
+// Updated image paths to use URL-friendly format (no spaces)
 const defaultImages = [
-  "/slide show/image1.jpg",
-  "/slide show/image2.jpg", 
-  "/slide show/image3.jpg",
-  "/slide show/image4.jpg",
-  "/slide show/image5.jpg",
-  "/slide show/image6.jpg",
-  "/slide show/image7.jpg",
-  "/slide show/image8.jpg",
-  "/slide show/image9.jpg",
-  "/slide show/image10.jpg",
-  "/slide show/image11.jpg",
-  "/slide show/image12.jpg"
+  "/slideshow/image1.jpg",
+  "/slideshow/image2.jpg", 
+  "/slideshow/image3.jpg",
+  "/slideshow/image4.jpg",
+  "/slideshow/image5.jpg",
+  "/slideshow/image6.jpg",
+  "/slideshow/image7.jpg",
+  "/slideshow/image8.jpg",
+  "/slideshow/image9.jpg",
+  "/slideshow/image10.jpg",
+  "/slideshow/image11.jpg",
+  "/slideshow/image12.jpg"
 ];
 
-// Update fallback images to use the same paths
+// Update fallback images to use the same URL-friendly format
 const placeholderImages = [
-  "/slide show/image1.jpg",
-  "/slide show/image2.jpg", 
-  "/slide show/image3.jpg",
-  "/slide show/image4.jpg",
-  "/slide show/image5.jpg",
-  "/slide show/image6.jpg",
-  "/slide show/image7.jpg",
-  "/slide show/image8.jpg",
-  "/slide show/image9.jpg",
-  "/slide show/image10.jpg",
-  "/slide show/image11.jpg",
-  "/slide show/image12.jpg"
+  "/slideshow/image1.jpg",
+  "/slideshow/image2.jpg", 
+  "/slideshow/image3.jpg",
+  "/slideshow/image4.jpg",
+  "/slideshow/image5.jpg",
+  "/slideshow/image6.jpg",
+  "/slideshow/image7.jpg",
+  "/slideshow/image8.jpg",
+  "/slideshow/image9.jpg",
+  "/slideshow/image10.jpg",
+  "/slideshow/image11.jpg",
+  "/slideshow/image12.jpg"
 ];
 
 const Slideshow = () => {
