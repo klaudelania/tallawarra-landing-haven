@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { LogIn, Menu, X, ExternalLink } from "lucide-react";
+import { LogIn, Menu, X, ExternalLink, ChevronDown } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useIsMobile } from "../hooks/use-mobile";
 import { useToast } from "../hooks/use-toast";
@@ -36,14 +36,36 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Separate menu items into public and protected
+  // Menu structure
   const publicMenuItems = [
-    { title: "About", path: "/about" },
+    { title: "About", path: "/about", isPublic: true },
   ];
   
   const protectedMenuItems = [
-    { title: "News", path: "/news" },
-    { title: "Events", path: "/events" },
+    { 
+      title: "News & Events", 
+      submenu: [
+        { title: "Coming Soon", path: "#" },
+        { title: "Coming Soon", path: "#" },
+        { title: "Coming Soon", path: "#" },
+      ]
+    },
+    { 
+      title: "Explore", 
+      submenu: [
+        { title: "Coming Soon", path: "#" },
+        { title: "Coming Soon", path: "#" },
+        { title: "Coming Soon", path: "#" },
+      ]
+    },
+    { 
+      title: "Invest", 
+      submenu: [
+        { title: "Coming Soon", path: "#" },
+        { title: "Coming Soon", path: "#" },
+        { title: "Coming Soon", path: "#" },
+      ]
+    },
   ];
 
   const handleProtectedNavigation = (e: React.MouseEvent, path: string) => {
@@ -72,16 +94,42 @@ const Navbar = () => {
           </NavigationMenuItem>
         ))}
         
-        {/* Protected menu items - auth required */}
-        {protectedMenuItems.map((item) => (
-          <NavigationMenuItem key={item.path}>
-            <Link
-              to={item.path}
-              onClick={(e) => handleProtectedNavigation(e, item.path)}
-              className="text-white hover:text-white/80 transition-colors px-2 py-1"
-            >
-              {item.title}
-            </Link>
+        {/* Protected menu items with dropdowns */}
+        {protectedMenuItems.map((item, index) => (
+          <NavigationMenuItem key={index}>
+            {item.submenu ? (
+              <>
+                <NavigationMenuTrigger 
+                  onClick={(e) => !user && e.preventDefault()}
+                  disabled={!user}
+                  className="text-white bg-transparent hover:bg-white/10"
+                >
+                  {item.title}
+                </NavigationMenuTrigger>
+                <NavigationMenuContent className="min-w-[200px]">
+                  <div className="p-2 grid gap-2">
+                    {item.submenu.map((subItem, subIndex) => (
+                      <Link
+                        key={subIndex}
+                        to={subItem.path}
+                        onClick={(e) => handleProtectedNavigation(e, subItem.path)}
+                        className="block px-3 py-2 text-sm rounded-md hover:bg-accent"
+                      >
+                        {subItem.title}
+                      </Link>
+                    ))}
+                  </div>
+                </NavigationMenuContent>
+              </>
+            ) : (
+              <Link
+                to={item.path}
+                onClick={(e) => handleProtectedNavigation(e, item.path)}
+                className="text-white hover:text-white/80 transition-colors px-2 py-1"
+              >
+                {item.title}
+              </Link>
+            )}
           </NavigationMenuItem>
         ))}
         
@@ -120,16 +168,38 @@ const Navbar = () => {
             </Link>
           ))}
           
-          {/* Protected menu items - auth required */}
-          {protectedMenuItems.map((item) => (
-            <Link
-              key={item.path}
-              to={item.path}
-              onClick={(e) => handleProtectedNavigation(e, item.path)}
-              className="px-4 py-2 text-lg hover:bg-accent rounded-md transition-colors"
-            >
-              {item.title}
-            </Link>
+          {/* Protected menu items with submenu indicators */}
+          {protectedMenuItems.map((item, index) => (
+            <div key={index} className="flex flex-col">
+              <div className="flex items-center justify-between">
+                {item.submenu ? (
+                  <details disabled={!user} className={`w-full ${!user ? 'opacity-60' : ''}`}>
+                    <summary className={`px-4 py-2 text-lg flex justify-between items-center cursor-pointer ${!user ? 'pointer-events-none' : 'hover:bg-accent rounded-md transition-colors'}`}>
+                      {item.title}
+                      <ChevronDown size={18} />
+                    </summary>
+                    {item.submenu.map((subItem, subIndex) => (
+                      <Link
+                        key={subIndex}
+                        to={subItem.path}
+                        onClick={(e) => handleProtectedNavigation(e, subItem.path)}
+                        className="px-8 py-2 text-base hover:bg-accent rounded-md transition-colors block"
+                      >
+                        {subItem.title}
+                      </Link>
+                    ))}
+                  </details>
+                ) : (
+                  <Link
+                    to={item.path}
+                    onClick={(e) => handleProtectedNavigation(e, item.path)}
+                    className={`px-4 py-2 text-lg hover:bg-accent rounded-md transition-colors ${!user ? 'opacity-60 pointer-events-none' : ''}`}
+                  >
+                    {item.title}
+                  </Link>
+                )}
+              </div>
+            </div>
           ))}
           
           <a
