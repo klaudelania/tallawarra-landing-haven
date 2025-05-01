@@ -1,9 +1,8 @@
-
 import { useState, useEffect, useCallback } from "react";
 import { Toaster } from "./ui/toaster";
 import { useToast } from "../hooks/use-toast";
 
-// Define custom image paths with explicit public URLs for production
+// Define image paths with correct structure
 const defaultImages = [
   "/slideshow/image1.jpg",
   "/slideshow/image2.jpg", 
@@ -36,57 +35,42 @@ const Slideshow = () => {
   const [loadingProgress, setLoadingProgress] = useState(0);
   const { toast } = useToast();
 
-  // Improved image loading with detailed error logging
+  // Completely revised image loading approach
   useEffect(() => {
     const loadImages = async () => {
       console.log("Starting to load slideshow images");
       const loadedImages: string[] = [];
       let failedCount = 0;
       
-      // Try to load images with different path prefixes to handle various deployment environments
       for (let i = 0; i < defaultImages.length; i++) {
+        // First, try with import.meta.env.BASE_URL which is the correct Vite approach
         const imagePath = defaultImages[i];
-        const alternativePaths = [
-          imagePath, // Try direct path first
-          `${window.location.origin}${imagePath}`, // Try with origin
-          `./public${imagePath}`, // Try with public prefix
-          `../public${imagePath}` // Try with different relative path
-        ];
+        const pathToTry = `${import.meta.env.BASE_URL}${imagePath.startsWith('/') ? imagePath.slice(1) : imagePath}`;
         
-        let loaded = false;
-        
-        // Try each path variant until one works
-        for (const path of alternativePaths) {
-          if (loaded) break;
+        try {
+          const img = new Image();
           
-          try {
-            const img = new Image();
-            
-            await new Promise<void>((resolve, reject) => {
-              img.onload = () => {
-                console.log(`Successfully loaded image ${i + 1} from: ${path}`);
-                loaded = true;
-                resolve();
-              };
-              img.onerror = () => {
-                console.log(`Failed to load image ${i + 1} from: ${path}`);
-                reject();
-              };
-              img.src = path;
-            });
-            
-            if (loaded) {
-              loadedImages.push(path);
-              break; // We found a working path, move to next image
-            }
-          } catch (error) {
-            // Will try next path or fall back to fallback image
+          const loaded = await new Promise<boolean>((resolve) => {
+            img.onload = () => {
+              console.log(`Successfully loaded image ${i + 1} from: ${pathToTry}`);
+              resolve(true);
+            };
+            img.onerror = () => {
+              console.log(`Failed to load image ${i + 1} from: ${pathToTry}`);
+              resolve(false);
+            };
+            img.src = pathToTry;
+          });
+          
+          if (loaded) {
+            loadedImages.push(pathToTry);
+          } else {
+            console.log(`Using fallback for image ${i + 1}`);
+            loadedImages.push(fallbackImages[i % fallbackImages.length]);
+            failedCount++;
           }
-        }
-        
-        // If none of the paths worked, use fallback
-        if (!loaded) {
-          console.log(`All paths failed for image ${i + 1}, using fallback`);
+        } catch (error) {
+          console.error(`Error loading image ${i + 1}:`, error);
           loadedImages.push(fallbackImages[i % fallbackImages.length]);
           failedCount++;
         }
@@ -105,8 +89,9 @@ const Slideshow = () => {
           duration: 8000,
         });
         
-        // Log more detailed information about the failure
-        console.error(`Failed to load ${failedCount} images. Please ensure images are in the correct location: /public/slideshow/`);
+        console.error(`Failed to load ${failedCount} images. Please check that your images are in the public/slideshow/ directory.`);
+        console.log("Current base URL:", import.meta.env.BASE_URL);
+        console.log("Window location:", window.location.href);
       }
     };
     
