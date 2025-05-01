@@ -25,6 +25,8 @@ const CalendarWidget = () => {
           table: "w-full border-collapse space-y-1 mt-2",
           months: "mx-auto space-y-4",
           month: "space-y-4 mx-auto",
+          row: "flex w-full justify-center mt-2",
+          head_row: "flex justify-center",
         }}
         disabled={(date) => false} // Calendar is for display, disable interactions
       />
