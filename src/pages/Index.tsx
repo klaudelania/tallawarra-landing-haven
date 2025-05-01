@@ -56,12 +56,12 @@ const Index = () => {
         
         <footer className="absolute bottom-4 left-0 right-0 text-center text-white/70 text-sm">
           <div className="flex flex-col items-center justify-center mb-2">
-            <div className="rounded-full p-2 border-2 border-white inline-flex items-center justify-center w-18 h-18">
+            <div className="rounded-full p-2 border-2 border-white inline-flex items-center justify-center" style={{ width: "72px", height: "72px" }}>
               <img 
                 src="/logo/logowhite.png" 
                 alt="Tallawarra Logo" 
-                className="h-12" 
-                style={{ maxHeight: "48px" }} 
+                className="object-contain"
+                style={{ maxWidth: "80%", maxHeight: "80%" }} 
               />
             </div>
             <div className="text-white/80 italic text-lg mt-2">
