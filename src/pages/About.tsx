@@ -36,6 +36,60 @@ const About = () => {
               To develop sustainable, well-connected communities that enhance the quality of life 
               for our residents while preserving the natural environment.
             </p>
+
+            <div className="mt-10 pt-6 border-t border-white/20">
+              <h2 className="text-2xl font-semibold mb-4">Bridgehill's Vision for Tallawarra</h2>
+              
+              <p>
+                Bridgehill is proud to introduce Tallawarra — a thoughtfully planned, lakeside community 
+                shaped by the land, its history, and the aspirations of future residents.
+              </p>
+              
+              <p>
+                Located between the slopes of Mount Brown and Lake Illawarra, this unique site offers 
+                more than just a new neighbourhood. It's an opportunity to build a place of enduring 
+                value — a place where people of all ages can live well, feel connected, and be proud 
+                to call home.
+              </p>
+              
+              <p>
+                At Tallawarra, we are working to deliver diverse, well-designed housing, supported 
+                by local shops, walkable streets, and welcoming public spaces. Our vision is grounded 
+                in the belief that great communities grow from liveability, access to nature and 
+                facilities, but most importantly opportunities for everyone to thrive — whether 
+                through work, recreation, or connection with neighbours.
+              </p>
+              
+              <p>
+                Tallawarra isn't about short-term gains. It's about creating a resilient and vibrant 
+                city — one that balances growth with care for the environment and respect for the 
+                landscape. We are committed to protecting and enhancing this extraordinary part of 
+                the Illawarra for future generations.
+              </p>
+              
+              <h3 className="text-xl font-semibold mt-6 mb-3">Our Urban Principles</h3>
+              <ul className="list-disc pl-6 space-y-2">
+                <li>Creating beautiful, high-quality places that reflect the identity of the area</li>
+                <li>Encouraging housing diversity and flexible density to meet real community needs</li>
+                <li>Designing safe, active streetscapes with local businesses at their heart</li>
+                <li>Offering welcoming and inclusive public spaces that invite interaction</li>
+                <li>Supporting local food systems and economic opportunity</li>
+                <li>And most importantly, laying the foundations for a strong, proud community grounded in belonging and stewardship</li>
+              </ul>
+              
+              <p className="mt-6">
+                Tallawarra isn't just a development. It's a promise — to do things thoughtfully, 
+                with care, and in partnership with the community.
+              </p>
+              
+              <p>
+                We invite you to help shape this place. Because together, we're building more than homes.
+              </p>
+              
+              <p className="font-semibold mt-2">
+                We're building a future.
+              </p>
+            </div>
           </div>
         </div>
       </section>
