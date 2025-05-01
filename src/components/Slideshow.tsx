@@ -19,76 +19,105 @@ const defaultImages = [
   "/slideshow/image12.jpg"
 ];
 
-// Create absolute URLs that include domain for preview environments
-const getAbsoluteImageUrls = () => {
-  // Get the base URL of the current environment
+// Create a more comprehensive set of possible image URLs
+const getImageUrls = (index: number) => {
+  const imageName = defaultImages[index];
   const baseUrl = window.location.origin;
   
-  // Map each relative path to an absolute URL
-  return defaultImages.map(path => `${baseUrl}${path}`);
+  // Return an array of possible URLs to try in sequence
+  return [
+    imageName, // 1. Try relative path first (works in development)
+    `${baseUrl}${imageName}`, // 2. Try absolute URL with origin
+    `${baseUrl}/public${imageName}`, // 3. Some deployments might need /public prefix
+    `https://raw.githubusercontent.com/username/repository-name/main/public${imageName}`, // 4. GitHub raw content as last resort
+  ];
 };
+
+// Fixed set of reliable fallback images
+const fallbackImages = [
+  "https://images.unsplash.com/photo-1518770660439-4636190af475",
+  "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
+  "https://images.unsplash.com/photo-1649972904349-6e44c42644a7",
+];
 
 const Slideshow = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [nextImageIndex, setNextImageIndex] = useState(1);
   const [transitioning, setTransitioning] = useState(false);
-  const [imagesLoaded, setImagesLoaded] = useState(false);
-  const [useAbsoluteUrls, setUseAbsoluteUrls] = useState(false);
-  const [failedImages, setFailedImages] = useState<number[]>([]);
+  const [imageUrlMap, setImageUrlMap] = useState<Record<number, string>>({});
+  const [loadAttemptCount, setLoadAttemptCount] = useState<Record<number, number>>({});
   const { toast } = useToast();
-  
-  // Get the appropriate image URLs based on our loading state
-  const finalImages = useAbsoluteUrls ? getAbsoluteImageUrls() : defaultImages;
 
+  // Pre-load all images on component mount
   useEffect(() => {
-    // Check if the images are accessible with relative paths
-    const checkImagesExist = async () => {
-      try {
-        console.log("Checking image at path:", defaultImages[0]);
-        const response = await fetch(defaultImages[0], { method: 'HEAD' });
-        
-        if (response.ok) {
-          console.log("Image loaded successfully with relative path");
-          setImagesLoaded(true);
-        } else {
-          console.log("Failed to load image with relative path, status:", response.status);
-          // Try with absolute URLs
-          setUseAbsoluteUrls(true);
-          toast({
-            title: "Image loading",
-            description: "Using absolute image paths for preview environment"
-          });
-        }
-      } catch (error) {
-        console.log('Error loading images:', error);
-        // Try with absolute URLs
-        setUseAbsoluteUrls(true);
+    const preloadImages = async () => {
+      console.log("Starting image preload process");
+      
+      const newImageMap: Record<number, string> = {};
+      const loadAttempts: Record<number, number> = {};
+      
+      // Try to load each image
+      await Promise.all(defaultImages.map((_, index) => {
+        return new Promise<void>(resolve => {
+          const tryNextUrl = (urlIndex: number) => {
+            if (urlIndex >= getImageUrls(index).length) {
+              console.log(`All URLs failed for image ${index}, using fallback`);
+              newImageMap[index] = fallbackImages[index % fallbackImages.length];
+              loadAttempts[index] = urlIndex;
+              resolve();
+              return;
+            }
+            
+            const url = getImageUrls(index)[urlIndex];
+            const img = new Image();
+            
+            img.onload = () => {
+              console.log(`Image ${index} loaded successfully from: ${url}`);
+              newImageMap[index] = url;
+              loadAttempts[index] = urlIndex;
+              resolve();
+            };
+            
+            img.onerror = () => {
+              console.log(`Failed to load image ${index} from: ${url}`);
+              tryNextUrl(urlIndex + 1);
+            };
+            
+            img.src = url;
+          };
+          
+          tryNextUrl(0);
+        });
+      }));
+      
+      setImageUrlMap(newImageMap);
+      setLoadAttemptCount(loadAttempts);
+      
+      // Show toast if we had to use fallbacks for many images
+      const fallbackCount = Object.values(loadAttempts).filter(attempt => 
+        attempt >= getImageUrls(0).length - 1
+      ).length;
+      
+      if (fallbackCount > 0) {
         toast({
-          title: "Image loading issue",
-          description: "Using absolute paths"
+          title: "Image loading notice",
+          description: `${fallbackCount} images using fallback sources`
         });
       }
     };
     
-    checkImagesExist();
+    preloadImages();
   }, [toast]);
 
   const goToNextSlide = useCallback(() => {
     setTransitioning(true);
-    
-    // Make sure we skip failed images
-    let nextIndex = (nextImageIndex + 1) % finalImages.length;
-    while (failedImages.includes(nextIndex)) {
-      nextIndex = (nextIndex + 1) % finalImages.length;
-    }
-    
-    setNextImageIndex(nextIndex);
+    setNextImageIndex((prevNextIndex) => (prevNextIndex + 1) % defaultImages.length);
     
     setTimeout(() => {
       setCurrentImageIndex(nextImageIndex);
       setTransitioning(false);
     }, 1000);
-  }, [currentImageIndex, nextImageIndex, finalImages.length, failedImages]);
+  }, [nextImageIndex]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -98,36 +127,14 @@ const Slideshow = () => {
     return () => clearInterval(timer);
   }, [goToNextSlide]);
 
-  const handleImageError = (index: number) => {
-    console.log("Image failed to load:", finalImages[index]);
-    setFailedImages(prev => [...prev, index]);
-    
-    // If too many images fail, show a toast
-    if (failedImages.length > finalImages.length / 2) {
-      toast({
-        title: "Image loading issues",
-        description: "Some slideshow images failed to load"
-      });
-    }
-  };
-
-  const getImageUrl = (index: number) => {
-    if (failedImages.includes(index)) {
-      // Use a reliable placeholder when the actual image fails
-      const placeholders = [
-        "https://images.unsplash.com/photo-1518770660439-4636190af475",
-        "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
-        "https://images.unsplash.com/photo-1649972904349-6e44c42644a7",
-      ];
-      return placeholders[index % placeholders.length];
-    }
-    return finalImages[index];
+  const getDisplayImageUrl = (index: number) => {
+    return imageUrlMap[index] || fallbackImages[index % fallbackImages.length];
   };
 
   return (
     <>
       <div className="fixed inset-0 -z-10 overflow-hidden">
-        {finalImages.map((image, index) => (
+        {defaultImages.map((_, index) => (
           <div
             key={index}
             className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ${
@@ -139,10 +146,9 @@ const Slideshow = () => {
             }`}
           >
             <img
-              src={getImageUrl(index)}
+              src={getDisplayImageUrl(index)}
               alt={`Tallawarra project image ${index + 1}`}
               className="object-cover w-full h-full"
-              onError={() => handleImageError(index)}
             />
           </div>
         ))}
