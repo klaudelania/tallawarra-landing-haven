@@ -19,116 +19,93 @@ const defaultImages = [
   "/slideshow/image12.jpg"
 ];
 
-// High-quality landscape fallback images from Unsplash
+// Curated set of high-quality landscape fallback images that match your project theme better
 const fallbackImages = [
-  "https://images.unsplash.com/photo-1506744038136-46273834b3fb", // Landscape
-  "https://images.unsplash.com/photo-1469474968028-56623f02e42e", // Forest
-  "https://images.unsplash.com/photo-1510798831971-661eb04b3739", // Lake
-  "https://images.unsplash.com/photo-1441974231531-c6227db76b6e", // Woods
+  "https://images.unsplash.com/photo-1572431447238-425af66a273b", // Landscape view
+  "https://images.unsplash.com/photo-1518623489648-a173ef7824f3", // Waterfront
+  "https://images.unsplash.com/photo-1501785888041-af3ef285b470", // Scenic landscape
+  "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05", // Nature view
 ];
-
-// Comprehensive strategy to get image URLs
-const getImageUrls = (imageIndex: number) => {
-  const imagePath = defaultImages[imageIndex];
-  const baseUrl = window.location.origin;
-  
-  // For hosted environments, try different path combinations
-  return [
-    imagePath, // Relative path from public directory
-    `${baseUrl}${imagePath}`, // Full URL with origin
-    // Try without the /slideshow part if we're in a production environment 
-    // where folder structure might be different
-    `/image${imageIndex + 1}.jpg`, 
-    `${baseUrl}/image${imageIndex + 1}.jpg`,
-    // Use GitHub raw content as last resort if applicable
-    `https://raw.githubusercontent.com/username/repository-name/main/public${imagePath}`,
-    // Final fallback to unsplash
-    fallbackImages[imageIndex % fallbackImages.length]
-  ];
-};
 
 const Slideshow = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [nextImageIndex, setNextImageIndex] = useState(1);
   const [transitioning, setTransitioning] = useState(false);
-  const [imageUrlMap, setImageUrlMap] = useState<Record<number, string>>({});
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [loadingProgress, setLoadingProgress] = useState(0);
   const { toast } = useToast();
 
-  // Pre-load all images on component mount
+  // Improved image loading with better fallback handling
   useEffect(() => {
-    const preloadImages = async () => {
-      console.log("Starting image preload process");
+    const loadImages = async () => {
+      console.log("Starting to load slideshow images");
+      const loadedImages: string[] = [];
+      let failedCount = 0;
       
-      const newImageMap: Record<number, string> = {};
-      const loadResults: Record<string, boolean> = {};
-      let fallbackCount = 0;
-      
-      // Try to load each image with multiple URL strategies
-      await Promise.all(defaultImages.map((_, index) => {
-        return new Promise<void>(resolve => {
-          const tryNextUrl = (urlIndex: number) => {
-            if (urlIndex >= getImageUrls(index).length - 1) {
-              // We're at the last option, which is always a fallback
-              console.log(`Using fallback for image ${index}`);
-              newImageMap[index] = getImageUrls(index)[urlIndex];
-              loadResults[`image${index}`] = false;
-              fallbackCount++;
-              resolve();
-              return;
-            }
-            
-            const url = getImageUrls(index)[urlIndex];
-            const img = new Image();
-            
+      for (let i = 0; i < defaultImages.length; i++) {
+        const imagePath = defaultImages[i];
+        try {
+          // First try the direct path from the public folder
+          const img = new Image();
+          const loadPromise = new Promise<void>((resolve, reject) => {
             img.onload = () => {
-              console.log(`Image ${index} loaded successfully from: ${url}`);
-              newImageMap[index] = url;
-              loadResults[`image${index}`] = true;
+              console.log(`Successfully loaded image ${i + 1} from: ${imagePath}`);
               resolve();
             };
-            
             img.onerror = () => {
-              console.log(`Failed to load image ${index} from: ${url}`);
-              tryNextUrl(urlIndex + 1);
+              console.log(`Failed to load image ${i + 1} from: ${imagePath}`);
+              reject();
             };
-            
-            img.src = url;
-          };
+          });
           
-          tryNextUrl(0);
-        });
-      }));
+          img.src = imagePath;
+          
+          try {
+            await loadPromise;
+            loadedImages.push(imagePath);
+          } catch {
+            // If direct path fails, use fallback
+            console.log(`Using fallback for image ${i + 1}`);
+            loadedImages.push(fallbackImages[i % fallbackImages.length]);
+            failedCount++;
+          }
+        } catch (error) {
+          console.error(`Error loading image ${i + 1}:`, error);
+          loadedImages.push(fallbackImages[i % fallbackImages.length]);
+          failedCount++;
+        }
+        
+        // Update loading progress
+        setLoadingProgress(Math.round(((i + 1) / defaultImages.length) * 100));
+      }
       
-      setImageUrlMap(newImageMap);
+      setImageUrls(loadedImages);
       setImagesLoaded(true);
       
-      // Show toast if we had to use fallbacks
-      if (fallbackCount > 0) {
+      if (failedCount > 0) {
         toast({
           title: "Image loading notice",
-          description: `${fallbackCount} images are using fallback sources. Check console for details.`
+          description: `${failedCount} images using fallback sources. Images may not match expected content.`,
+          duration: 5000,
         });
-        
-        console.log("Image load results:", loadResults);
-        console.log("Final image URLs:", newImageMap);
       }
     };
     
-    preloadImages();
+    loadImages();
   }, [toast]);
 
   const goToNextSlide = useCallback(() => {
     if (!imagesLoaded) return;
     
     setTransitioning(true);
-    setNextImageIndex((prevNextIndex) => (prevNextIndex + 1) % defaultImages.length);
+    setNextImageIndex((prevNextIndex) => (prevNextIndex + 1) % imageUrls.length);
     
     setTimeout(() => {
       setCurrentImageIndex(nextImageIndex);
       setTransitioning(false);
     }, 1000);
-  }, [nextImageIndex, imagesLoaded]);
+  }, [nextImageIndex, imagesLoaded, imageUrls.length]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -138,11 +115,17 @@ const Slideshow = () => {
     return () => clearInterval(timer);
   }, [goToNextSlide]);
 
-  // Don't render until images are loaded
+  // Loading state with progress indicator
   if (!imagesLoaded) {
     return (
-      <div className="fixed inset-0 -z-10 flex items-center justify-center bg-gray-900">
-        <p className="text-white text-lg">Loading slideshow...</p>
+      <div className="fixed inset-0 -z-10 flex flex-col items-center justify-center bg-gray-900">
+        <p className="text-white text-lg mb-4">Loading slideshow images... {loadingProgress}%</p>
+        <div className="w-64 h-2 bg-gray-700 rounded-full overflow-hidden">
+          <div 
+            className="h-full bg-white transition-all duration-300 ease-out"
+            style={{ width: `${loadingProgress}%` }}
+          ></div>
+        </div>
       </div>
     );
   }
@@ -150,7 +133,7 @@ const Slideshow = () => {
   return (
     <>
       <div className="fixed inset-0 -z-10 overflow-hidden">
-        {defaultImages.map((_, index) => (
+        {imageUrls.map((imageUrl, index) => (
           <div
             key={index}
             className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ${
@@ -162,7 +145,7 @@ const Slideshow = () => {
             }`}
           >
             <img
-              src={imageUrlMap[index] || fallbackImages[index % fallbackImages.length]}
+              src={imageUrl}
               alt={`Tallawarra project image ${index + 1}`}
               className="object-cover w-full h-full"
             />
