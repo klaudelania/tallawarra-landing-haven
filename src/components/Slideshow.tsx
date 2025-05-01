@@ -11,7 +11,9 @@ const images = [
   "/slideshow/image7.jpg",
   "/slideshow/image8.jpg",
   "/slideshow/image9.jpg",
-  "/slideshow/image10.jpg"
+  "/slideshow/image10.jpg",
+  "/slideshow/image11.jpg",
+  "/slideshow/image12.jpg"
 ];
 
 // Fallback placeholder images in case custom images fail
@@ -25,7 +27,9 @@ const placeholderImages = [
   "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2000&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?q=80&w=2000&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?q=80&w=2000&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=80&w=2000&auto=format&fit=crop"
+  "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=80&w=2000&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=2000&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1501854140801-50d01698950b?q=80&w=2000&auto=format&fit=crop"
 ];
 
 const Slideshow = () => {
