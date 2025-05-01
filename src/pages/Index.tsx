@@ -37,11 +37,10 @@ const Index = () => {
           </div>
         </div>
         
-        <div className="text-center w-full text-white/80 italic mt-8 text-lg">
-          Coming soon...
-        </div>
-        
         <footer className="absolute bottom-4 left-0 right-0 text-center text-white/70 text-sm">
+          <div className="text-white/80 italic mb-2 text-lg">
+            Coming soon...
+          </div>
           © {new Date().getFullYear()} Tallawarra Residential Subdivision | <a href="https://www.tallawarra.com.au" className="hover:text-white transition-colors">www.tallawarra.com.au</a> | All rights reserved.
         </footer>
       </section>
