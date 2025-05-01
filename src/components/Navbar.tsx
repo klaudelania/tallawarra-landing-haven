@@ -43,7 +43,10 @@ const Navbar = () => {
               </Button>
             </>
           ) : (
-            <Button className="bg-green-600 hover:bg-green-700 text-white font-medium px-6 py-2 rounded-md shadow-lg flex items-center gap-2" asChild>
+            <Button 
+              className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white border border-white/60 font-medium px-6 py-2 rounded-md shadow-lg flex items-center gap-2" 
+              asChild
+            >
               <Link to="/signin"><LogIn size={18} /> Sign In</Link>
             </Button>
           )}
