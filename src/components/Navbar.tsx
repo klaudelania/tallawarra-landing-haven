@@ -22,6 +22,17 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { 
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger 
+} from "@/components/ui/accordion";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -53,16 +64,27 @@ const Navbar = () => {
       path: "/news-events",
       submenu: [
         { title: "News", path: "/news" },
-        { title: "Events", path: "/events" }
+        { title: "Events", path: "/events" },
+        { title: "News & Events 3", path: "#" }
       ]
     },
     { 
       title: "Explore", 
       path: "/explore",
+      submenu: [
+        { title: "Explore 1", path: "#" },
+        { title: "Explore 2", path: "#" },
+        { title: "Explore 3", path: "#" }
+      ]
     },
     { 
       title: "Invest", 
       path: "/invest",
+      submenu: [
+        { title: "Invest 1", path: "#" },
+        { title: "Invest 2", path: "#" },
+        { title: "Invest 3", path: "#" }
+      ]
     },
   ];
 
@@ -95,44 +117,34 @@ const Navbar = () => {
         {/* Protected menu items - auth required */}
         {protectedMenuItems.map((item) => (
           <NavigationMenuItem key={item.title}>
-            {item.submenu ? (
-              <DropdownMenu>
-                <DropdownMenuTrigger 
-                  className="text-white hover:text-white/80 transition-colors px-2 py-1 flex items-center gap-1"
-                  onClick={(e) => {
-                    if (!user) {
-                      e.preventDefault();
-                      toast({
-                        title: "Sign in required",
-                        description: "Please sign in to access this section",
-                        variant: "default",
-                      });
-                    }
-                  }}
-                >
-                  {item.title} <ChevronDown size={14} />
-                </DropdownMenuTrigger>
-                {user && (
-                  <DropdownMenuContent className="bg-background/90 backdrop-blur-md border border-white/20">
-                    {item.submenu.map((subitem) => (
-                      <DropdownMenuItem key={subitem.path} className="text-white hover:text-white/80">
-                        <Link to={subitem.path} className="w-full">
-                          {subitem.title}
-                        </Link>
-                      </DropdownMenuItem>
-                    ))}
-                  </DropdownMenuContent>
-                )}
-              </DropdownMenu>
-            ) : (
-              <Link
-                to={item.path}
-                onClick={(e) => handleProtectedNavigation(e, item.path)}
-                className="text-white hover:text-white/80 transition-colors px-2 py-1"
+            <DropdownMenu>
+              <DropdownMenuTrigger 
+                className="text-white hover:text-white/80 transition-colors px-2 py-1 flex items-center gap-1"
+                onClick={(e) => {
+                  if (!user) {
+                    e.preventDefault();
+                    toast({
+                      title: "Sign in required",
+                      description: "Please sign in to access this section",
+                      variant: "default",
+                    });
+                  }
+                }}
               >
-                {item.title}
-              </Link>
-            )}
+                {item.title} <ChevronDown size={14} />
+              </DropdownMenuTrigger>
+              {user && (
+                <DropdownMenuContent className="bg-background/90 backdrop-blur-md border border-white/20">
+                  {item.submenu.map((subitem) => (
+                    <DropdownMenuItem key={subitem.path} className="text-white hover:text-white/80">
+                      <Link to={subitem.path} className="w-full">
+                        {subitem.title}
+                      </Link>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              )}
+            </DropdownMenu>
           </NavigationMenuItem>
         ))}
         
@@ -174,24 +186,25 @@ const Navbar = () => {
           {/* Protected menu items - auth required */}
           {protectedMenuItems.map((item) => (
             <div key={item.title} className="flex flex-col">
-              {item.submenu ? (
-                <>
-                  <button
-                    className="px-4 py-2 text-lg hover:bg-accent rounded-md transition-colors flex items-center justify-between"
-                    onClick={(e) => {
-                      if (!user) {
-                        toast({
-                          title: "Sign in required",
-                          description: "Please sign in to access this section",
-                          variant: "default",
-                        });
-                      }
-                    }}
-                  >
-                    {item.title}
-                    <ChevronDown size={18} />
-                  </button>
-                  {user && (
+              <Collapsible>
+                <CollapsibleTrigger
+                  className="px-4 py-2 text-lg hover:bg-accent rounded-md transition-colors flex items-center justify-between w-full"
+                  onClick={(e) => {
+                    if (!user) {
+                      e.stopPropagation();
+                      toast({
+                        title: "Sign in required",
+                        description: "Please sign in to access this section",
+                        variant: "default",
+                      });
+                    }
+                  }}
+                >
+                  {item.title}
+                  <ChevronDown size={18} />
+                </CollapsibleTrigger>
+                {user && (
+                  <CollapsibleContent>
                     <div className="pl-8 flex flex-col gap-2 mt-2">
                       {item.submenu.map((subitem) => (
                         <Link
@@ -203,17 +216,9 @@ const Navbar = () => {
                         </Link>
                       ))}
                     </div>
-                  )}
-                </>
-              ) : (
-                <Link
-                  to={item.path}
-                  onClick={(e) => handleProtectedNavigation(e, item.path)}
-                  className="px-4 py-2 text-lg hover:bg-accent rounded-md transition-colors"
-                >
-                  {item.title}
-                </Link>
-              )}
+                  </CollapsibleContent>
+                )}
+              </Collapsible>
             </div>
           ))}
           
