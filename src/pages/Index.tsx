@@ -55,8 +55,16 @@ const Index = () => {
         </div>
         
         <footer className="absolute bottom-4 left-0 right-0 text-center text-white/70 text-sm">
-          <div className="text-white/80 italic mb-2 text-lg">
-            Coming soon...
+          <div className="flex flex-col items-center justify-center mb-2">
+            <img 
+              src="/logo/logowhite.png" 
+              alt="Tallawarra Logo" 
+              className="h-8 mb-2" 
+              style={{ maxHeight: "36px" }} 
+            />
+            <div className="text-white/80 italic text-lg">
+              Coming soon...
+            </div>
           </div>
           © {new Date().getFullYear()} Tallawarra Residential Subdivision | <a href="https://www.tallawarra.com.au" className="hover:text-white transition-colors">www.tallawarra.com.au</a> | All rights reserved.
         </footer>
