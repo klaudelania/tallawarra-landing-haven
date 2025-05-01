@@ -19,12 +19,12 @@ const defaultImages = [
   "/slideshow/image12.jpg"
 ];
 
-// Curated set of high-quality landscape fallback images that match your project theme better
+// Higher quality landscape fallback images
 const fallbackImages = [
-  "https://images.unsplash.com/photo-1572431447238-425af66a273b", // Landscape view
-  "https://images.unsplash.com/photo-1518623489648-a173ef7824f3", // Waterfront
-  "https://images.unsplash.com/photo-1501785888041-af3ef285b470", // Scenic landscape
-  "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05", // Nature view
+  "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1600&q=80", // Mountain landscape
+  "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1600&q=80", // Forest
+  "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1600&q=80", // Sunlight forest
+  "https://images.unsplash.com/photo-1518623489648-a173ef7824f3?auto=format&fit=crop&w=1600&q=80", // Water landscape
 ];
 
 const Slideshow = () => {
@@ -46,7 +46,7 @@ const Slideshow = () => {
       for (let i = 0; i < defaultImages.length; i++) {
         const imagePath = defaultImages[i];
         try {
-          // First try the direct path from the public folder
+          // Test if the image can be loaded
           const img = new Image();
           const loadPromise = new Promise<void>((resolve, reject) => {
             img.onload = () => {
