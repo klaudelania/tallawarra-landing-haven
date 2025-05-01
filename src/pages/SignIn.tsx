@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
@@ -295,7 +294,7 @@ const SignIn = () => {
               
               <Button
                 type="submit"
-                className="w-full bg-green-600 hover:bg-green-700"
+                className="w-full bg-green-600 hover:bg-green-700 text-white font-medium shadow-md"
                 disabled={isLoading}
               >
                 {isLoading ? "Registering..." : "Register"}
@@ -345,7 +344,7 @@ const SignIn = () => {
               
               <Button
                 type="submit"
-                className="w-full bg-green-600 hover:bg-green-700"
+                className="w-full bg-green-600 hover:bg-green-700 text-white font-medium shadow-md"
                 disabled={isLoading}
               >
                 {isLoading ? "Signing in..." : "Sign In"}

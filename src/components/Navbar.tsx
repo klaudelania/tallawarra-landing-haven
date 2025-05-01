@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { LogIn } from "lucide-react";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -42,8 +43,8 @@ const Navbar = () => {
               </Button>
             </>
           ) : (
-            <Button variant="outline" className="text-white border-white hover:bg-white/20 hover:text-white" asChild>
-              <Link to="/signin">Sign In</Link>
+            <Button className="bg-green-600 hover:bg-green-700 text-white font-medium px-6 py-2 rounded-md shadow-lg flex items-center gap-2" asChild>
+              <Link to="/signin"><LogIn size={18} /> Sign In</Link>
             </Button>
           )}
         </div>
