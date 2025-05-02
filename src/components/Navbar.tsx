@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -207,41 +208,47 @@ const Navbar = () => {
           : "bg-transparent py-4"
       }`}
     >
-      <div className="container flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-1 sm:gap-2 max-w-[55%] sm:max-w-[70%] md:max-w-none">
-          <img 
-            src="/logo/logowhite.png" 
-            alt="Tallawarra Logo" 
-            className="h-6 sm:h-8 md:h-9 w-auto object-contain" 
-          />
-          <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white truncate">
-            TALLAWARRA
-          </span>
-        </Link>
+      <div className="container flex flex-col sm:flex-row items-center sm:justify-between">
+        {/* Logo and title in a row that takes full width on small screens */}
+        <div className="w-full flex justify-center sm:justify-start mb-2 sm:mb-0">
+          <Link to="/" className="flex items-center gap-2">
+            <img 
+              src="/logo/logowhite.png" 
+              alt="Tallawarra Logo" 
+              className="h-7 sm:h-8 md:h-9 w-auto object-contain" 
+            />
+            <span className="text-xl sm:text-2xl md:text-3xl font-bold text-white whitespace-nowrap">
+              TALLAWARRA
+            </span>
+          </Link>
+        </div>
 
-        <div className="flex items-center gap-2 sm:gap-4">
-          <NavLinks />
-          
+        {/* Navigation and buttons in a second row on small screens */}
+        <div className="w-full sm:w-auto flex justify-center sm:justify-end">
           <div className="flex items-center gap-2 sm:gap-4">
-            {user ? (
-              <>
-                {isMobile && <MobileMenu />}
-                <span className="text-white hidden md:inline">Welcome, {user.name}</span>
-                <Button variant="outline" className="text-white border-white hover:bg-white/20 hover:text-white" asChild>
-                  <Link to="/dashboard">Dashboard</Link>
-                </Button>
-              </>
-            ) : (
-              <>
-                {isMobile && <MobileMenu />}
-                <Button 
-                  className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white border border-white/60 font-medium px-3 sm:px-6 py-1 sm:py-2 rounded-md shadow-lg flex items-center gap-1 sm:gap-2 text-xs sm:text-sm md:text-base" 
-                  asChild
-                >
-                  <Link to="/signin"><LogIn size={16} className="hidden sm:inline" /> Sign In</Link>
-                </Button>
-              </>
-            )}
+            <NavLinks />
+            
+            <div className="flex items-center gap-2 sm:gap-4">
+              {user ? (
+                <>
+                  {isMobile && <MobileMenu />}
+                  <span className="text-white hidden md:inline">Welcome, {user.name}</span>
+                  <Button variant="outline" className="text-white border-white hover:bg-white/20 hover:text-white" asChild>
+                    <Link to="/dashboard">Dashboard</Link>
+                  </Button>
+                </>
+              ) : (
+                <>
+                  {isMobile && <MobileMenu />}
+                  <Button 
+                    className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white border border-white/60 font-medium px-3 sm:px-6 py-1 sm:py-2 rounded-md shadow-lg flex items-center gap-1 sm:gap-2 text-xs sm:text-sm md:text-base" 
+                    asChild
+                  >
+                    <Link to="/signin"><LogIn size={16} className="hidden sm:inline" /> Sign In</Link>
+                  </Button>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </div>
