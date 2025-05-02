@@ -89,14 +89,14 @@ const Navbar = () => {
   ];
 
   const NavLinks = () => (
-    <NavigationMenu className="hidden md:flex">
-      <NavigationMenuList className="flex gap-4">
+    <NavigationMenu className="hidden md:flex flex-wrap">
+      <NavigationMenuList className="flex flex-wrap gap-4">
         {/* Public menu items - no auth required */}
         {publicMenuItems.map((item) => (
           <NavigationMenuItem key={item.path}>
             <Link
               to={item.path}
-              className="text-white hover:text-white/80 transition-colors px-2 py-1"
+              className="text-white hover:text-white/80 transition-colors px-2 py-1 whitespace-nowrap"
             >
               {item.title}
             </Link>
@@ -108,14 +108,14 @@ const Navbar = () => {
           <NavigationMenuItem key={item.title}>
             <DropdownMenu>
               <DropdownMenuTrigger 
-                className="text-white hover:text-white/80 transition-colors px-2 py-1 flex items-center gap-1"
+                className="text-white hover:text-white/80 transition-colors px-2 py-1 flex items-center gap-1 whitespace-nowrap"
               >
                 {item.title} <ChevronDown size={14} />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="bg-white/20 backdrop-blur-lg rounded-xl border border-white/60 shadow-lg">
                 {item.submenu.map((subitem) => (
                   <DropdownMenuItem key={subitem.path} className="text-white hover:bg-white/20 hover:text-white rounded-lg transition-colors">
-                    <Link to={subitem.path} className="w-full px-4 py-2">
+                    <Link to={subitem.path} className="w-full px-4 py-2 whitespace-nowrap">
                       {subitem.title}
                     </Link>
                   </DropdownMenuItem>
@@ -131,7 +131,7 @@ const Navbar = () => {
             href="https://www.bridgehill.com.au/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white hover:text-white/80 transition-colors px-2 py-1 flex items-center gap-1"
+            className="text-white hover:text-white/80 transition-colors px-2 py-1 flex items-center gap-1 whitespace-nowrap"
           >
             Bridgehill Group <ExternalLink size={14} />
           </a>
@@ -208,46 +208,48 @@ const Navbar = () => {
           : "bg-transparent py-4"
       }`}
     >
-      <div className="container flex flex-col sm:flex-row items-center sm:justify-between">
-        {/* Logo and title in a row that takes full width on small screens */}
-        <div className="w-full flex justify-center sm:justify-start mb-2 sm:mb-0">
-          <Link to="/" className="flex items-center gap-2">
-            <img 
-              src="/logo/logowhite.png" 
-              alt="Tallawarra Logo" 
-              className="h-7 sm:h-8 md:h-9 w-auto object-contain" 
-            />
-            <span className="text-xl sm:text-2xl md:text-3xl font-bold text-white whitespace-nowrap">
-              TALLAWARRA
-            </span>
-          </Link>
-        </div>
+      <div className="container">
+        <div className="flex flex-wrap items-start">
+          {/* Logo and title - always on first row, left aligned */}
+          <div className="flex items-center mb-2 sm:mb-0 mr-auto">
+            <Link to="/" className="flex items-center gap-2">
+              <img 
+                src="/logo/logowhite.png" 
+                alt="Tallawarra Logo" 
+                className="h-7 sm:h-8 md:h-9 w-auto object-contain" 
+              />
+              <span className="text-xl sm:text-2xl md:text-3xl font-bold text-white whitespace-nowrap">
+                TALLAWARRA
+              </span>
+            </Link>
+          </div>
 
-        {/* Navigation and buttons in a second row on small screens */}
-        <div className="w-full sm:w-auto flex justify-center sm:justify-end">
-          <div className="flex items-center gap-2 sm:gap-4">
-            <NavLinks />
-            
-            <div className="flex items-center gap-2 sm:gap-4">
-              {user ? (
-                <>
-                  {isMobile && <MobileMenu />}
-                  <span className="text-white hidden md:inline">Welcome, {user.name}</span>
-                  <Button variant="outline" className="text-white border-white hover:bg-white/20 hover:text-white" asChild>
-                    <Link to="/dashboard">Dashboard</Link>
-                  </Button>
-                </>
-              ) : (
-                <>
-                  {isMobile && <MobileMenu />}
-                  <Button 
-                    className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white border border-white/60 font-medium px-3 sm:px-6 py-1 sm:py-2 rounded-md shadow-lg flex items-center gap-1 sm:gap-2 text-xs sm:text-sm md:text-base" 
-                    asChild
-                  >
-                    <Link to="/signin"><LogIn size={16} className="hidden sm:inline" /> Sign In</Link>
-                  </Button>
-                </>
-              )}
+          {/* Navigation links - on second row on mobile, same row on desktop */}
+          <div className="w-full sm:w-auto flex flex-wrap items-center justify-start sm:justify-end mt-2 sm:mt-0">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-4 mr-auto sm:mr-0">
+              <NavLinks />
+              
+              <div className="flex flex-wrap items-center gap-2 sm:gap-4 mt-2 sm:mt-0">
+                {user ? (
+                  <>
+                    {isMobile && <MobileMenu />}
+                    <span className="text-white hidden md:inline whitespace-nowrap">Welcome, {user.name}</span>
+                    <Button variant="outline" className="text-white border-white hover:bg-white/20 hover:text-white whitespace-nowrap" asChild>
+                      <Link to="/dashboard">Dashboard</Link>
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    {isMobile && <MobileMenu />}
+                    <Button 
+                      className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white border border-white/60 font-medium px-3 sm:px-6 py-1 sm:py-2 rounded-md shadow-lg flex items-center gap-1 sm:gap-2 text-xs sm:text-sm md:text-base whitespace-nowrap" 
+                      asChild
+                    >
+                      <Link to="/signin"><LogIn size={16} className="hidden sm:inline" /> Sign In</Link>
+                    </Button>
+                  </>
+                )}
+              </div>
             </div>
           </div>
         </div>
