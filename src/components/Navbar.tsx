@@ -209,9 +209,9 @@ const Navbar = () => {
       }`}
     >
       <div className="container">
-        <div className="flex flex-wrap items-start">
+        <div className="flex flex-wrap items-center justify-between">
           {/* Logo and title - always on first row, left aligned */}
-          <div className="flex items-center mb-2 sm:mb-0 mr-auto">
+          <div className="flex items-center mb-2 sm:mb-0">
             <Link to="/" className="flex items-center gap-2">
               <img 
                 src="/logo/logowhite.png" 
@@ -224,33 +224,29 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {/* Navigation links - on second row on mobile, same row on desktop */}
-          <div className="w-full sm:w-auto flex flex-wrap items-center justify-start sm:justify-end mt-2 sm:mt-0">
-            <div className="flex flex-wrap items-center gap-2 sm:gap-4 mr-auto sm:mr-0">
-              <NavLinks />
-              
-              <div className="flex flex-wrap items-center gap-2 sm:gap-4 mt-2 sm:mt-0">
-                {user ? (
-                  <>
-                    {isMobile && <MobileMenu />}
-                    <span className="text-white hidden md:inline whitespace-nowrap">Welcome, {user.name}</span>
-                    <Button variant="outline" className="text-white border-white hover:bg-white/20 hover:text-white whitespace-nowrap" asChild>
-                      <Link to="/dashboard">Dashboard</Link>
-                    </Button>
-                  </>
-                ) : (
-                  <>
-                    {isMobile && <MobileMenu />}
-                    <Button 
-                      className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white border border-white/60 font-medium px-3 sm:px-6 py-1 sm:py-2 rounded-md shadow-lg flex items-center gap-1 sm:gap-2 text-xs sm:text-sm md:text-base whitespace-nowrap" 
-                      asChild
-                    >
-                      <Link to="/signin"><LogIn size={16} className="hidden sm:inline" /> Sign In</Link>
-                    </Button>
-                  </>
-                )}
-              </div>
-            </div>
+          {/* Navigation links and buttons with consistent alignment */}
+          <div className="w-full sm:w-auto flex flex-wrap items-center gap-2 sm:gap-4 mt-2 sm:mt-0">
+            {user ? (
+              <>
+                <NavLinks />
+                {isMobile && <MobileMenu />}
+                <span className="text-white hidden md:inline whitespace-nowrap">Welcome, {user.name}</span>
+                <Button variant="outline" className="text-white border-white hover:bg-white/20 hover:text-white whitespace-nowrap ml-auto sm:ml-0" asChild>
+                  <Link to="/dashboard">Dashboard</Link>
+                </Button>
+              </>
+            ) : (
+              <>
+                <NavLinks />
+                {isMobile && <MobileMenu />}
+                <Button 
+                  className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white border border-white/60 font-medium px-3 sm:px-6 py-1 sm:py-2 rounded-md shadow-lg flex items-center gap-1 sm:gap-2 text-xs sm:text-sm md:text-base whitespace-nowrap ml-auto sm:ml-0" 
+                  asChild
+                >
+                  <Link to="/signin"><LogIn size={16} className="hidden sm:inline" /> Sign In</Link>
+                </Button>
+              </>
+            )}
           </div>
         </div>
       </div>

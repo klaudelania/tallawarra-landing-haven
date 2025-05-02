@@ -34,23 +34,23 @@ const Index = () => {
       {/* Navbar */}
       <Navbar />
       
-      {/* Hero Section - Added more top padding (pt-32) to create more space after the navbar */}
-      <section className="container relative min-h-screen pt-32 sm:pt-36 md:pt-40 pb-20 flex flex-col justify-center items-start md:items-center">
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+      {/* Hero Section - Added more top padding to create space between navbar and content */}
+      <section className="container relative min-h-screen pt-32 sm:pt-36 md:pt-40 pb-20 flex flex-col justify-center">
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
           {/* Left column with hero content */}
           <div className="mb-8 md:mb-0">
             <HeroContent />
           </div>
           
           {/* Right column with contact card and calendar */}
-          <div className="flex flex-col gap-6 items-center md:items-end">
-            <div className={`w-full max-w-xs transition-all duration-700 ${
+          <div className="flex flex-col gap-6">
+            <div className={`w-full max-w-sm mx-auto md:mx-0 md:ml-auto transition-all duration-700 ${
               showContact ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
             }`}>
               <ContactCard />
             </div>
             
-            <div className={`w-full max-w-xs transition-all duration-700 ${
+            <div className={`w-full max-w-sm mx-auto md:mx-0 md:ml-auto transition-all duration-700 ${
               showCalendar ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
             }`}>
               <CalendarWidget />
