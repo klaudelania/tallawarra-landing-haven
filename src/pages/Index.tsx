@@ -35,10 +35,14 @@ const Index = () => {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="container relative min-h-screen pt-24 pb-16 flex flex-col justify-center items-start md:items-center">
+      <section className="container relative min-h-screen pt-24 pb-20 flex flex-col justify-center items-start md:items-center">
         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          <HeroContent />
+          {/* Left column with hero content */}
+          <div className="mb-8 md:mb-0">
+            <HeroContent />
+          </div>
           
+          {/* Right column with contact card and calendar */}
           <div className="flex flex-col gap-6 items-center md:items-end">
             <div className={`w-full max-w-xs transition-all duration-700 ${
               showContact ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
@@ -54,7 +58,7 @@ const Index = () => {
           </div>
         </div>
         
-        <footer className="absolute bottom-4 left-0 right-0 text-center text-white/70 text-sm">
+        <footer className="absolute bottom-4 left-0 right-0 text-center text-white/70 text-sm px-4">
           <div className="flex flex-col items-center justify-center mb-2">
             <div className="rounded-full p-2 border-2 border-white inline-flex items-center justify-center" style={{ width: "90px", height: "90px" }}>
               <img 
@@ -68,7 +72,9 @@ const Index = () => {
               Coming soon...
             </div>
           </div>
-          © {new Date().getFullYear()} Tallawarra Residential Subdivision | <a href="https://www.tallawarra.com.au" className="hover:text-white transition-colors">www.tallawarra.com.au</a> | All rights reserved.
+          <div className="text-xs sm:text-sm mt-2">
+            © {new Date().getFullYear()} Tallawarra Residential Subdivision | <a href="https://www.tallawarra.com.au" className="hover:text-white transition-colors">www.tallawarra.com.au</a> | All rights reserved.
+          </div>
         </footer>
       </section>
     </main>
