@@ -34,9 +34,9 @@ const Index = () => {
       {/* Navbar */}
       <Navbar />
       
-      {/* Hero Section */}
-      <section className="container relative min-h-screen pt-24 pb-20 flex flex-col justify-center items-start md:items-center">
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+      {/* Hero Section - Added more top padding (pt-32) to create more space after the navbar */}
+      <section className="container relative min-h-screen pt-32 sm:pt-36 md:pt-40 pb-20 flex flex-col justify-center items-start md:items-center">
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
           {/* Left column with hero content */}
           <div className="mb-8 md:mb-0">
             <HeroContent />

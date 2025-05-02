@@ -34,7 +34,7 @@ const ContactCard = () => {
   ];
 
   return (
-    <Card className="w-full bg-white/20 backdrop-blur-lg rounded-xl border border-white/60">
+    <Card className="w-full bg-white/20 backdrop-blur-lg rounded-xl border border-white/60 mt-6 sm:mt-8">
       <div className="p-4 sm:p-6">
         <h2 className="text-xl sm:text-2xl font-bold text-white mb-4">Contact Us</h2>
         
