@@ -1,12 +1,9 @@
 
 import React from 'react';
-import { useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Slideshow from '../components/Slideshow';
 
 const Invest = () => {
-  const location = useLocation();
-
   return (
     <div className="relative min-h-screen">
       <Slideshow />

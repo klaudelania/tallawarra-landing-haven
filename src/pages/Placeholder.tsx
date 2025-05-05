@@ -1,7 +1,6 @@
 
 import { useState, useEffect } from "react";
 import { X } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Slideshow from "../components/Slideshow";
 
@@ -11,7 +10,6 @@ type PlaceholderProps = {
 
 const Placeholder = ({ title }: PlaceholderProps) => {
   const [showContent, setShowContent] = useState(true);
-  const navigate = useNavigate();
   
   const handleClose = () => {
     setShowContent(false);
@@ -21,8 +19,7 @@ const Placeholder = ({ title }: PlaceholderProps) => {
     const baseRoute = currentPath.includes('explore') ? '/explore' : 
                       currentPath.includes('invest') ? '/invest' : '/';
     
-    // Instead of conditional navigation, let's always force a full page reload
-    // This ensures consistent behavior across all browsers, including Safari on iOS
+    // Force a full page reload with a clean URL that will properly render the entire page
     setTimeout(() => {
       window.location.href = baseRoute;
     }, 200);
