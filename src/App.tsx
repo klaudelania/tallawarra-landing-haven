@@ -12,6 +12,7 @@ import News from "./pages/News";
 import Events from "./pages/Events";
 import Explore from "./pages/Explore";
 import Invest from "./pages/Invest";
+import FAQ from "./pages/FAQ";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./context/AuthContext";
@@ -37,6 +38,7 @@ const App = () => (
               } 
             />
             <Route path="/about" element={<About />} />
+            <Route path="/faq" element={<FAQ />} />
             <Route 
               path="/news" 
               element={
