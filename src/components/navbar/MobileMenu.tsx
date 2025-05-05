@@ -28,14 +28,14 @@ export const MobileMenu = ({ publicMenuItems, protectedMenuItems }: MobileMenuPr
         <Menu size={24} />
       </Button>
     </SheetTrigger>
-    <SheetContent side="top" className="pt-12 bg-white/20 backdrop-blur-lg border border-white/60">
+    <SheetContent side="top" className="pt-12 glass-morphism">
       <div className="flex flex-col gap-4">
         {/* Public menu items - no auth required */}
         {publicMenuItems.map((item) => (
           <Link
             key={item.path}
             to={item.path}
-            className="px-4 py-2 text-lg hover:bg-white/20 text-white rounded-md transition-colors"
+            className="px-4 py-2 text-lg hover:bg-white/30 text-white rounded-md transition-colors"
           >
             {item.title}
           </Link>
@@ -46,18 +46,18 @@ export const MobileMenu = ({ publicMenuItems, protectedMenuItems }: MobileMenuPr
           <div key={item.title} className="flex flex-col">
             <Collapsible>
               <CollapsibleTrigger
-                className="px-4 py-2 text-lg hover:bg-white/20 text-white rounded-md transition-colors flex items-center justify-between w-full"
+                className="px-4 py-2 text-lg hover:bg-white/30 text-white rounded-md transition-colors flex items-center justify-between w-full"
               >
                 {item.title}
                 <ChevronDown size={18} />
               </CollapsibleTrigger>
               <CollapsibleContent>
-                <div className="pl-8 flex flex-col gap-2 mt-2">
+                <div className="pl-8 flex flex-col gap-2 mt-2 glass-morphism rounded-xl p-2">
                   {item.submenu?.map((subitem) => (
                     <Link
                       key={subitem.path}
                       to={subitem.path}
-                      className="px-4 py-1 text-md hover:bg-white/20 text-white rounded-md transition-colors"
+                      className="px-4 py-1 text-md hover:bg-white/30 text-white rounded-md transition-colors"
                     >
                       {subitem.title}
                     </Link>
@@ -72,7 +72,7 @@ export const MobileMenu = ({ publicMenuItems, protectedMenuItems }: MobileMenuPr
           href="https://www.bridgehill.com.au/"
           target="_blank"
           rel="noopener noreferrer"
-          className="px-4 py-2 text-lg hover:bg-white/20 text-white rounded-md transition-colors flex items-center gap-2"
+          className="px-4 py-2 text-lg hover:bg-white/30 text-white rounded-md transition-colors flex items-center gap-2"
         >
           Bridgehill Group <ExternalLink size={18} />
         </a>

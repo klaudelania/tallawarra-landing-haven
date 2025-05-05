@@ -50,7 +50,7 @@ const HeroContent = () => {
       </motion.p>
 
       <motion.div variants={itemVariants}>
-        <Button asChild className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white border border-white/60 font-medium px-6 sm:px-8 py-4 sm:py-6 text-base sm:text-lg rounded-xl shadow-lg">
+        <Button asChild className="glass-morphism text-white font-medium px-6 sm:px-8 py-4 sm:py-6 text-base sm:text-lg rounded-xl">
           <Link to="/faq">
             Frequently Asked Questions
           </Link>

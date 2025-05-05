@@ -48,9 +48,9 @@ export const NavLinks = ({ publicMenuItems, protectedMenuItems }: NavLinksProps)
             >
               {item.title} <ChevronDown size={14} />
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="bg-white/20 backdrop-blur-lg rounded-xl border border-white/60 shadow-lg">
+            <DropdownMenuContent className="glass-morphism rounded-xl">
               {item.submenu?.map((subitem) => (
-                <DropdownMenuItem key={subitem.path} className="text-white hover:bg-white/20 hover:text-white rounded-lg transition-colors">
+                <DropdownMenuItem key={subitem.path} className="text-white hover:bg-white/30 hover:text-white rounded-lg transition-colors">
                   <Link to={subitem.path} className="w-full px-4 py-2 whitespace-nowrap">
                     {subitem.title}
                   </Link>
