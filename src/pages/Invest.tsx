@@ -1,9 +1,11 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Slideshow from '../components/Slideshow';
 
 const Invest = () => {
+  const [isPageReady, setIsPageReady] = useState(false);
+
   // Ensure the page is properly initialized when loaded directly
   useEffect(() => {
     // Force scroll to top when component mounts
@@ -14,13 +16,17 @@ const Invest = () => {
     
     // Force any CSS transitions to complete
     const forceReflow = document.body.offsetHeight;
+    
+    // Set page as ready after a brief delay to ensure everything is rendered
+    const timer = setTimeout(() => setIsPageReady(true), 100);
+    return () => clearTimeout(timer);
   }, []);
   
   return (
     <div className="relative min-h-screen">
       <Slideshow />
       <Navbar />
-      <div className="container mx-auto pt-32 px-4 pb-16 animate-fade-in">
+      <div className={`container mx-auto pt-32 px-4 pb-16 ${isPageReady ? 'animate-fade-in' : 'opacity-0'}`}>
         <h1 className="text-4xl font-bold text-white mb-6">Invest</h1>
         <div className="glass-morphism rounded-lg p-6 mb-8 text-white">
           <p className="mb-4">

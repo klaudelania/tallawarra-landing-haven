@@ -3,15 +3,14 @@ import { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Slideshow from "../components/Slideshow";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 type PlaceholderProps = {
   title: string;
 };
 
 const Placeholder = ({ title }: PlaceholderProps) => {
-  const navigate = useNavigate();
-  
   // Ensure the page is properly initialized when loaded directly
   useEffect(() => {
     // Force scroll to top when component mounts for consistent behavior
@@ -26,21 +25,18 @@ const Placeholder = ({ title }: PlaceholderProps) => {
     };
   }, []);
   
-  const handleClose = () => {
-    // Get the base route to navigate back to
+  // Determine base route for the "Close" button
+  const getBaseRoute = () => {
     const currentPath = window.location.pathname;
-    
-    // Determine the correct route to navigate to
-    let route = '/';
     if (currentPath.includes('explore')) {
-      route = '/explore';
+      return '/explore';
     } else if (currentPath.includes('invest')) {
-      route = '/invest';
+      return '/invest';
     }
-    
-    // Use React Router navigation instead of direct window location
-    navigate(route, { replace: true });
+    return '/';
   };
+  
+  const baseRoute = getBaseRoute();
   
   return (
     <main className="relative min-h-screen">
@@ -49,13 +45,13 @@ const Placeholder = ({ title }: PlaceholderProps) => {
       
       <section className="container relative min-h-screen pt-28 pb-16">
         <div className="glass-morphism rounded-lg p-8 text-white relative">
-          <button 
-            onClick={handleClose}
+          <Link 
+            to={baseRoute} 
             className="absolute top-4 right-4 p-2 rounded-full hover:bg-white/30 transition-colors"
             aria-label="Close content"
           >
             <X size={24} />
-          </button>
+          </Link>
           
           <h1 className="text-4xl font-bold mb-8">{title}</h1>
           
