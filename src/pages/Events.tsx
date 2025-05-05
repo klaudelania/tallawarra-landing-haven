@@ -36,12 +36,12 @@ const Events = () => {
       <Navbar />
       
       <section className="container relative min-h-screen pt-28 pb-16">
-        <div className="bg-background/60 backdrop-blur-md rounded-lg shadow-lg p-8 text-white">
+        <div className="glass-morphism rounded-lg p-8 text-white">
           <h1 className="text-4xl font-bold mb-8">Upcoming Events</h1>
           
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {upcomingEvents.map(event => (
-              <div key={event.id} className="bg-white/10 rounded-lg p-6 hover:bg-white/20 transition-colors">
+              <div key={event.id} className="glass-morphism rounded-lg p-6 hover:bg-white/30 transition-colors">
                 <h2 className="text-2xl font-semibold">{event.title}</h2>
                 <div className="mt-3 space-y-1 text-white/80">
                   <p className="flex items-center gap-2">
