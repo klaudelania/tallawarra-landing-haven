@@ -20,23 +20,12 @@ const Placeholder = ({ title }: PlaceholderProps) => {
     const currentPath = window.location.pathname;
     const baseRoute = currentPath.includes('explore') ? '/explore' : 
                       currentPath.includes('invest') ? '/invest' : '/';
-                    
-    // For Safari specifically, we need a different approach
-    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     
-    if (isSafari) {
-      // On Safari, we'll use a direct location change instead of React Router
-      // This ensures a full page refresh which resolves the rendering issues
+    // Instead of conditional navigation, let's always force a full page reload
+    // This ensures consistent behavior across all browsers, including Safari on iOS
+    setTimeout(() => {
       window.location.href = baseRoute;
-    } else {
-      // For other browsers, use React Router as before
-      setTimeout(() => {
-        navigate(baseRoute, { 
-          replace: true,
-          state: { fromSubmenu: false }
-        });
-      }, 200);
-    }
+    }, 200);
   };
   
   // Ensure content is visible when component mounts
