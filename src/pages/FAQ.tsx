@@ -2,8 +2,12 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
+import { X } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const FAQ = () => {
+  const navigate = useNavigate();
   const faqItems = [
     {
       question: "What is Tallawarra Residential Subdivision?",
@@ -27,11 +31,25 @@ const FAQ = () => {
     }
   ];
 
+  const handleClose = () => {
+    navigate('/');
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-sky-800 to-indigo-900">
       <Navbar />
       
-      <div className="container max-w-4xl mx-auto pt-32 pb-20 px-4">
+      <div className="container max-w-4xl mx-auto pt-32 pb-20 px-4 relative">
+        <Button 
+          onClick={handleClose}
+          variant="ghost" 
+          size="icon" 
+          className="absolute top-20 right-4 text-white hover:bg-white/30 transition-colors rounded-full"
+          aria-label="Close FAQ"
+        >
+          <X size={24} />
+        </Button>
+        
         <h1 className="text-3xl md:text-4xl font-bold text-white mb-8 text-center">Frequently Asked Questions</h1>
         
         <div className="bg-white/20 backdrop-blur-lg rounded-xl border border-white/40 p-4 md:p-6">
