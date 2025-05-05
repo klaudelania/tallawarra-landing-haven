@@ -34,6 +34,11 @@
     --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
+    
+    /* Glass effect variables */
+    --glass-bg: 0 0% 100% / 0.2;
+    --glass-border: 0 0% 100% / 0.6;
+    --glass-blur: 16px;
   }
 
   .dark {
@@ -85,6 +90,10 @@
 
   .animate-slide-up {
     animation: slideUp 0.8s ease-out;
+  }
+  
+  .glass-morphism {
+    @apply bg-white/20 backdrop-blur-lg border border-white/60 shadow-lg;
   }
 
   @keyframes fadeIn {
