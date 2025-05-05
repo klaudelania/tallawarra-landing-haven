@@ -30,12 +30,12 @@ const News = () => {
       <Navbar />
       
       <section className="container relative min-h-screen pt-28 pb-16">
-        <div className="bg-background/60 backdrop-blur-md rounded-lg shadow-lg p-8 text-white">
+        <div className="glass-morphism rounded-lg p-8 text-white">
           <h1 className="text-4xl font-bold mb-8">Latest News</h1>
           
           <div className="space-y-8">
             {newsArticles.map(article => (
-              <div key={article.id} className="border-b border-white/20 pb-6 last:border-0">
+              <div key={article.id} className="glass-morphism rounded-lg p-6 mb-6 last:mb-0">
                 <h2 className="text-2xl font-semibold">{article.title}</h2>
                 <p className="text-sm text-white/70 mt-1">{article.date}</p>
                 <p className="mt-3">{article.summary}</p>
