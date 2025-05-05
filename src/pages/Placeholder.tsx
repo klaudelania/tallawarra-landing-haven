@@ -19,15 +19,24 @@ const Placeholder = ({ title }: PlaceholderProps) => {
     // Get the base route to navigate back to
     const currentPath = window.location.pathname;
     const baseRoute = currentPath.includes('explore') ? '/explore' : 
-                    currentPath.includes('invest') ? '/invest' : '/';
+                      currentPath.includes('invest') ? '/invest' : '/';
                     
-    // Use a shorter timeout and add state to indicate we're coming from a submenu
-    setTimeout(() => {
-      navigate(baseRoute, { 
-        replace: true,
-        state: { fromSubmenu: false }  // Set explicit state to avoid refresh issues
-      });
-    }, 200);
+    // For Safari specifically, we need a different approach
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    
+    if (isSafari) {
+      // On Safari, we'll use a direct location change instead of React Router
+      // This ensures a full page refresh which resolves the rendering issues
+      window.location.href = baseRoute;
+    } else {
+      // For other browsers, use React Router as before
+      setTimeout(() => {
+        navigate(baseRoute, { 
+          replace: true,
+          state: { fromSubmenu: false }
+        });
+      }, 200);
+    }
   };
   
   // Ensure content is visible when component mounts
