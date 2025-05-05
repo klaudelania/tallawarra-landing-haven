@@ -1,14 +1,27 @@
 
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Slideshow from '../components/Slideshow';
 
 const Explore = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Force proper navigation to main page when coming from submenu
+  useEffect(() => {
+    // If we're coming from a submenu page, ensure we're on the main page
+    const comingFromSubmenu = location.state?.fromSubmenu;
+    if (comingFromSubmenu) {
+      navigate('/explore', { replace: true });
+    }
+  }, [location, navigate]);
+
   return (
     <div className="relative min-h-screen">
       <Slideshow />
       <Navbar />
-      <div className="container mx-auto pt-32 px-4 pb-16">
+      <div className="container mx-auto pt-32 px-4 pb-16 animate-fade-in">
         <h1 className="text-4xl font-bold text-white mb-6">Explore</h1>
         <div className="glass-morphism rounded-lg p-6 mb-8 text-white">
           <p className="mb-4">
