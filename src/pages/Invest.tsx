@@ -1,9 +1,18 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Slideshow from '../components/Slideshow';
 
 const Invest = () => {
+  // Ensure the page is properly initialized when loaded directly
+  useEffect(() => {
+    // Force scroll to top when component mounts
+    window.scrollTo(0, 0);
+    
+    // Force any CSS transitions to complete
+    const forceReflow = document.body.offsetHeight;
+  }, []);
+  
   return (
     <div className="relative min-h-screen">
       <Slideshow />
