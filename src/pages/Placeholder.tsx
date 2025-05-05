@@ -15,19 +15,27 @@ const Placeholder = ({ title }: PlaceholderProps) => {
   
   const handleClose = () => {
     setShowContent(false);
-    // Navigate back to the parent page after a short delay
+    
+    // Get the base route to navigate back to
+    const currentPath = window.location.pathname;
+    const baseRoute = currentPath.includes('explore') ? '/explore' : 
+                    currentPath.includes('invest') ? '/invest' : '/';
+                    
+    // Use a shorter timeout and add state to indicate we're coming from a submenu
     setTimeout(() => {
-      // Extract the base route from the current path
-      const currentPath = window.location.pathname;
-      const baseRoute = currentPath.includes('explore') ? '/explore' : 
-                      currentPath.includes('invest') ? '/invest' : '/';
-      navigate(baseRoute);
-    }, 300);
+      navigate(baseRoute, { 
+        replace: true,
+        state: { fromSubmenu: false }  // Set explicit state to avoid refresh issues
+      });
+    }, 200);
   };
   
   // Ensure content is visible when component mounts
   useEffect(() => {
     setShowContent(true);
+    
+    // Force scroll to top when component mounts
+    window.scrollTo(0, 0);
   }, []);
   
   return (

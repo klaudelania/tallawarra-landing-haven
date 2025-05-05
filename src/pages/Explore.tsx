@@ -10,10 +10,15 @@ const Explore = () => {
 
   // Force proper navigation to main page when coming from submenu
   useEffect(() => {
-    // If we're coming from a submenu page, ensure we're on the main page
+    // If we're coming from a submenu page, ensure we're on the main page with a hard reload if needed
     const comingFromSubmenu = location.state?.fromSubmenu;
-    if (comingFromSubmenu) {
-      navigate('/explore', { replace: true });
+    if (comingFromSubmenu === false) {
+      // Force a clean reload of the page on Safari
+      navigate('/explore', { replace: true, state: { reloaded: true } });
+      // Refresh the page after a short delay to ensure proper rendering on Safari
+      if (navigator.userAgent.includes('Safari') && !navigator.userAgent.includes('Chrome')) {
+        window.location.reload();
+      }
     }
   }, [location, navigate]);
 
