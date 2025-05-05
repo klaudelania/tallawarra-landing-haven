@@ -45,7 +45,7 @@ const ContactCard = () => {
               href={item.link}
               className="flex items-center gap-2 sm:gap-3 hover:text-white/80 transition-colors text-white"
             >
-              <div className="flex items-center justify-center min-w-10 w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm border border-white/40 shrink-0">
+              <div className="flex items-center justify-center min-w-10 w-10 h-10 rounded-full bg-black/30 border border-white/40 shrink-0">
                 {item.icon}
               </div>
               <div className="overflow-hidden">
