@@ -12,17 +12,14 @@ const Placeholder = ({ title }: PlaceholderProps) => {
   const [showContent, setShowContent] = useState(true);
   
   const handleClose = () => {
-    setShowContent(false);
-    
     // Get the base route to navigate back to
     const currentPath = window.location.pathname;
     const baseRoute = currentPath.includes('explore') ? '/explore' : 
                       currentPath.includes('invest') ? '/invest' : '/';
     
-    // Force a full page reload with a clean URL that will properly render the entire page
-    setTimeout(() => {
-      window.location.href = baseRoute;
-    }, 200);
+    // Force a complete page reload by navigating directly to the URL
+    // This is the most reliable method across all browsers
+    window.location.href = baseRoute;
   };
   
   // Ensure content is visible when component mounts
