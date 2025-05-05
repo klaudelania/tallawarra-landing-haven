@@ -55,6 +55,17 @@ const App = () => (
             <Route path="/land-releases" element={<Placeholder title="Land Releases" />} />
             <Route path="/property" element={<Placeholder title="Property" />} />
             <Route path="/commercial" element={<Placeholder title="Commercial" />} />
+            <Route path="/news-events-3" element={<Placeholder title="News & Events 3" />} />
+            
+            {/* Explore submenu placeholders */}
+            <Route path="/explore-1" element={<Placeholder title="Explore 1" />} />
+            <Route path="/explore-2" element={<Placeholder title="Explore 2" />} />
+            <Route path="/explore-3" element={<Placeholder title="Explore 3" />} />
+            
+            {/* Invest submenu placeholders */}
+            <Route path="/invest-1" element={<Placeholder title="Invest 1" />} />
+            <Route path="/invest-2" element={<Placeholder title="Invest 2" />} />
+            <Route path="/invest-3" element={<Placeholder title="Invest 3" />} />
             
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
