@@ -30,18 +30,52 @@ export const MobileMenu = ({ publicMenuItems, protectedMenuItems }: MobileMenuPr
     </SheetTrigger>
     <SheetContent side="top" className="pt-12 glass-morphism">
       <div className="flex flex-col gap-4">
-        {/* Public menu items - no auth required */}
+        {/* Public menu items - with potential submenu */}
         {publicMenuItems.map((item) => (
-          <Link
-            key={item.path}
-            to={item.path}
-            className="px-4 py-2 text-lg hover:bg-white/30 text-white rounded-md transition-colors"
-          >
-            {item.title}
-          </Link>
+          <div key={item.path} className="flex flex-col">
+            {item.submenu ? (
+              <Collapsible>
+                <CollapsibleTrigger
+                  className="px-4 py-2 text-lg hover:bg-white/30 text-white rounded-md transition-colors flex items-center justify-between w-full"
+                >
+                  {item.title}
+                  <ChevronDown size={18} />
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <div className="pl-8 flex flex-col gap-2 mt-2 glass-morphism rounded-xl p-2">
+                    {/* Link to the main menu item as first dropdown item */}
+                    <Link
+                      to={item.path}
+                      className="px-4 py-1 text-md hover:bg-white/30 text-white rounded-md transition-colors"
+                    >
+                      {item.title}
+                    </Link>
+                    
+                    {/* Submenu items */}
+                    {item.submenu?.map((subitem) => (
+                      <Link
+                        key={subitem.path}
+                        to={subitem.path}
+                        className="px-4 py-1 text-md hover:bg-white/30 text-white rounded-md transition-colors"
+                      >
+                        {subitem.title}
+                      </Link>
+                    ))}
+                  </div>
+                </CollapsibleContent>
+              </Collapsible>
+            ) : (
+              <Link
+                to={item.path}
+                className="px-4 py-2 text-lg hover:bg-white/30 text-white rounded-md transition-colors"
+              >
+                {item.title}
+              </Link>
+            )}
+          </div>
         ))}
         
-        {/* Previously protected menu items - now accessible to all */}
+        {/* Protected menu items */}
         {protectedMenuItems.map((item) => (
           <div key={item.title} className="flex flex-col">
             <Collapsible>

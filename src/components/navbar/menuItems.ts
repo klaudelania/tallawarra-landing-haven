@@ -7,7 +7,13 @@ export type MenuItem = {
 
 // Separate menu items into public and protected
 export const publicMenuItems: MenuItem[] = [
-  { title: "About", path: "/about" },
+  { 
+    title: "About", 
+    path: "/about",
+    submenu: [
+      { title: "People", path: "/people" }
+    ]
+  },
   { title: "FAQ", path: "/faq" },
 ];
 

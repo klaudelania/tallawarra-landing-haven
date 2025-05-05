@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import SignIn from "./pages/SignIn";
 import Dashboard from "./pages/Dashboard";
 import About from "./pages/About";
+import People from "./pages/People";
 import News from "./pages/News";
 import Events from "./pages/Events";
 import Explore from "./pages/Explore";
@@ -39,6 +40,7 @@ const App = () => (
               } 
             />
             <Route path="/about" element={<About />} />
+            <Route path="/people" element={<People />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/news" element={<News />} />
             <Route path="/events" element={<Events />} />
