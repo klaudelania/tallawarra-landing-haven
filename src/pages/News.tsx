@@ -1,8 +1,12 @@
 
+import { useState } from "react";
+import { X } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Slideshow from "../components/Slideshow";
 
 const News = () => {
+  const [showNews, setShowNews] = useState(true);
+  
   const newsArticles = [
     {
       id: 1,
@@ -30,19 +34,29 @@ const News = () => {
       <Navbar />
       
       <section className="container relative min-h-screen pt-28 pb-16">
-        <div className="glass-morphism rounded-lg p-8 text-white">
-          <h1 className="text-4xl font-bold mb-8">Latest News</h1>
-          
-          <div className="space-y-8">
-            {newsArticles.map(article => (
-              <div key={article.id} className="glass-morphism rounded-lg p-6 mb-6 last:mb-0">
-                <h2 className="text-2xl font-semibold">{article.title}</h2>
-                <p className="text-sm text-white/70 mt-1">{article.date}</p>
-                <p className="mt-3">{article.summary}</p>
-              </div>
-            ))}
+        {showNews && (
+          <div className="glass-morphism rounded-lg p-8 text-white relative">
+            <button 
+              onClick={() => setShowNews(false)}
+              className="absolute top-4 right-4 p-2 rounded-full hover:bg-white/30 transition-colors"
+              aria-label="Close news"
+            >
+              <X size={24} />
+            </button>
+            
+            <h1 className="text-4xl font-bold mb-8">Latest News</h1>
+            
+            <div className="space-y-8">
+              {newsArticles.map(article => (
+                <div key={article.id} className="glass-morphism rounded-lg p-6 mb-6 last:mb-0">
+                  <h2 className="text-2xl font-semibold">{article.title}</h2>
+                  <p className="text-sm text-white/70 mt-1">{article.date}</p>
+                  <p className="mt-3">{article.summary}</p>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </section>
     </main>
   );

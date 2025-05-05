@@ -1,8 +1,12 @@
 
+import { useState } from "react";
+import { X } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Slideshow from "../components/Slideshow";
 
 const Events = () => {
+  const [showEvents, setShowEvents] = useState(true);
+  
   const upcomingEvents = [
     {
       id: 1,
@@ -36,29 +40,39 @@ const Events = () => {
       <Navbar />
       
       <section className="container relative min-h-screen pt-28 pb-16">
-        <div className="glass-morphism rounded-lg p-8 text-white">
-          <h1 className="text-4xl font-bold mb-8">Upcoming Events</h1>
-          
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {upcomingEvents.map(event => (
-              <div key={event.id} className="glass-morphism rounded-lg p-6 hover:bg-white/30 transition-colors">
-                <h2 className="text-2xl font-semibold">{event.title}</h2>
-                <div className="mt-3 space-y-1 text-white/80">
-                  <p className="flex items-center gap-2">
-                    <span className="font-medium">Date:</span> {event.date}
-                  </p>
-                  <p className="flex items-center gap-2">
-                    <span className="font-medium">Time:</span> {event.time}
-                  </p>
-                  <p className="flex items-center gap-2">
-                    <span className="font-medium">Location:</span> {event.location}
-                  </p>
+        {showEvents && (
+          <div className="glass-morphism rounded-lg p-8 text-white relative">
+            <button 
+              onClick={() => setShowEvents(false)}
+              className="absolute top-4 right-4 p-2 rounded-full hover:bg-white/30 transition-colors"
+              aria-label="Close events"
+            >
+              <X size={24} />
+            </button>
+            
+            <h1 className="text-4xl font-bold mb-8">Upcoming Events</h1>
+            
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {upcomingEvents.map(event => (
+                <div key={event.id} className="glass-morphism rounded-lg p-6 hover:bg-white/30 transition-colors">
+                  <h2 className="text-2xl font-semibold">{event.title}</h2>
+                  <div className="mt-3 space-y-1 text-white/80">
+                    <p className="flex items-center gap-2">
+                      <span className="font-medium">Date:</span> {event.date}
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <span className="font-medium">Time:</span> {event.time}
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <span className="font-medium">Location:</span> {event.location}
+                    </p>
+                  </div>
+                  <p className="mt-4">{event.description}</p>
                 </div>
-                <p className="mt-4">{event.description}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </section>
     </main>
   );
