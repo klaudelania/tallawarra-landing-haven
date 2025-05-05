@@ -1,6 +1,7 @@
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const HeroContent = () => {
   // Animation variants
@@ -49,8 +50,10 @@ const HeroContent = () => {
       </motion.p>
 
       <motion.div variants={itemVariants}>
-        <Button className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white border border-white/60 font-medium px-6 sm:px-8 py-4 sm:py-6 text-base sm:text-lg rounded-xl shadow-lg">
-          Explore Home Sites
+        <Button asChild className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white border border-white/60 font-medium px-6 sm:px-8 py-4 sm:py-6 text-base sm:text-lg rounded-xl shadow-lg">
+          <Link to="/faq">
+            Frequently Asked Questions
+          </Link>
         </Button>
       </motion.div>
     </motion.div>
