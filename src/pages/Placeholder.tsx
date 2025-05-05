@@ -3,13 +3,16 @@ import { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Slideshow from "../components/Slideshow";
+import { Link, useNavigate } from "react-router-dom";
 
 type PlaceholderProps = {
   title: string;
 };
 
 const Placeholder = ({ title }: PlaceholderProps) => {
-  // Don't use animation states that might interfere with navigation
+  const navigate = useNavigate();
+  
+  // Ensure the page is properly initialized when loaded directly
   useEffect(() => {
     // Force scroll to top when component mounts for consistent behavior
     window.scrollTo(0, 0);
@@ -26,11 +29,17 @@ const Placeholder = ({ title }: PlaceholderProps) => {
   const handleClose = () => {
     // Get the base route to navigate back to
     const currentPath = window.location.pathname;
-    const baseRoute = currentPath.includes('explore') ? '/explore' : 
-                      currentPath.includes('invest') ? '/invest' : '/';
     
-    // Use direct navigation without any animations or state changes
-    window.location.href = baseRoute;
+    // Determine the correct route to navigate to
+    let route = '/';
+    if (currentPath.includes('explore')) {
+      route = '/explore';
+    } else if (currentPath.includes('invest')) {
+      route = '/invest';
+    }
+    
+    // Use React Router navigation instead of direct window location
+    navigate(route, { replace: true });
   };
   
   return (

@@ -9,6 +9,9 @@ const Explore = () => {
     // Force scroll to top when component mounts
     window.scrollTo(0, 0);
     
+    // Reset any body classes that might have been set by other pages
+    document.body.className = '';
+    
     // Force any CSS transitions to complete
     const forceReflow = document.body.offsetHeight;
   }, []);

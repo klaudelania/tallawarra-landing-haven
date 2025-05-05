@@ -11,6 +11,12 @@ const Index = () => {
   const [showCalendar, setShowCalendar] = useState(false);
 
   useEffect(() => {
+    // Force scroll to top when component mounts
+    window.scrollTo(0, 0);
+    
+    // Reset any body classes that might have been set by other pages
+    document.body.className = '';
+    
     // Delay showing the contact card and calendar widget
     const contactTimer = setTimeout(() => {
       setShowContact(true);
