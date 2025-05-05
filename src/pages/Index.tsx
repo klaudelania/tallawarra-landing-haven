@@ -43,14 +43,14 @@ const Index = () => {
           </div>
           
           {/* Right column with contact card and calendar */}
-          <div className="flex flex-col items-center md:items-end gap-6">
-            <div className={`w-full max-w-md transition-all duration-700 ${
+          <div className="flex flex-col items-end gap-6">
+            <div className={`w-full max-w-xs ml-auto transition-all duration-700 ${
               showContact ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
             }`}>
               <ContactCard />
             </div>
             
-            <div className={`w-full max-w-md transition-all duration-700 ${
+            <div className={`w-full max-w-xs ml-auto transition-all duration-700 ${
               showCalendar ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
             }`}>
               <CalendarWidget />
