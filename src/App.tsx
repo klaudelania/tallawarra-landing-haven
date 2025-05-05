@@ -14,6 +14,7 @@ import Explore from "./pages/Explore";
 import Invest from "./pages/Invest";
 import FAQ from "./pages/FAQ";
 import NotFound from "./pages/NotFound";
+import Placeholder from "./pages/Placeholder";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./context/AuthContext";
 
@@ -39,38 +40,22 @@ const App = () => (
             />
             <Route path="/about" element={<About />} />
             <Route path="/faq" element={<FAQ />} />
-            <Route 
-              path="/news" 
-              element={
-                <ProtectedRoute>
-                  <News />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/events" 
-              element={
-                <ProtectedRoute>
-                  <Events />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/explore" 
-              element={
-                <ProtectedRoute>
-                  <Explore />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/invest" 
-              element={
-                <ProtectedRoute>
-                  <Invest />
-                </ProtectedRoute>
-              } 
-            />
+            <Route path="/news" element={<News />} />
+            <Route path="/events" element={<Events />} />
+            <Route path="/explore" element={<Explore />} />
+            <Route path="/invest" element={<Invest />} />
+            
+            {/* Placeholder pages for submenu items */}
+            <Route path="/community-center" element={<Placeholder title="Community Center" />} />
+            <Route path="/parks-recreation" element={<Placeholder title="Parks & Recreation" />} />
+            <Route path="/conservation" element={<Placeholder title="Conservation" />} />
+            <Route path="/masterplan" element={<Placeholder title="Masterplan" />} />
+            <Route path="/design-guidelines" element={<Placeholder title="Design Guidelines" />} />
+            <Route path="/sustainability" element={<Placeholder title="Sustainability" />} />
+            <Route path="/land-releases" element={<Placeholder title="Land Releases" />} />
+            <Route path="/property" element={<Placeholder title="Property" />} />
+            <Route path="/commercial" element={<Placeholder title="Commercial" />} />
+            
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
