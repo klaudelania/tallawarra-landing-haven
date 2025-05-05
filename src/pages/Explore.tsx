@@ -18,7 +18,7 @@ const Explore = () => {
     const forceReflow = document.body.offsetHeight;
     
     // Set page as ready after a brief delay to ensure everything is rendered
-    const timer = setTimeout(() => setIsPageReady(true), 100);
+    const timer = setTimeout(() => setIsPageReady(true), 300);
     return () => clearTimeout(timer);
   }, []);
   
