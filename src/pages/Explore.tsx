@@ -1,10 +1,14 @@
 
 import React, { useEffect, useState } from 'react';
+import { X } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Slideshow from '../components/Slideshow';
+import { Button } from '@/components/ui/button';
 
 const Explore = () => {
   const [isPageReady, setIsPageReady] = useState(false);
+  const navigate = useNavigate();
 
   // Ensure the page is properly initialized when loaded directly
   useEffect(() => {
@@ -22,13 +26,26 @@ const Explore = () => {
     return () => clearTimeout(timer);
   }, []);
   
+  const handleClose = () => {
+    // Navigate to home page with replace to ensure a full refresh
+    navigate('/', { replace: true });
+  };
+  
   return (
     <div className="relative min-h-screen">
       <Slideshow />
       <Navbar />
       <div className={`container mx-auto pt-32 px-4 pb-16 ${isPageReady ? 'animate-fade-in' : 'opacity-0'}`}>
-        <h1 className="text-4xl font-bold text-white mb-6">Explore</h1>
-        <div className="glass-morphism rounded-lg p-6 mb-8 text-white">
+        <div className="glass-morphism rounded-lg p-6 mb-8 text-white relative">
+          <button 
+            onClick={handleClose}
+            className="absolute top-4 right-4 p-2 rounded-full hover:bg-white/30 transition-colors"
+            aria-label="Close explore"
+          >
+            <X size={24} />
+          </button>
+          
+          <h1 className="text-4xl font-bold text-white mb-6">Explore</h1>
           <p className="mb-4">
             Welcome to the Explore section. This area provides information about different aspects
             of the Tallawarra project that you can explore.
