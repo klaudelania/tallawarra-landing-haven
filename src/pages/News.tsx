@@ -3,9 +3,11 @@ import { useState } from "react";
 import { X } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Slideshow from "../components/Slideshow";
+import { useNavigate } from "react-router-dom";
 
 const News = () => {
   const [showNews, setShowNews] = useState(true);
+  const navigate = useNavigate();
   
   const newsArticles = [
     {
@@ -28,6 +30,11 @@ const News = () => {
     }
   ];
 
+  const handleClose = () => {
+    // Navigate to home page instead of just hiding the news
+    navigate('/', { replace: true });
+  };
+
   return (
     <main className="relative min-h-screen">
       <Slideshow />
@@ -37,7 +44,7 @@ const News = () => {
         {showNews && (
           <div className="glass-morphism rounded-lg p-8 text-white relative">
             <button 
-              onClick={() => setShowNews(false)}
+              onClick={handleClose}
               className="absolute top-4 right-4 p-2 rounded-full hover:bg-white/30 transition-colors"
               aria-label="Close news"
             >
