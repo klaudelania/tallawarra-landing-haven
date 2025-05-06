@@ -77,7 +77,7 @@ const People = () => {
       <section className="container relative min-h-screen pt-28 pb-16">
         <div className="max-w-7xl mx-auto">
           <div className="relative bg-white rounded-xl p-8 w-full shadow-md">
-            <Link to="/about" className="absolute top-4 right-4">
+            <Link to="/" className="absolute top-4 right-4">
               <Button variant="ghost" size="icon" className="hover:bg-gray-100">
                 <X size={24} />
                 <span className="sr-only">Close</span>
