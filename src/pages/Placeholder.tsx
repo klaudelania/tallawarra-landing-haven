@@ -1,75 +1,62 @@
 
-import { useState, useEffect } from "react";
-import { X } from "lucide-react";
-import Navbar from "../components/Navbar";
-import Slideshow from "../components/Slideshow";
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+import React, { useEffect, useState } from 'react';
+import { X } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/Navbar';
+import Slideshow from '../components/Slideshow';
 
-type PlaceholderProps = {
+interface PlaceholderProps {
   title: string;
-};
+}
 
 const Placeholder = ({ title }: PlaceholderProps) => {
-  const [contentReady, setContentReady] = useState(false);
+  const [isPageReady, setIsPageReady] = useState(false);
+  const navigate = useNavigate();
 
-  // Ensure the page is properly initialized when loaded directly
   useEffect(() => {
-    // Force scroll to top when component mounts for consistent behavior
+    // Force scroll to top when component mounts
     window.scrollTo(0, 0);
     
-    // Add a class to the body to prevent any background scrolling
-    document.body.classList.add('overflow-hidden');
+    // Reset any body classes that might have been set by other pages
+    document.body.className = '';
     
-    // Force content to be ready after a small delay
-    const timer = setTimeout(() => {
-      setContentReady(true);
-    }, 50);
+    // Force any CSS transitions to complete
+    const forceReflow = document.body.offsetHeight;
     
-    // Clean up when unmounting
-    return () => {
-      document.body.classList.remove('overflow-hidden');
-      clearTimeout(timer);
-    };
+    // Set page as ready after a brief delay to ensure everything is rendered
+    const timer = setTimeout(() => setIsPageReady(true), 300);
+    return () => clearTimeout(timer);
   }, []);
-  
-  // Determine base route for the "Close" button
-  const getBaseRoute = () => {
-    const currentPath = window.location.pathname;
-    if (currentPath.includes('explore')) {
-      return '/explore';
-    } else if (currentPath.includes('invest')) {
-      return '/invest';
-    }
-    return '/';
+
+  const handleClose = () => {
+    // Navigate to home page with replace to ensure a full refresh
+    navigate('/', { replace: true });
   };
-  
-  const baseRoute = getBaseRoute();
-  
+
   return (
-    <main className="relative min-h-screen">
+    <div className="relative min-h-screen">
       <Slideshow />
       <Navbar />
-      
-      <section className="container relative min-h-screen pt-28 pb-16">
-        <div className={`glass-morphism rounded-lg p-8 text-white relative ${contentReady ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}>
-          <Link 
-            to={baseRoute} 
+      <div className={`container mx-auto pt-32 px-4 pb-16 ${isPageReady ? 'animate-fade-in' : 'opacity-0'}`}>
+        <div className="glass-morphism rounded-lg p-6 mb-8 text-white relative">
+          <button 
+            onClick={handleClose}
             className="absolute top-4 right-4 p-2 rounded-full hover:bg-white/30 transition-colors"
-            aria-label="Close content"
-            reloadDocument
+            aria-label="Close page"
           >
             <X size={24} />
-          </Link>
+          </button>
           
-          <h1 className="text-4xl font-bold mb-8">{title}</h1>
-          
-          <div className="glass-morphism rounded-lg p-6">
-            <p className="text-xl">Content coming soon...</p>
-          </div>
+          <h1 className="text-4xl font-bold mb-6">{title}</h1>
+          <p className="mb-4">
+            This is a placeholder page for {title}. Content for this section is coming soon.
+          </p>
+          <p>
+            Please check back later for updates or explore other sections of the website.
+          </p>
         </div>
-      </section>
-    </main>
+      </div>
+    </div>
   );
 };
 
