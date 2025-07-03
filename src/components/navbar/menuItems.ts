@@ -15,7 +15,6 @@ export const publicMenuItems: MenuItem[] = [
     ]
   },
   { title: "FAQ", path: "/faq" },
-  { title: "Video", path: "/video" },
 ];
 
 export const protectedMenuItems: MenuItem[] = [
@@ -32,7 +31,7 @@ export const protectedMenuItems: MenuItem[] = [
     title: "Explore", 
     path: "/explore",
     submenu: [
-      { title: "Explore 1", path: "/explore-1" },
+      { title: "Video 1", path: "/video-1" },
       { title: "Explore 2", path: "/explore-2" },
       { title: "Explore 3", path: "/explore-3" }
     ]

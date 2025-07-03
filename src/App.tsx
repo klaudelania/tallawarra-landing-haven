@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -14,7 +13,7 @@ import Events from "./pages/Events";
 import Explore from "./pages/Explore";
 import Invest from "./pages/Invest";
 import FAQ from "./pages/FAQ";
-import Video from "./pages/Video";
+import Video1 from "./pages/Video1";
 import NotFound from "./pages/NotFound";
 import Placeholder from "./pages/Placeholder";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -43,7 +42,6 @@ const App = () => (
             <Route path="/about" element={<About />} />
             <Route path="/people" element={<People />} />
             <Route path="/faq" element={<FAQ />} />
-            <Route path="/video" element={<Video />} />
             <Route path="/news" element={<News />} />
             <Route path="/events" element={<Events />} />
             <Route path="/explore" element={<Explore />} />
@@ -61,8 +59,8 @@ const App = () => (
             <Route path="/commercial" element={<Placeholder title="Commercial" />} />
             <Route path="/news-events-3" element={<Placeholder title="News & Events 3" />} />
             
-            {/* Explore submenu placeholders */}
-            <Route path="/explore-1" element={<Placeholder title="Explore 1" />} />
+            {/* Explore submenu - Video 1 now has video upload functionality */}
+            <Route path="/video-1" element={<Video1 />} />
             <Route path="/explore-2" element={<Placeholder title="Explore 2" />} />
             <Route path="/explore-3" element={<Placeholder title="Explore 3" />} />
             
