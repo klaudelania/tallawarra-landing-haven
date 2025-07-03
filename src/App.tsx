@@ -14,6 +14,7 @@ import Events from "./pages/Events";
 import Explore from "./pages/Explore";
 import Invest from "./pages/Invest";
 import FAQ from "./pages/FAQ";
+import Video from "./pages/Video";
 import NotFound from "./pages/NotFound";
 import Placeholder from "./pages/Placeholder";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -42,6 +43,7 @@ const App = () => (
             <Route path="/about" element={<About />} />
             <Route path="/people" element={<People />} />
             <Route path="/faq" element={<FAQ />} />
+            <Route path="/video" element={<Video />} />
             <Route path="/news" element={<News />} />
             <Route path="/events" element={<Events />} />
             <Route path="/explore" element={<Explore />} />

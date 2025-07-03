@@ -15,6 +15,7 @@ export const publicMenuItems: MenuItem[] = [
     ]
   },
   { title: "FAQ", path: "/faq" },
+  { title: "Video", path: "/video" },
 ];
 
 export const protectedMenuItems: MenuItem[] = [
