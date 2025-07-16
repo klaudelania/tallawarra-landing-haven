@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { X, Upload, Video as VideoIcon } from 'lucide-react';
+import { X, Video as VideoIcon, ExternalLink } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Slideshow from '../components/Slideshow';
@@ -30,12 +30,8 @@ const Video1 = () => {
     navigate('/', { replace: true });
   };
 
-  const handleVideoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      console.log('Video file selected:', file.name);
-      // Video upload logic would go here
-    }
+  const handleYouTubeClick = () => {
+    window.open('https://www.youtube.com/channel/UCy8az_gye0WTOszkHxEl6Nw', '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -58,36 +54,29 @@ const Video1 = () => {
           </h1>
           
           <p className="mb-6">
-            Upload and manage your video content here. Share important updates, 
-            project highlights, and community events through video.
+            Watch our latest video content on YouTube. Subscribe to our channel 
+            for regular updates, project highlights, and community events.
           </p>
 
           <div className="glass-morphism rounded-lg p-6 border-2 border-dashed border-white/30 text-center">
             <VideoIcon size={48} className="mx-auto mb-4 text-white/70" />
-            <h3 className="text-xl font-semibold mb-2">Upload Video Content</h3>
+            <h3 className="text-xl font-semibold mb-2">Visit Our YouTube Channel</h3>
             <p className="mb-4 text-white/80">
-              Select a video file to upload to the platform
+              Click below to visit our YouTube channel and watch our latest videos
             </p>
             
             <div className="flex flex-col items-center gap-4">
-              <input
-                type="file"
-                accept="video/*"
-                onChange={handleVideoUpload}
-                className="hidden"
-                id="video-upload"
-              />
-              <label htmlFor="video-upload">
-                <Button variant="secondary" className="cursor-pointer" asChild>
-                  <span className="flex items-center gap-2">
-                    <Upload size={20} />
-                    Choose Video File
-                  </span>
-                </Button>
-              </label>
+              <Button 
+                variant="secondary" 
+                onClick={handleYouTubeClick}
+                className="cursor-pointer flex items-center gap-2"
+              >
+                <ExternalLink size={20} />
+                Visit YouTube Channel
+              </Button>
               
               <p className="text-sm text-white/60">
-                Supported formats: MP4, AVI, MOV, WMV
+                Opens in a new tab
               </p>
             </div>
           </div>
