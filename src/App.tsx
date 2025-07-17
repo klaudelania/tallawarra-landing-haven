@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -59,10 +60,8 @@ const App = () => (
             <Route path="/commercial" element={<Placeholder title="Commercial" />} />
             <Route path="/news-events-3" element={<Placeholder title="News & Events 3" />} />
             
-            {/* Explore submenu - Video 1 now has video upload functionality */}
+            {/* Explore submenu - Only Video 1 remains */}
             <Route path="/video-1" element={<Video1 />} />
-            <Route path="/explore-2" element={<Placeholder title="Explore 2" />} />
-            <Route path="/explore-3" element={<Placeholder title="Explore 3" />} />
             
             {/* Invest submenu placeholders */}
             <Route path="/invest-1" element={<Placeholder title="Invest 1" />} />

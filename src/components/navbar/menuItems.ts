@@ -31,9 +31,7 @@ export const protectedMenuItems: MenuItem[] = [
     title: "Explore", 
     path: "/explore",
     submenu: [
-      { title: "Video 1", path: "/video-1" },
-      { title: "Explore 2", path: "/explore-2" },
-      { title: "Explore 3", path: "/explore-3" }
+      { title: "Video 1", path: "/video-1" }
     ]
   },
   { 
