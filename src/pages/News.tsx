@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { X } from "lucide-react";
 import Navbar from "../components/Navbar";
@@ -27,7 +26,7 @@ const News = () => {
             href="https://www.bridgehill.com.au/news-media/" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="text-blue-300 hover:text-blue-200 underline transition-colors"
+            className="text-white hover:text-white/80 underline transition-colors"
           >
             https://www.bridgehill.com.au/news-media/
           </a>
