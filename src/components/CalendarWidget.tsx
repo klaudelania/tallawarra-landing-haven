@@ -31,7 +31,7 @@ const CalendarWidget = () => {
     const baseClasses = "hover:bg-white/20 text-white focus:bg-white/30 focus:text-white h-9 w-9 p-0 rounded-full relative";
     
     if (isEventDate(day)) {
-      return `${baseClasses} ring-2 ring-white font-bold cursor-pointer hover:ring-white/80 transition-all`;
+      return `${baseClasses} ring-2 ring-blue-800 font-bold cursor-pointer hover:ring-blue-700 transition-all`;
     }
     
     return baseClasses;
@@ -65,7 +65,7 @@ const CalendarWidget = () => {
           eventDate: eventDates
         }}
         modifiersClassNames={{
-          eventDate: "ring-2 ring-white font-bold cursor-pointer hover:ring-white/80 transition-all hover:bg-white/30"
+          eventDate: "ring-2 ring-blue-800 font-bold cursor-pointer hover:ring-blue-700 transition-all hover:bg-white/30"
         }}
         disabled={(date) => false}
       />
