@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { X, Calendar, Mail } from "lucide-react";
 import Navbar from "../components/Navbar";
@@ -160,7 +159,7 @@ The Team`);
                         </div>
                         <Button
                           onClick={generateCalendarInvite}
-                          className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                          className="w-full bg-primary/80 backdrop-blur-sm hover:bg-primary border border-white/20 text-white"
                           size="sm"
                         >
                           <Mail className="w-4 h-4 mr-2" />
