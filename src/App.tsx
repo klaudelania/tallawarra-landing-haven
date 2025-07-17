@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -19,6 +18,7 @@ import NotFound from "./pages/NotFound";
 import Placeholder from "./pages/Placeholder";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./context/AuthContext";
+import TallawarraHome from "./pages/TallawarraHome";
 
 const queryClient = new QueryClient();
 
@@ -64,7 +64,7 @@ const App = () => (
             <Route path="/video-1" element={<Video1 />} />
             
             {/* Invest submenu placeholders */}
-            <Route path="/invest-1" element={<Placeholder title="Invest 1" />} />
+            <Route path="/invest-1" element={<TallawarraHome />} />
             <Route path="/invest-2" element={<Placeholder title="Invest 2" />} />
             <Route path="/invest-3" element={<Placeholder title="Invest 3" />} />
             
