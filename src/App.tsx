@@ -63,10 +63,8 @@ const App = () => (
             {/* Explore submenu - Only Video 1 remains */}
             <Route path="/video-1" element={<Video1 />} />
             
-            {/* Invest submenu placeholders */}
+            {/* Invest submenu - Only one item remains */}
             <Route path="/invest-1" element={<TallawarraHome />} />
-            <Route path="/invest-2" element={<Placeholder title="Invest 2" />} />
-            <Route path="/invest-3" element={<Placeholder title="Invest 3" />} />
             
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />

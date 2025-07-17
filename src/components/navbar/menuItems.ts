@@ -37,9 +37,7 @@ export const protectedMenuItems: MenuItem[] = [
     title: "Invest", 
     path: "/invest",
     submenu: [
-      { title: "How to make Tallawarra home?", path: "/invest-1" },
-      { title: "Invest 2", path: "/invest-2" },
-      { title: "Invest 3", path: "/invest-3" }
+      { title: "How to make Tallawarra home?", path: "/invest-1" }
     ]
   },
 ];
