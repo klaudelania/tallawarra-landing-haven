@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useToast } from "./use-toast";
 
-// Define image paths - these are the actual images from the public folder
+// Define image paths - mix of original images and new uploaded images
 const slideshowImages = [
-  "/slideshow/image1.jpg",
+  "/lovable-uploads/95f8d4a4-fa0f-4fa6-85ea-0fb1925c2ba1.png", // replaced image1
   "/slideshow/image2.jpg", 
   "/slideshow/image3.jpg",
   "/slideshow/image4.jpg",
@@ -11,10 +11,10 @@ const slideshowImages = [
   "/slideshow/image6.jpg",
   "/slideshow/image7.jpg",
   "/slideshow/image8.jpg",
-  "/slideshow/image9.jpg",
-  "/slideshow/image10.jpg",
-  "/slideshow/image11.jpg",
-  "/slideshow/image12.jpg"
+  "/lovable-uploads/cffd4e4d-b7c2-4c74-be6c-c1216dabcd69.png", // replaced image9
+  "/lovable-uploads/149c7448-094b-4181-bf68-47c09b0a8dfc.png", // replaced image10
+  "/lovable-uploads/94d765c4-60ca-4389-9468-7b99c3efb0f1.png", // replaced image11
+  "/lovable-uploads/f65ea3d5-3339-4f57-ab2e-8432afa2d976.png"  // replaced image12
 ];
 
 // Keep fallback images for error cases
@@ -33,9 +33,9 @@ export const useImageLoader = () => {
 
   useEffect(() => {
     const loadImages = async () => {
-      console.log("Starting to load slideshow images from public folder");
+      console.log("Starting to load slideshow images with new uploaded images");
       
-      // Use the actual slideshow images instead of fallbacks
+      // Use the updated slideshow images array
       setImageUrls(slideshowImages);
       
       // Simulate loading progress for a smoother UX
@@ -47,11 +47,11 @@ export const useImageLoader = () => {
         if (progress >= 100) {
           clearInterval(interval);
           setImagesLoaded(true);
-          console.log("Slideshow images loaded successfully:", slideshowImages);
+          console.log("Slideshow images loaded successfully with replacements:", slideshowImages);
           
           toast({
             title: "Images loaded",
-            description: "Slideshow images loaded successfully.",
+            description: "Slideshow images loaded successfully with new uploads.",
             duration: 3000,
           });
         }
