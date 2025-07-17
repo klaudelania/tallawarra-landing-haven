@@ -70,7 +70,7 @@ const CalendarWidget = () => {
         disabled={(date) => false}
       />
       <div className="mt-2 text-xs text-white/70 text-center">
-        Events marked with ring
+        Events marked with ring - click for more info
       </div>
     </div>
   );
