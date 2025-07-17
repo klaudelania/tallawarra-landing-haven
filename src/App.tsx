@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -58,7 +59,6 @@ const App = () => (
             <Route path="/land-releases" element={<Placeholder title="Land Releases" />} />
             <Route path="/property" element={<Placeholder title="Property" />} />
             <Route path="/commercial" element={<Placeholder title="Commercial" />} />
-            <Route path="/news-events-3" element={<Placeholder title="News & Events 3" />} />
             
             {/* Explore submenu - Only Video 1 remains */}
             <Route path="/video-1" element={<Video1 />} />

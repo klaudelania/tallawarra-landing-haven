@@ -23,8 +23,7 @@ export const protectedMenuItems: MenuItem[] = [
     path: "/news-events",
     submenu: [
       { title: "News", path: "/news" },
-      { title: "Events", path: "/events" },
-      { title: "News & Events 3", path: "/news-events-3" }
+      { title: "Events", path: "/events" }
     ]
   },
   { 

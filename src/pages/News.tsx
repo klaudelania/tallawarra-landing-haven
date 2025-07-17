@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { X } from "lucide-react";
 import Navbar from "../components/Navbar";
@@ -11,21 +12,27 @@ const News = () => {
   const newsArticles = [
     {
       id: 1,
-      title: "Our First Stakeholder Engagement Meeting This Year",
-      date: "May 1, 2025",
-      summary: "We are excited to announce our Our First Stakeholder Engagement Meeting This Year. The meeting will be held on Friday 15 August 2025 at Stantect office address: 16 Burelli St, Wollongong NSW 2500 at 17:00. Stay tuned for future dates and meetings."
-    },
-    {
-      id: 2,
       title: "Stage 1 DA Lodged",
       date: "April 15, 2025",
       summary: "The much awaited Stage 1 DA application has been formally accepted by WCC. We look forward to exhibition period and are ready to start work on site following the determination."
     },
     {
-      id: 3,
+      id: 2,
       title: "Bridgehill Recognised By International Property Awards",
       date: "March 28, 2025",
-      summary: "Every year since 2015 Bridgehill has been recognised Internationally with multiple category awards. Our projects provide exceptionally design dwellings to our future homeowners. Our goal in Tallawarra is to continue this humble tradition. For more visit: https://www.bridgehill.com.au/news-media/"
+      summary: (
+        <>
+          Every year since 2015 Bridgehill has been recognised Internationally with multiple category awards. Our projects provide exceptionally design dwellings to our future homeowners. Our goal in Tallawarra is to continue this humble tradition. For more visit:{" "}
+          <a 
+            href="https://www.bridgehill.com.au/news-media/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-blue-300 hover:text-blue-200 underline transition-colors"
+          >
+            https://www.bridgehill.com.au/news-media/
+          </a>
+        </>
+      )
     }
   ];
 

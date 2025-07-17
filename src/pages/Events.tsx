@@ -12,6 +12,14 @@ const Events = () => {
   const upcomingEvents = [
     {
       id: 1,
+      title: "Our First Stakeholder Engagement Meeting This Year",
+      date: "August 15, 2025",
+      time: "5:00 PM",
+      location: "Stantect Office - 16 Burelli St, Wollongong NSW 2500",
+      description: "We are excited to announce our Our First Stakeholder Engagement Meeting This Year. The meeting will be held on Friday 15 August 2025 at Stantect office address: 16 Burelli St, Wollongong NSW 2500 at 17:00. Stay tuned for future dates and meetings."
+    },
+    {
+      id: 2,
       title: "Community BBQ",
       date: "May 15, 2025",
       time: "12:00 PM - 4:00 PM",
@@ -19,7 +27,7 @@ const Events = () => {
       description: "Join us for our monthly community BBQ. Food and drinks will be provided. Bring your family and meet your neighbors!"
     },
     {
-      id: 2,
+      id: 3,
       title: "Gardening Workshop",
       date: "May 22, 2025",
       time: "10:00 AM - 11:30 AM",
@@ -27,7 +35,7 @@ const Events = () => {
       description: "Learn sustainable gardening practices from local experts. Perfect for beginners and experienced gardeners alike."
     },
     {
-      id: 3,
+      id: 4,
       title: "Summer Festival",
       date: "June 5-7, 2025",
       time: "All Day",
