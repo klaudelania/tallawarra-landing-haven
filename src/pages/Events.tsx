@@ -20,27 +20,11 @@ const Events = () => {
     },
     {
       id: 2,
-      title: "Community BBQ",
-      date: "May 15, 2025",
-      time: "12:00 PM - 4:00 PM",
-      location: "Tallawarra Central Park",
-      description: "Join us for our monthly community BBQ. Food and drinks will be provided. Bring your family and meet your neighbors!"
-    },
-    {
-      id: 3,
-      title: "Gardening Workshop",
-      date: "May 22, 2025",
-      time: "10:00 AM - 11:30 AM",
-      location: "Community Center",
-      description: "Learn sustainable gardening practices from local experts. Perfect for beginners and experienced gardeners alike."
-    },
-    {
-      id: 4,
-      title: "Summer Festival",
-      date: "June 5-7, 2025",
-      time: "All Day",
-      location: "Tallawarra Commons",
-      description: "Our annual summer festival is back with live music, food stalls, activities for kids, and much more!"
+      title: "Next Stakeholder Engagement Meeting",
+      date: "TBA",
+      time: "TBA",
+      location: "TBA",
+      description: "Stay tuned for the next meeting date."
     }
   ];
 
