@@ -1,4 +1,3 @@
-
 import React from "react";
 import Navbar from "../components/Navbar";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -19,7 +18,55 @@ const FAQ = () => {
     },
     {
       question: "What types of properties will be available in the development?",
-      answer: "The development will consist of 1257 lots across the whole site, designed to cater to different landforms. This will include more compact housing options on the flatter lower slopes, while conventional and larger lots will be situated on the sloping areas.\n\nThe development will offer a variety of property types, including:\n• Residential homes (single-family, townhouses, and apartments)\n• Village centre and retail outlets\n• Green spaces, parks, and recreational facilities"
+      answer: "The development will consist of 1257 lots across the whole site, designed to cater to different landforms. This will include more compact housing options on the flatter lower slopes, while conventional and larger lots will be situated on the sloping areas.\n\nThe development will offer a variety of property types, including:\n• Residential homes (single-family, townhouses, and apartments)\n• Village centre and retail outlets\n• Green spaces, parks, and recreational facilities\n• Light Industrial facilities"
+    },
+    {
+      question: "How will this development impact local infrastructure?",
+      answer: "The masterplan includes significant improvements to local infrastructure, including roads, public transport, water, and energy systems. It is designed to support the region's growing population while improving accessibility and connectivity."
+    },
+    {
+      question: "Is the development environmentally friendly?",
+      answer: "Yes, the Tallawarra Lands focuses on sustainable design principles, including energy-efficient buildings, the use of renewable energy, water conservation measures, and the creation of green spaces. It aims to minimise its carbon footprint while enhancing local biodiversity."
+    },
+    {
+      question: "Will there be affordable housing options?",
+      answer: "Yes, Tallawarra development aims to provide affordable options."
+    },
+    {
+      question: "When will construction start and finish?",
+      answer: "The development is planned in stages, with early works expected to begin mid 2026 and the first phase expected to be completed by mid 2027. Timelines for subsequent phases will be confirmed as the project progresses."
+    },
+    {
+      question: "What amenities will be included in the masterplan?",
+      answer: "The development will include a wide range of amenities designed to enhance quality of life, such as:\n• Parks and green spaces\n• Playgrounds and sports facilities\n• Walking and cycling tracks\n• Community facilities"
+    },
+    {
+      question: "Will there be any impact on the local environment?",
+      answer: "Environmental impact assessments will be conducted as part of the development approval process. Efforts will be made to minimise disruption to local ecosystems, with a focus on preserving natural landscapes and improving biodiversity through sustainable design practices."
+    },
+    {
+      question: "How will this development create jobs in the region?",
+      answer: "The development will create numerous job opportunities, both during construction and in the ongoing operation of the new community spaces."
+    },
+    {
+      question: "How can I get involved or stay informed about the development?",
+      answer: "Residents and community members can stay informed by visiting the official development website, signing up for newsletters, and attending community consultation meetings. Opportunities for public feedback and involvement in the planning process will be provided."
+    },
+    {
+      question: "Can I buy property in the development before it's completed?",
+      answer: "Yes, you may be able to purchase property as part of the pre-sale phase, depending on availability. Information on how to register interest or secure a property will be made available on the project's website."
+    },
+    {
+      question: "How can I provide feedback or raise concerns about the development?",
+      answer: "We welcome community engagement. You can provide feedback through online surveys, public consultation events, or by contacting the development team directly via the project website or local information contact details.\n\nPhone: 1800 899 928\nEmail: info@bridgehill.com.au"
+    },
+    {
+      question: "How has the local First Nations community been involved in the development planning process?",
+      answer: "The development team has been working closely with the local First Nations groups, including the Wodi Wodi people of the Dharawal Nation to ensure their views, cultural practices, and historical significance are respected. Consultation has been a key part of the planning process, with ongoing dialogue to integrate cultural heritage considerations into the masterplan."
+    },
+    {
+      question: "Will there be any cultural or community spaces dedicated to First Nations peoples?",
+      answer: "As part of the development, we are exploring the incorporation of cultural and community spaces that celebrate and acknowledge the history, culture, and traditions of the local First Nations peoples. This may include areas for cultural events, public art installations, and spaces that foster community connection."
     },
     {
       question: "What is Tallawarra Residential Subdivision?",
