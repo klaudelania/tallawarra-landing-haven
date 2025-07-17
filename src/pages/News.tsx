@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { X } from "lucide-react";
 import Navbar from "../components/Navbar";
@@ -12,21 +11,21 @@ const News = () => {
   const newsArticles = [
     {
       id: 1,
-      title: "New Community Center Opening Soon",
+      title: "Our First Stakeholder Engagement Meeting This Year",
       date: "May 1, 2025",
-      summary: "The much-awaited community center at Tallawarra will be opening its doors next month, offering residents access to state-of-the-art facilities."
+      summary: "We are excited to announce our Our First Stakeholder Engagement Meeting This Year. The meeting will be held on Friday 15 August 2025 at Stantect office address: 16 Burelli St, Wollongong NSW 2500 at 17:00. Stay tuned for future dates and meetings."
     },
     {
       id: 2,
-      title: "Phase 2 Development Approved",
+      title: "Stage 1 DA Lodged",
       date: "April 15, 2025",
-      summary: "We're excited to announce that the council has approved plans for Phase 2 of our development, adding 50 more premium homes to the Tallawarra community."
+      summary: "The much awaited Stage 1 DA application has been formally accepted by WCC. We look forward to exhibition period and are ready to start work on site following the determination."
     },
     {
       id: 3,
-      title: "Sustainability Award Recognition",
+      title: "Bridgehill Recognised By International Property Awards",
       date: "March 28, 2025",
-      summary: "Tallawarra has been recognized with a Regional Sustainability Award for its eco-friendly design and conservation efforts."
+      summary: "Every year since 2015 Bridgehill has been recognised Internationally with multiple category awards. Our projects provide exceptionally design dwellings to our future homeowners. Our goal in Tallawarra is to continue this humble tradition. For more visit: https://www.bridgehill.com.au/news-media/"
     }
   ];
 
