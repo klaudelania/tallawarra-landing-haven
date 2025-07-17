@@ -38,7 +38,7 @@ const TallawarraHome = () => {
             <p><strong>Contact Information:</strong></p>
             <p>Phone: 1800 899 928</p>
             <p>Email: info@bridgehill.com.au</p>
-            <p>Website: <a href="https://www.bridgehill.com.au/" target="_blank" rel="noopener noreferrer" className="text-blue-300 hover:text-blue-200 underline">www.bridgehill.com.au</a></p>
+            <p>Website: <a href="https://www.bridgehill.com.au/" target="_blank" rel="noopener noreferrer" className="text-white hover:text-white/80 underline">www.bridgehill.com.au</a></p>
           </div>
         </div>
       </div>
