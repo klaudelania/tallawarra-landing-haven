@@ -2,6 +2,7 @@ import { useState } from "react";
 import { X, Calendar, Mail } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Slideshow from "../components/Slideshow";
+import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -103,11 +104,11 @@ The Team`);
   };
 
   return (
-    <main className="relative min-h-screen">
+    <main className="relative min-h-screen flex flex-col">
       <Slideshow />
       <Navbar />
       
-      <section className="container relative min-h-screen pt-28 pb-16">
+      <section className="container relative flex-1 pt-28 pb-8">
         {showEvents && (
           <div className="glass-morphism rounded-lg p-8 text-white relative">
             <button 
@@ -174,6 +175,9 @@ The Team`);
           </div>
         )}
       </section>
+      
+      {/* Footer */}
+      <Footer />
     </main>
   );
 };

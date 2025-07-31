@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
@@ -95,10 +96,10 @@ const FAQ = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-800 to-indigo-900">
+    <div className="min-h-screen bg-gradient-to-b from-sky-800 to-indigo-900 flex flex-col">
       <Navbar />
       
-      <div className="container max-w-4xl mx-auto pt-32 pb-20 px-4 relative">
+      <div className="container max-w-4xl mx-auto pt-32 pb-8 px-4 relative flex-1">
         <Button 
           onClick={handleClose}
           variant="ghost" 
@@ -140,6 +141,9 @@ const FAQ = () => {
           </p>
         </div>
       </div>
+      
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };

@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 import { X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -70,11 +71,11 @@ const People = () => {
   }, []);
 
   return (
-    <main className="bg-white min-h-screen">
+    <main className="bg-white min-h-screen flex flex-col">
       {/* Navbar */}
       <Navbar />
       
-      <section className="container relative min-h-screen pt-28 pb-16">
+      <section className="container relative flex-1 pt-28 pb-8">
         <div className="max-w-7xl mx-auto">
           <div className="relative bg-white rounded-xl p-8 w-full shadow-md">
             <Link to="/" className="absolute top-4 right-4">
@@ -111,6 +112,9 @@ const People = () => {
           </div>
         </div>
       </section>
+      
+      {/* Footer */}
+      <Footer />
     </main>
   );
 };
