@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
+import Slideshow from '../components/Slideshow';
 import Footer from '../components/Footer';
 import { X } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -71,41 +72,44 @@ const People = () => {
   }, []);
 
   return (
-    <main className="bg-white min-h-screen flex flex-col">
+    <main className="relative min-h-screen flex flex-col">
+      {/* Background Slideshow */}
+      <Slideshow />
+      
       {/* Navbar */}
       <Navbar />
       
       <section className="container relative flex-1 pt-28 pb-8">
         <div className="max-w-7xl mx-auto">
-          <div className="relative bg-white rounded-xl p-8 w-full shadow-md">
+          <div className="relative bg-white/20 backdrop-blur-lg rounded-xl p-8 w-full border border-white/60 text-white">
             <Link to="/" className="absolute top-4 right-4">
-              <Button variant="ghost" size="icon" className="hover:bg-gray-100">
+              <Button variant="ghost" size="icon" className="text-white hover:bg-white/20">
                 <X size={24} />
                 <span className="sr-only">Close</span>
               </Button>
             </Link>
             
-            <h1 className="text-4xl font-bold mb-6 text-center text-gray-800">Our Team</h1>
+            <h1 className="text-4xl font-bold mb-6 text-center text-white">Our Team</h1>
             
-            <p className="text-center text-gray-600 mb-10 max-w-3xl mx-auto">
-              Meet the dedicated professionals behind Tallawarra. Our diverse team combines expertise 
+            <p className="text-center text-white/90 mb-10 max-w-3xl mx-auto">
+              Meet the dedicated professionals behind Tallawarra Point. Our diverse team combines expertise 
               in urban planning, sustainability, community engagement, and design to create 
               exceptional living environments.
             </p>
             
             <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ${isPageReady ? 'animate-fade-in' : 'opacity-0'}`}>
               {teamMembers.map((member) => (
-                <div key={member.id} className="bg-gray-50 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
-                  <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden bg-gray-200">
+                <div key={member.id} className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
+                  <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden bg-white/20 border-2 border-white/30">
                     <img 
                       src={member.image} 
                       alt={member.name} 
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-800 text-center">{member.name}</h3>
-                  <p className="text-blue-600 mb-3 text-center">{member.role}</p>
-                  <p className="text-gray-600 text-center">{member.description}</p>
+                  <h3 className="text-xl font-semibold text-white text-center">{member.name}</h3>
+                  <p className="text-blue-200 mb-3 text-center font-medium">{member.role}</p>
+                  <p className="text-white/90 text-center">{member.description}</p>
                 </div>
               ))}
             </div>
