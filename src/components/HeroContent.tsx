@@ -36,10 +36,10 @@ const HeroContent = () => {
       variants={containerVariants}
     >
       <motion.h1 
-        className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight break-words"
+        className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight"
         variants={itemVariants}
       >
-        Welcome to Tallawarra Point
+        Welcome to <span className="whitespace-nowrap">Tallawarra Point</span>
       </motion.h1>
 
       <motion.p 
