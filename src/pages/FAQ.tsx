@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "../components/Navbar";
+import Slideshow from "../components/Slideshow";
 import Footer from "../components/Footer";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
@@ -96,7 +97,10 @@ const FAQ = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-800 to-indigo-900 flex flex-col">
+    <div className="relative min-h-screen flex flex-col">
+      {/* Background Slideshow */}
+      <Slideshow />
+      
       <Navbar />
       
       <div className="container max-w-4xl mx-auto pt-32 pb-8 px-4 relative flex-1">
