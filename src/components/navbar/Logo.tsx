@@ -9,7 +9,7 @@ export const Logo = () => (
         alt="Tallawarra Logo" 
         className="h-7 sm:h-8 md:h-9 w-auto object-contain" 
       />
-      <span className="text-xl sm:text-2xl md:text-3xl font-bold text-white whitespace-nowrap">
+      <span className="text-xl sm:text-2xl md:text-3xl font-bold text-white break-words">
         TALLAWARRA POINT
       </span>
     </Link>
