@@ -53,15 +53,13 @@ const Index = () => {
         
         {/* Acknowledgement of Country */}
         <div className="mt-16 max-w-2xl mx-auto text-center">
-          <div className="bg-white/20 backdrop-blur-lg rounded-xl p-6 text-white border border-white/60">
-            <h2 className="text-2xl font-bold mb-4">Acknowledgement of Country</h2>
-            <p className="text-justify leading-relaxed">
-              Bridgehill Group would like to pay our respect and acknowledge the Traditional Custodians 
-              of Dharawal Country. We pay our respect to Elders past, present and those emerging. 
-              Bridgehill Group would also like to extend our respect to Aboriginal and Torres Strait 
-              Islander people.
-            </p>
-          </div>
+          <h2 className="text-2xl font-bold mb-4 text-white">Acknowledgement of Country</h2>
+          <p className="text-white text-justify leading-relaxed">
+            Bridgehill Group would like to pay our respect and acknowledge the Traditional Custodians 
+            of Dharawal Country. We pay our respect to Elders past, present and those emerging. 
+            Bridgehill Group would also like to extend our respect to Aboriginal and Torres Strait 
+            Islander people.
+          </p>
         </div>
       </section>
       
