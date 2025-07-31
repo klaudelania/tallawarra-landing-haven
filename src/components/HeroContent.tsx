@@ -39,7 +39,7 @@ const HeroContent = () => {
         className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight"
         variants={itemVariants}
       >
-        Welcome to Tallawarra
+        Welcome to Tallawarra Point
       </motion.h1>
 
       <motion.p 

@@ -24,20 +24,9 @@ const About = () => {
               </Button>
             </Link>
             
-            <h1 className="text-4xl font-bold mb-6 text-center">About Tallawarra</h1>
+            <h1 className="text-4xl font-bold mb-6 text-center">About Tallawarra Point</h1>
             
             <div className="space-y-6 px-4 md:px-8 text-justify">
-              {/* Acknowledgement of Country - First section */}
-              <div className="mb-8 p-6 bg-white/10 rounded-lg border border-white/20">
-                <h2 className="text-2xl font-semibold mb-4 text-center">Acknowledgement of Country</h2>
-                <p>
-                  Bridgehill Group would like to pay our respect and acknowledge the Traditional Custodians 
-                  of Dharawal Country. We pay our respect to Elders past, present and those emerging. 
-                  Bridgehill Group would also like to extend our respect to Aboriginal and Torres Strait 
-                  Islander people.
-                </p>
-              </div>
-              
               <p>
                 Tallawarra is a premium residential subdivision located in the heart of natural beauty, 
                 offering a perfect balance between modern living and serene environment.

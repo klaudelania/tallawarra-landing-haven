@@ -4,11 +4,8 @@ import Slideshow from "../components/Slideshow";
 import Navbar from "../components/Navbar";
 import ContactCard from "../components/ContactCard";
 import HeroContent from "../components/HeroContent";
-import CalendarWidget from "../components/CalendarWidget";
-
 const Index = () => {
   const [showContact, setShowContact] = useState(false);
-  const [showCalendar, setShowCalendar] = useState(false);
 
   useEffect(() => {
     // Force scroll to top when component mounts
@@ -17,18 +14,13 @@ const Index = () => {
     // Reset any body classes that might have been set by other pages
     document.body.className = '';
     
-    // Delay showing the contact card and calendar widget
+    // Delay showing the contact card
     const contactTimer = setTimeout(() => {
       setShowContact(true);
     }, 1000);
-    
-    const calendarTimer = setTimeout(() => {
-      setShowCalendar(true);
-    }, 1500);
 
     return () => {
       clearTimeout(contactTimer);
-      clearTimeout(calendarTimer);
     };
   }, []);
 
@@ -48,18 +40,12 @@ const Index = () => {
             <HeroContent />
           </div>
           
-          {/* Right column with contact card and calendar */}
+          {/* Right column with contact card */}
           <div className="flex flex-col items-end gap-6">
             <div className={`w-full max-w-xs ml-auto transition-all duration-700 ${
               showContact ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
             }`}>
               <ContactCard />
-            </div>
-            
-            <div className={`w-full max-w-xs ml-auto transition-all duration-700 ${
-              showCalendar ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-            }`}>
-              <CalendarWidget />
             </div>
           </div>
         </div>
