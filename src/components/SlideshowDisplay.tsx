@@ -2,7 +2,7 @@
 import { useState, useEffect, useCallback } from "react";
 
 interface SlideshowDisplayProps {
-  imageUrls: string[];
+  mediaUrls: Array<{type: string, src: string}>;
   fallbackImages: string[];
 }
 
@@ -14,35 +14,35 @@ const fallbackImages = [
   "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&h=900&q=80",
 ];
 
-const SlideshowDisplay: React.FC<SlideshowDisplayProps> = ({ imageUrls }) => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [nextImageIndex, setNextImageIndex] = useState(1);
+const SlideshowDisplay: React.FC<SlideshowDisplayProps> = ({ mediaUrls }) => {
+  const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
+  const [nextMediaIndex, setNextMediaIndex] = useState(1);
   const [transitioning, setTransitioning] = useState(false);
-  const [loadedImages, setLoadedImages] = useState<Record<number, boolean>>({});
+  const [loadedMedia, setLoadedMedia] = useState<Record<number, boolean>>({});
 
   const goToNextSlide = useCallback(() => {
-    if (imageUrls.length === 0) return;
+    if (mediaUrls.length === 0) return;
     
     setTransitioning(true);
-    setNextImageIndex((prevNextIndex) => (prevNextIndex + 1) % imageUrls.length);
+    setNextMediaIndex((prevNextIndex) => (prevNextIndex + 1) % mediaUrls.length);
     
     setTimeout(() => {
-      setCurrentImageIndex(nextImageIndex);
+      setCurrentMediaIndex(nextMediaIndex);
       setTransitioning(false);
     }, 1000);
-  }, [nextImageIndex, imageUrls.length]);
+  }, [nextMediaIndex, mediaUrls.length]);
 
   useEffect(() => {
     const timer = setInterval(() => {
       goToNextSlide();
-    }, 5000);
+    }, 8000); // Longer duration to accommodate videos
 
     return () => clearInterval(timer);
   }, [goToNextSlide]);
 
-  // Pre-cache image to check if it loads properly
-  const handleImageLoad = (index: number) => {
-    setLoadedImages(prev => ({
+  // Pre-cache media to check if it loads properly
+  const handleMediaLoad = (index: number) => {
+    setLoadedMedia(prev => ({
       ...prev,
       [index]: true
     }));
@@ -50,27 +50,44 @@ const SlideshowDisplay: React.FC<SlideshowDisplayProps> = ({ imageUrls }) => {
 
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden">
-      {imageUrls.map((imageUrl, index) => (
+      {mediaUrls.map((media, index) => (
         <div
           key={index}
           className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ${
-            index === currentImageIndex 
+            index === currentMediaIndex 
               ? "opacity-100" 
-              : index === nextImageIndex && transitioning 
+              : index === nextMediaIndex && transitioning 
                 ? "opacity-30" 
                 : "opacity-0"
           }`}
         >
-          <img
-            src={imageUrl}
-            alt={`Tallawarra project image ${index + 1}`}
-            className="object-cover w-full h-full"
-            onLoad={() => handleImageLoad(index)}
-            onError={(e) => {
-              console.error(`Error loading image at runtime: ${imageUrl}`);
-              e.currentTarget.src = fallbackImages[index % fallbackImages.length];
-            }}
-          />
+          {media.type === 'video' ? (
+            <video
+              src={media.src}
+              className="object-cover w-full h-full"
+              autoPlay
+              muted={false} // Enable audio
+              loop
+              playsInline
+              onLoadedData={() => handleMediaLoad(index)}
+              onError={(e) => {
+                console.error(`Error loading video: ${media.src}`);
+                // Fallback to image if video fails
+                e.currentTarget.style.display = 'none';
+              }}
+            />
+          ) : (
+            <img
+              src={media.src}
+              alt={`Tallawarra project media ${index + 1}`}
+              className="object-cover w-full h-full"
+              onLoad={() => handleMediaLoad(index)}
+              onError={(e) => {
+                console.error(`Error loading image at runtime: ${media.src}`);
+                e.currentTarget.src = fallbackImages[index % fallbackImages.length];
+              }}
+            />
+          )}
         </div>
       ))}
       <div className="absolute inset-0 bg-black/25"></div>
