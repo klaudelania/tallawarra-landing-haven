@@ -18,44 +18,51 @@ type TeamMember = {
 const teamMembers: TeamMember[] = [
   {
     id: 1,
-    name: "Sarah Johnson",
-    role: "Chief Executive Officer",
-    description: "Sarah brings over 20 years of leadership experience in sustainable development. She oversees all strategic initiatives and ensures Tallawarra's vision becomes reality.",
+    name: "Yibin Xu",
+    role: "Managing Director Bridgehill Tallawarra",
+    description: "Yibin leads the strategic direction and overall management of the Tallawarra Point development project.",
     image: "/placeholder.svg"
   },
   {
     id: 2,
-    name: "Michael Chang",
-    role: "Chief Operations Officer",
-    description: "Michael manages day-to-day operations across all development projects. His background in urban planning helps create balanced, livable communities.",
+    name: "Klaude Lania",
+    role: "Project Development Director Bridgehill Tallawarra",
+    description: "Klaude oversees the development process and ensures project milestones are met effectively.",
     image: "/placeholder.svg"
   },
   {
     id: 3,
-    name: "Jennifer Walker",
-    role: "Head of Sustainability",
-    description: "Jennifer leads our sustainability initiatives, ensuring all developments meet or exceed environmental standards while preserving natural resources.",
+    name: "Andrzej Pieńkowski",
+    role: "Construction Manager Bridgehill Tallawarra",
+    description: "Andrzej manages all construction activities and ensures quality delivery of the development.",
     image: "/placeholder.svg"
   },
   {
     id: 4,
-    name: "David Rodriguez",
-    role: "Community Relations Director",
-    description: "David fosters relationships with local communities and stakeholders. He ensures our projects reflect community needs and values.",
+    name: "Craig Hood",
+    role: "Practice Leader – Civil Engineering Stantec",
+    description: "Craig leads the civil engineering aspects of the project with expertise in infrastructure development.",
     image: "/placeholder.svg"
   },
   {
     id: 5,
-    name: "Emma Thompson",
-    role: "Design Director",
-    description: "Emma oversees architectural and landscape design elements. Her innovative approach creates distinctive spaces that harmonize with natural surroundings.",
+    name: "Jen Southan",
+    role: "Principal Planner & Project Technical Lead (Planning) Stantec",
+    description: "Jen provides planning expertise and technical leadership for the project's planning requirements.",
     image: "/placeholder.svg"
   },
   {
     id: 6,
-    name: "Robert Chen",
-    role: "Financial Director",
-    description: "Robert manages financial strategy and investment relationships. His expertise ensures sustainable growth and strong returns for our stakeholders.",
+    name: "Ellen Rowles",
+    role: "Town Planner Stantec",
+    description: "Ellen manages town planning processes and regulatory compliance for the development.",
+    image: "/placeholder.svg"
+  },
+  {
+    id: 7,
+    name: "Lee Morton",
+    role: "National Practice Leader Stantec Senior Principal Communications & Engagement",
+    description: "Lee leads communications and community engagement strategies for the project.",
     image: "/placeholder.svg"
   }
 ];
@@ -89,7 +96,7 @@ const People = () => {
               </Button>
             </Link>
             
-            <h1 className="text-4xl font-bold mb-6 text-center text-white">Our Team</h1>
+            <h1 className="text-4xl font-bold mb-6 text-center text-white">Tallawarra Point Team</h1>
             
             <p className="text-center text-white/90 mb-10 max-w-3xl mx-auto">
               Meet the dedicated professionals behind Tallawarra Point. Our diverse team combines expertise 
