@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import { useToast } from "./use-toast";
 
-// Define slideshow media - mix of images and videos
+// Define slideshow images - back to images only
 const slideshowMedia = [
   { type: 'image', src: "/lovable-uploads/95f8d4a4-fa0f-4fa6-85ea-0fb1925c2ba1.png" }, // replaced image1
   { type: 'image', src: "/slideshow/image2.jpg" },
   { type: 'image', src: "/slideshow/image3.jpg" },
-  { type: 'youtube', src: "https://www.youtube.com/embed/hh7lCQSKQT0?autoplay=1&mute=0&loop=1&playlist=hh7lCQSKQT0&controls=0&showinfo=0&rel=0&modestbranding=1" }, // YouTube video
   { type: 'image', src: "/slideshow/image4.jpg" },
   { type: 'image', src: "/slideshow/image5.jpg" },
   { type: 'image', src: "/slideshow/image6.jpg" },

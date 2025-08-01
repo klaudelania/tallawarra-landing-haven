@@ -35,7 +35,7 @@ const SlideshowDisplay: React.FC<SlideshowDisplayProps> = ({ mediaUrls }) => {
   useEffect(() => {
     const timer = setInterval(() => {
       goToNextSlide();
-    }, 8000); // Longer duration to accommodate videos
+    }, 5000); // Back to 5 seconds for images
 
     return () => clearInterval(timer);
   }, [goToNextSlide]);
@@ -61,49 +61,16 @@ const SlideshowDisplay: React.FC<SlideshowDisplayProps> = ({ mediaUrls }) => {
                 : "opacity-0"
           }`}
         >
-          {media.type === 'youtube' ? (
-            <iframe
-              src={media.src}
-              className="object-cover w-full h-full scale-150 -translate-y-8"
-              allow="autoplay; encrypted-media"
-              allowFullScreen
-              frameBorder="0"
-              style={{
-                pointerEvents: 'none', // Disable clicking on video
-                border: 'none'
-              }}
-              onLoad={() => handleMediaLoad(index)}
-              onError={(e) => {
-                console.error(`Error loading YouTube video: ${media.src}`);
-              }}
-            />
-          ) : media.type === 'video' ? (
-            <video
-              src={media.src}
-              className="object-cover w-full h-full"
-              autoPlay
-              muted={false} // Enable audio
-              loop
-              playsInline
-              onLoadedData={() => handleMediaLoad(index)}
-              onError={(e) => {
-                console.error(`Error loading video: ${media.src}`);
-                // Fallback to image if video fails
-                e.currentTarget.style.display = 'none';
-              }}
-            />
-          ) : (
-            <img
-              src={media.src}
-              alt={`Tallawarra project media ${index + 1}`}
-              className="object-cover w-full h-full"
-              onLoad={() => handleMediaLoad(index)}
-              onError={(e) => {
-                console.error(`Error loading image at runtime: ${media.src}`);
-                e.currentTarget.src = fallbackImages[index % fallbackImages.length];
-              }}
-            />
-          )}
+          <img
+            src={media.src}
+            alt={`Tallawarra project media ${index + 1}`}
+            className="object-cover w-full h-full"
+            onLoad={() => handleMediaLoad(index)}
+            onError={(e) => {
+              console.error(`Error loading image at runtime: ${media.src}`);
+              e.currentTarget.src = fallbackImages[index % fallbackImages.length];
+            }}
+          />
         </div>
       ))}
       <div className="absolute inset-0 bg-black/25"></div>
