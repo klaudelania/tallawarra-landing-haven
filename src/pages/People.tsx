@@ -104,21 +104,42 @@ const People = () => {
               exceptional living environments.
             </p>
             
-            <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ${isPageReady ? 'animate-fade-in' : 'opacity-0'}`}>
-              {teamMembers.map((member) => (
-                <div key={member.id} className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
-                  <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden bg-white/20 border-2 border-white/30">
-                    <img 
-                      src={member.image} 
-                      alt={member.name} 
-                      className="w-full h-full object-cover"
-                    />
+            <div className={`${isPageReady ? 'animate-fade-in' : 'opacity-0'}`}>
+              {/* First row - Yibin Xu centered */}
+              <div className="flex justify-center mb-8">
+                <div className="w-full max-w-sm">
+                  <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
+                    <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden bg-white/20 border-2 border-white/30">
+                      <img 
+                        src={teamMembers[0].image} 
+                        alt={teamMembers[0].name} 
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <h3 className="text-xl font-semibold text-white text-center">{teamMembers[0].name}</h3>
+                    <p className="text-blue-200 mb-3 text-center font-medium">{teamMembers[0].role}</p>
+                    <p className="text-white/90 text-center">{teamMembers[0].description}</p>
                   </div>
-                  <h3 className="text-xl font-semibold text-white text-center">{member.name}</h3>
-                  <p className="text-blue-200 mb-3 text-center font-medium">{member.role}</p>
-                  <p className="text-white/90 text-center">{member.description}</p>
                 </div>
-              ))}
+              </div>
+              
+              {/* Remaining rows - 3 cards per row */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {teamMembers.slice(1).map((member) => (
+                  <div key={member.id} className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
+                    <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden bg-white/20 border-2 border-white/30">
+                      <img 
+                        src={member.image} 
+                        alt={member.name} 
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <h3 className="text-xl font-semibold text-white text-center">{member.name}</h3>
+                    <p className="text-blue-200 mb-3 text-center font-medium">{member.role}</p>
+                    <p className="text-white/90 text-center">{member.description}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
