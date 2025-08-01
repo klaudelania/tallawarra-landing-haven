@@ -61,7 +61,23 @@ const SlideshowDisplay: React.FC<SlideshowDisplayProps> = ({ mediaUrls }) => {
                 : "opacity-0"
           }`}
         >
-          {media.type === 'video' ? (
+          {media.type === 'youtube' ? (
+            <iframe
+              src={media.src}
+              className="object-cover w-full h-full scale-150 -translate-y-8"
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+              frameBorder="0"
+              style={{
+                pointerEvents: 'none', // Disable clicking on video
+                border: 'none'
+              }}
+              onLoad={() => handleMediaLoad(index)}
+              onError={(e) => {
+                console.error(`Error loading YouTube video: ${media.src}`);
+              }}
+            />
+          ) : media.type === 'video' ? (
             <video
               src={media.src}
               className="object-cover w-full h-full"
