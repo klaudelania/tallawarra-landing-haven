@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { useToast } from "./use-toast";
 
-// Define slideshow media - video and select images only
+// Define slideshow media - ordered sequence: Image 1, Video, Image 12
 const slideshowMedia = [
-  { type: 'video', src: "/slideshow/H264 Master Tallawarra Final 01.mp4" }, // YouTube video as MP4
-  { type: 'image', src: "/lovable-uploads/95f8d4a4-fa0f-4fa6-85ea-0fb1925c2ba1.png" }, // image 1
-  { type: 'image', src: "/lovable-uploads/f65ea3d5-3339-4f57-ab2e-8432afa2d976.png" }  // image 12
+  { type: 'image', src: "/lovable-uploads/95f8d4a4-fa0f-4fa6-85ea-0fb1925c2ba1.png" }, // image 1 - at beginning
+  { type: 'video', src: "/slideshow/H264 Master Tallawarra Final 01.mp4" }, // YouTube video as MP4 - runs continuously in between
+  { type: 'image', src: "/lovable-uploads/f65ea3d5-3339-4f57-ab2e-8432afa2d976.png" }  // image 12 - at end
 ];
 
 // Keep fallback images for error cases
