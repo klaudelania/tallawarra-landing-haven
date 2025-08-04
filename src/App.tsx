@@ -21,14 +21,16 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./context/AuthContext";
 import TallawarraHome from "./pages/TallawarraHome";
 import Slideshow from "./components/Slideshow";
+import { SlideshowProvider } from "./context/SlideshowContext";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
-      <TooltipProvider>
-        <Slideshow />
+      <SlideshowProvider>
+        <TooltipProvider>
+          <Slideshow />
         <Toaster />
         <Sonner />
         <BrowserRouter>
@@ -73,8 +75,9 @@ const App = () => (
           </Routes>
         </BrowserRouter>
       </TooltipProvider>
-    </AuthProvider>
-  </QueryClientProvider>
+    </SlideshowProvider>
+  </AuthProvider>
+</QueryClientProvider>
 );
 
 export default App;

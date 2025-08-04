@@ -7,12 +7,15 @@ import { MobileMenu } from "./MobileMenu";
 import { Logo } from "./Logo";
 import { AuthButtons } from "./AuthButtons";
 import { VideoMuteButton } from "../VideoMuteButton";
+import { SlideshowToggleButton } from "../SlideshowToggleButton";
+import { useSlideshowContext } from "../../context/SlideshowContext";
 import { publicMenuItems, protectedMenuItems } from "./menuItems";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const { user } = useAuth();
   const isMobile = useIsMobile();
+  const { isImageMode, setIsImageMode } = useSlideshowContext();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,9 +43,13 @@ const Navbar = () => {
           {/* Logo and title - always on first row, left aligned */}
           <Logo />
 
-          {/* Center: Mute Button */}
-          <div className="flex-1 flex justify-center">
+          {/* Center: Mute and Slideshow Toggle Buttons */}
+          <div className="flex-1 flex justify-center gap-2">
             <VideoMuteButton />
+            <SlideshowToggleButton 
+              onToggle={setIsImageMode} 
+              isImageMode={isImageMode} 
+            />
           </div>
 
           {/* Navigation links and buttons with consistent alignment */}

@@ -1,5 +1,6 @@
 
 import { useState, useEffect, useCallback } from "react";
+import { useSlideshowContext } from "../context/SlideshowContext";
 
 interface SlideshowDisplayProps {
   mediaUrls: Array<{type: string, src: string}>;
@@ -19,25 +20,35 @@ const SlideshowDisplay: React.FC<SlideshowDisplayProps> = ({ mediaUrls }) => {
   const [nextMediaIndex, setNextMediaIndex] = useState(1);
   const [transitioning, setTransitioning] = useState(false);
   const [loadedMedia, setLoadedMedia] = useState<Record<number, boolean>>({});
+  const { isImageMode, setIsImageMode } = useSlideshowContext();
 
   const goToNextSlide = useCallback(() => {
     if (mediaUrls.length === 0) return;
     
     console.log(`Transitioning from slide ${currentMediaIndex} to ${nextMediaIndex}`);
     setTransitioning(true);
-    setNextMediaIndex((prevNextIndex) => (prevNextIndex + 1) % mediaUrls.length);
+    const nextIndex = (currentMediaIndex + 1) % mediaUrls.length;
+    
+    // Check if we're at the end of image slideshow
+    if (isImageMode && nextIndex === 0) {
+      console.log("Image slideshow completed, reverting to video");
+      setIsImageMode(false);
+      return;
+    }
+    
+    setNextMediaIndex(nextIndex);
     
     setTimeout(() => {
-      setCurrentMediaIndex(nextMediaIndex);
+      setCurrentMediaIndex(nextIndex);
       setTransitioning(false);
-      console.log(`Now showing slide ${nextMediaIndex}`);
+      console.log(`Now showing slide ${nextIndex}`);
     }, 1000);
-  }, [nextMediaIndex, mediaUrls.length, currentMediaIndex]);
+  }, [currentMediaIndex, mediaUrls.length, isImageMode, setIsImageMode]);
 
   useEffect(() => {
     const currentMedia = mediaUrls[currentMediaIndex];
     
-    // Only use timer for images, videos will transition on 'ended' event
+    // Only use timer for images, videos will loop continuously
     if (currentMedia?.type === 'image') {
       const timer = setInterval(() => {
         goToNextSlide();
@@ -46,6 +57,12 @@ const SlideshowDisplay: React.FC<SlideshowDisplayProps> = ({ mediaUrls }) => {
       return () => clearInterval(timer);
     }
   }, [goToNextSlide, currentMediaIndex, mediaUrls]);
+
+  // Reset to first slide when mode changes
+  useEffect(() => {
+    setCurrentMediaIndex(0);
+    setNextMediaIndex(1);
+  }, [isImageMode]);
 
   // Pre-cache media to check if it loads properly
   const handleMediaLoad = (index: number) => {

@@ -1,9 +1,26 @@
 import { useState, useEffect } from "react";
 import { useToast } from "./use-toast";
+import { useSlideshowContext } from "../context/SlideshowContext";
 
 // Define slideshow media - just video in continuous loop
-const slideshowMedia = [
+const videoMedia = [
   { type: 'video', src: "/slideshow/H264 Master Tallawarra Final 01.mp4" }, // YouTube video as MP4 - continuous loop
+];
+
+// Define image slideshow media - images 1-12
+const imageMedia = [
+  { type: 'image', src: "/slideshow/image1.jpg" },
+  { type: 'image', src: "/slideshow/image2.jpg" },
+  { type: 'image', src: "/slideshow/image3.jpg" },
+  { type: 'image', src: "/slideshow/image4.jpg" },
+  { type: 'image', src: "/slideshow/image5.jpg" },
+  { type: 'image', src: "/slideshow/image6.jpg" },
+  { type: 'image', src: "/slideshow/image7.jpg" },
+  { type: 'image', src: "/slideshow/image8.jpg" },
+  { type: 'image', src: "/slideshow/image9.jpg" },
+  { type: 'image', src: "/slideshow/image10.jpg" },
+  { type: 'image', src: "/slideshow/image11.jpg" },
+  { type: 'image', src: "/slideshow/image12.jpg" }
 ];
 
 // Keep fallback images for error cases
@@ -19,13 +36,15 @@ export const useImageLoader = () => {
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const [loadingProgress, setLoadingProgress] = useState(0);
   const { toast } = useToast();
+  const { isImageMode, setShouldRevertToVideo } = useSlideshowContext();
 
   useEffect(() => {
     const loadImages = async () => {
-      console.log("Starting to load slideshow media with images and videos");
+      const currentMedia = isImageMode ? imageMedia : videoMedia;
+      console.log(`Starting to load slideshow media in ${isImageMode ? 'image' : 'video'} mode`);
       
-      // Use the updated slideshow media array
-      setMediaUrls(slideshowMedia);
+      // Use the current mode's media array
+      setMediaUrls(currentMedia);
       
       // Simulate loading progress for a smoother UX
       let progress = 0;
@@ -36,11 +55,11 @@ export const useImageLoader = () => {
         if (progress >= 100) {
           clearInterval(interval);
           setImagesLoaded(true);
-          console.log("Slideshow media loaded successfully with video:", slideshowMedia);
+          console.log(`Slideshow media loaded successfully in ${isImageMode ? 'image' : 'video'} mode:`, currentMedia);
           
           toast({
             title: "Media loaded",
-            description: "Slideshow images and video loaded successfully.",
+            description: `Slideshow ${isImageMode ? 'images' : 'video'} loaded successfully.`,
             duration: 3000,
           });
         }
@@ -50,7 +69,7 @@ export const useImageLoader = () => {
     };
     
     loadImages();
-  }, [toast]);
+  }, [toast, isImageMode]);
 
   return { mediaUrls, imagesLoaded, loadingProgress };
 };
