@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useToast } from "./use-toast";
 
-// Define slideshow images - back to images only
+// Define slideshow media - images and video
 const slideshowMedia = [
+  { type: 'video', src: "/slideshow/H264 Master Tallawarra Final 01.mp4" }, // YouTube video as MP4
   { type: 'image', src: "/lovable-uploads/95f8d4a4-fa0f-4fa6-85ea-0fb1925c2ba1.png" }, // replaced image1
   { type: 'image', src: "/slideshow/image2.jpg" },
   { type: 'image', src: "/slideshow/image3.jpg" },

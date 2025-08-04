@@ -61,16 +61,33 @@ const SlideshowDisplay: React.FC<SlideshowDisplayProps> = ({ mediaUrls }) => {
                 : "opacity-0"
           }`}
         >
-          <img
-            src={media.src}
-            alt={`Tallawarra project media ${index + 1}`}
-            className="object-cover w-full h-full"
-            onLoad={() => handleMediaLoad(index)}
-            onError={(e) => {
-              console.error(`Error loading image at runtime: ${media.src}`);
-              e.currentTarget.src = fallbackImages[index % fallbackImages.length];
-            }}
-          />
+          {media.type === 'video' ? (
+            <video
+              src={media.src}
+              className="object-cover w-full h-full"
+              autoPlay
+              muted
+              loop
+              playsInline
+              onLoadedData={() => handleMediaLoad(index)}
+              onError={(e) => {
+                console.error(`Error loading video at runtime: ${media.src}`);
+                // For videos, we'll hide the element on error rather than show a fallback image
+                e.currentTarget.style.display = 'none';
+              }}
+            />
+          ) : (
+            <img
+              src={media.src}
+              alt={`Tallawarra project media ${index + 1}`}
+              className="object-cover w-full h-full"
+              onLoad={() => handleMediaLoad(index)}
+              onError={(e) => {
+                console.error(`Error loading image at runtime: ${media.src}`);
+                e.currentTarget.src = fallbackImages[index % fallbackImages.length];
+              }}
+            />
+          )}
         </div>
       ))}
       <div className="absolute inset-0 bg-black/25"></div>
