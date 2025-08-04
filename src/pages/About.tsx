@@ -1,20 +1,21 @@
 
 import Navbar from "../components/Navbar";
 import Slideshow from "../components/Slideshow";
+import Footer from "../components/Footer";
 import { X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 const About = () => {
   return (
-    <main className="relative min-h-screen">
+    <main className="relative min-h-screen flex flex-col">
       {/* Background Slideshow */}
       <Slideshow />
       
       {/* Navbar */}
       <Navbar />
       
-      <section className="container relative min-h-screen pt-28 pb-16 flex justify-center">
+      <section className="container relative flex-1 pt-28 pb-16 flex justify-center">
         <div className="relative max-w-xl">
           <div className="bg-white/20 backdrop-blur-lg rounded-xl p-8 text-white w-full border border-white/60">
             <Link to="/" className="absolute top-4 right-4">
@@ -24,7 +25,7 @@ const About = () => {
               </Button>
             </Link>
             
-            <h1 className="text-4xl font-bold mb-6 text-center">About Tallawarra</h1>
+            <h1 className="text-4xl font-bold mb-6 text-center">About Tallawarra Point</h1>
             
             <div className="space-y-6 px-4 md:px-8 text-justify">
               <p>
@@ -105,6 +106,9 @@ const About = () => {
           </div>
         </div>
       </section>
+      
+      {/* Footer */}
+      <Footer />
     </main>
   );
 };

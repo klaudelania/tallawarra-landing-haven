@@ -14,10 +14,12 @@ import Events from "./pages/Events";
 import Explore from "./pages/Explore";
 import Invest from "./pages/Invest";
 import FAQ from "./pages/FAQ";
+import Video1 from "./pages/Video1";
 import NotFound from "./pages/NotFound";
 import Placeholder from "./pages/Placeholder";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./context/AuthContext";
+import TallawarraHome from "./pages/TallawarraHome";
 
 const queryClient = new QueryClient();
 
@@ -57,17 +59,12 @@ const App = () => (
             <Route path="/land-releases" element={<Placeholder title="Land Releases" />} />
             <Route path="/property" element={<Placeholder title="Property" />} />
             <Route path="/commercial" element={<Placeholder title="Commercial" />} />
-            <Route path="/news-events-3" element={<Placeholder title="News & Events 3" />} />
             
-            {/* Explore submenu placeholders */}
-            <Route path="/explore-1" element={<Placeholder title="Explore 1" />} />
-            <Route path="/explore-2" element={<Placeholder title="Explore 2" />} />
-            <Route path="/explore-3" element={<Placeholder title="Explore 3" />} />
+            {/* Explore submenu - Only Video 1 remains */}
+            <Route path="/video-1" element={<Video1 />} />
             
-            {/* Invest submenu placeholders */}
-            <Route path="/invest-1" element={<Placeholder title="Invest 1" />} />
-            <Route path="/invest-2" element={<Placeholder title="Invest 2" />} />
-            <Route path="/invest-3" element={<Placeholder title="Invest 3" />} />
+            {/* Invest submenu - Only one item remains */}
+            <Route path="/invest-1" element={<TallawarraHome />} />
             
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />

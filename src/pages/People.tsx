@@ -1,6 +1,8 @@
 
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
+import Slideshow from '../components/Slideshow';
+import Footer from '../components/Footer';
 import { X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -16,44 +18,51 @@ type TeamMember = {
 const teamMembers: TeamMember[] = [
   {
     id: 1,
-    name: "Sarah Johnson",
-    role: "Chief Executive Officer",
-    description: "Sarah brings over 20 years of leadership experience in sustainable development. She oversees all strategic initiatives and ensures Tallawarra's vision becomes reality.",
+    name: "Yibin Xu",
+    role: "Managing Director Bridgehill Tallawarra",
+    description: "Yibin leads the strategic direction and overall management of the Tallawarra Point development project.",
     image: "/placeholder.svg"
   },
   {
     id: 2,
-    name: "Michael Chang",
-    role: "Chief Operations Officer",
-    description: "Michael manages day-to-day operations across all development projects. His background in urban planning helps create balanced, livable communities.",
+    name: "Klaude Lania",
+    role: "Project Development Director Bridgehill Tallawarra",
+    description: "Klaude oversees the development process and ensures project milestones are met effectively.",
     image: "/placeholder.svg"
   },
   {
     id: 3,
-    name: "Jennifer Walker",
-    role: "Head of Sustainability",
-    description: "Jennifer leads our sustainability initiatives, ensuring all developments meet or exceed environmental standards while preserving natural resources.",
+    name: "Andrzej Pieńkowski",
+    role: "Construction Manager Bridgehill Tallawarra",
+    description: "Andrzej manages all construction activities and ensures quality delivery of the development.",
     image: "/placeholder.svg"
   },
   {
     id: 4,
-    name: "David Rodriguez",
-    role: "Community Relations Director",
-    description: "David fosters relationships with local communities and stakeholders. He ensures our projects reflect community needs and values.",
+    name: "Craig Hood",
+    role: "Practice Leader – Civil Engineering Stantec",
+    description: "Craig leads the civil engineering aspects of the project with expertise in infrastructure development.",
     image: "/placeholder.svg"
   },
   {
     id: 5,
-    name: "Emma Thompson",
-    role: "Design Director",
-    description: "Emma oversees architectural and landscape design elements. Her innovative approach creates distinctive spaces that harmonize with natural surroundings.",
+    name: "Jen Southan",
+    role: "Principal Planner & Project Technical Lead (Planning) Stantec",
+    description: "Jen provides planning expertise and technical leadership for the project's planning requirements.",
     image: "/placeholder.svg"
   },
   {
     id: 6,
-    name: "Robert Chen",
-    role: "Financial Director",
-    description: "Robert manages financial strategy and investment relationships. His expertise ensures sustainable growth and strong returns for our stakeholders.",
+    name: "Ellen Rowles",
+    role: "Town Planner Stantec",
+    description: "Ellen manages town planning processes and regulatory compliance for the development.",
+    image: "/placeholder.svg"
+  },
+  {
+    id: 7,
+    name: "Lee Morton",
+    role: "National Practice Leader Stantec Senior Principal Communications & Engagement",
+    description: "Lee leads communications and community engagement strategies for the project.",
     image: "/placeholder.svg"
   }
 ];
@@ -70,47 +79,74 @@ const People = () => {
   }, []);
 
   return (
-    <main className="bg-white min-h-screen">
+    <main className="relative min-h-screen flex flex-col">
+      {/* Background Slideshow */}
+      <Slideshow />
+      
       {/* Navbar */}
       <Navbar />
       
-      <section className="container relative min-h-screen pt-28 pb-16">
+      <section className="container relative flex-1 pt-28 pb-8">
         <div className="max-w-7xl mx-auto">
-          <div className="relative bg-white rounded-xl p-8 w-full shadow-md">
+          <div className="relative bg-white/20 backdrop-blur-lg rounded-xl p-8 w-full border border-white/60 text-white">
             <Link to="/" className="absolute top-4 right-4">
-              <Button variant="ghost" size="icon" className="hover:bg-gray-100">
+              <Button variant="ghost" size="icon" className="text-white hover:bg-white/20">
                 <X size={24} />
                 <span className="sr-only">Close</span>
               </Button>
             </Link>
             
-            <h1 className="text-4xl font-bold mb-6 text-center text-gray-800">Our Team</h1>
+            <h1 className="text-4xl font-bold mb-6 text-center text-white">Tallawarra Point Team</h1>
             
-            <p className="text-center text-gray-600 mb-10 max-w-3xl mx-auto">
-              Meet the dedicated professionals behind Tallawarra. Our diverse team combines expertise 
+            <p className="text-center text-white/90 mb-10 max-w-3xl mx-auto">
+              Meet the dedicated professionals behind Tallawarra Point. Our diverse team combines expertise 
               in urban planning, sustainability, community engagement, and design to create 
               exceptional living environments.
             </p>
             
-            <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ${isPageReady ? 'animate-fade-in' : 'opacity-0'}`}>
-              {teamMembers.map((member) => (
-                <div key={member.id} className="bg-gray-50 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
-                  <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden bg-gray-200">
-                    <img 
-                      src={member.image} 
-                      alt={member.name} 
-                      className="w-full h-full object-cover"
-                    />
+            <div className={`${isPageReady ? 'animate-fade-in' : 'opacity-0'}`}>
+              {/* First row - Yibin Xu centered */}
+              <div className="flex justify-center mb-8">
+                <div className="w-full max-w-sm">
+                  <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
+                    <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden bg-white/20 border-2 border-white/30">
+                      <img 
+                        src={teamMembers[0].image} 
+                        alt={teamMembers[0].name} 
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <h3 className="text-xl font-semibold text-white text-center">{teamMembers[0].name}</h3>
+                    <p className="text-blue-200 mb-3 text-center font-medium">{teamMembers[0].role}</p>
+                    <p className="text-white/90 text-center">{teamMembers[0].description}</p>
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-800 text-center">{member.name}</h3>
-                  <p className="text-blue-600 mb-3 text-center">{member.role}</p>
-                  <p className="text-gray-600 text-center">{member.description}</p>
                 </div>
-              ))}
+              </div>
+              
+              {/* Remaining rows - 3 cards per row */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {teamMembers.slice(1).map((member) => (
+                  <div key={member.id} className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
+                    <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden bg-white/20 border-2 border-white/30">
+                      <img 
+                        src={member.image} 
+                        alt={member.name} 
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <h3 className="text-xl font-semibold text-white text-center">{member.name}</h3>
+                    <p className="text-blue-200 mb-3 text-center font-medium">{member.role}</p>
+                    <p className="text-white/90 text-center">{member.description}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </section>
+      
+      {/* Footer */}
+      <Footer />
     </main>
   );
 };

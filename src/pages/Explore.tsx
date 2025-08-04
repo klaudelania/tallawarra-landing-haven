@@ -4,6 +4,7 @@ import { X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Slideshow from '../components/Slideshow';
+import Footer from '../components/Footer';
 import { Button } from '@/components/ui/button';
 
 const Explore = () => {
@@ -32,10 +33,10 @@ const Explore = () => {
   };
   
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen flex flex-col">
       <Slideshow />
       <Navbar />
-      <div className={`container mx-auto pt-32 px-4 pb-16 ${isPageReady ? 'animate-fade-in' : 'opacity-0'}`}>
+      <div className={`container mx-auto pt-32 px-4 pb-8 flex-1 ${isPageReady ? 'animate-fade-in' : 'opacity-0'}`}>
         <div className="glass-morphism rounded-lg p-6 mb-8 text-white relative">
           <button 
             onClick={handleClose}
@@ -48,13 +49,16 @@ const Explore = () => {
           <h1 className="text-4xl font-bold text-white mb-6">Explore</h1>
           <p className="mb-4">
             Welcome to the Explore section. This area provides information about different aspects
-            of the Tallawarra project that you can explore.
+            of the Tallawarra Point project that you can explore.
           </p>
           <p>
             Please select one of the submenu options to explore specific content.
           </p>
         </div>
       </div>
+      
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };

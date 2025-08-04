@@ -5,7 +5,7 @@ import SlideshowDisplay from "./SlideshowDisplay";
 import LoadingIndicator from "./LoadingIndicator";
 
 const Slideshow = () => {
-  const { imageUrls, imagesLoaded, loadingProgress } = useImageLoader();
+  const { mediaUrls, imagesLoaded, loadingProgress } = useImageLoader();
 
   // Loading state with progress indicator
   if (!imagesLoaded) {
@@ -14,7 +14,7 @@ const Slideshow = () => {
 
   return (
     <>
-      <SlideshowDisplay imageUrls={imageUrls} fallbackImages={[]} />
+      <SlideshowDisplay mediaUrls={mediaUrls} fallbackImages={[]} />
       <Toaster />
     </>
   );

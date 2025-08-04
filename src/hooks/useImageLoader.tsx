@@ -1,20 +1,20 @@
 import { useState, useEffect } from "react";
 import { useToast } from "./use-toast";
 
-// Define image paths - these are the actual images from the public folder
-const slideshowImages = [
-  "/slideshow/image1.jpg",
-  "/slideshow/image2.jpg", 
-  "/slideshow/image3.jpg",
-  "/slideshow/image4.jpg",
-  "/slideshow/image5.jpg",
-  "/slideshow/image6.jpg",
-  "/slideshow/image7.jpg",
-  "/slideshow/image8.jpg",
-  "/slideshow/image9.jpg",
-  "/slideshow/image10.jpg",
-  "/slideshow/image11.jpg",
-  "/slideshow/image12.jpg"
+// Define slideshow images - back to images only
+const slideshowMedia = [
+  { type: 'image', src: "/lovable-uploads/95f8d4a4-fa0f-4fa6-85ea-0fb1925c2ba1.png" }, // replaced image1
+  { type: 'image', src: "/slideshow/image2.jpg" },
+  { type: 'image', src: "/slideshow/image3.jpg" },
+  { type: 'image', src: "/slideshow/image4.jpg" },
+  { type: 'image', src: "/slideshow/image5.jpg" },
+  { type: 'image', src: "/slideshow/image6.jpg" },
+  { type: 'image', src: "/slideshow/image7.jpg" },
+  { type: 'image', src: "/slideshow/image8.jpg" },
+  { type: 'image', src: "/lovable-uploads/cffd4e4d-b7c2-4c74-be6c-c1216dabcd69.png" }, // replaced image9
+  { type: 'image', src: "/lovable-uploads/149c7448-094b-4181-bf68-47c09b0a8dfc.png" }, // replaced image10
+  { type: 'image', src: "/lovable-uploads/94d765c4-60ca-4389-9468-7b99c3efb0f1.png" }, // replaced image11
+  { type: 'image', src: "/lovable-uploads/f65ea3d5-3339-4f57-ab2e-8432afa2d976.png" }  // replaced image12
 ];
 
 // Keep fallback images for error cases
@@ -26,17 +26,17 @@ const fallbackImages = [
 ];
 
 export const useImageLoader = () => {
-  const [imageUrls, setImageUrls] = useState<string[]>([]);
+  const [mediaUrls, setMediaUrls] = useState<Array<{type: string, src: string}>>([]);
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const [loadingProgress, setLoadingProgress] = useState(0);
   const { toast } = useToast();
 
   useEffect(() => {
     const loadImages = async () => {
-      console.log("Starting to load slideshow images from public folder");
+      console.log("Starting to load slideshow media with images and videos");
       
-      // Use the actual slideshow images instead of fallbacks
-      setImageUrls(slideshowImages);
+      // Use the updated slideshow media array
+      setMediaUrls(slideshowMedia);
       
       // Simulate loading progress for a smoother UX
       let progress = 0;
@@ -47,11 +47,11 @@ export const useImageLoader = () => {
         if (progress >= 100) {
           clearInterval(interval);
           setImagesLoaded(true);
-          console.log("Slideshow images loaded successfully:", slideshowImages);
+          console.log("Slideshow media loaded successfully with video:", slideshowMedia);
           
           toast({
-            title: "Images loaded",
-            description: "Slideshow images loaded successfully.",
+            title: "Media loaded",
+            description: "Slideshow images and video loaded successfully.",
             duration: 3000,
           });
         }
@@ -63,5 +63,5 @@ export const useImageLoader = () => {
     loadImages();
   }, [toast]);
 
-  return { imageUrls, imagesLoaded, loadingProgress };
+  return { mediaUrls, imagesLoaded, loadingProgress };
 };

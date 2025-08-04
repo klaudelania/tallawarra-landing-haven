@@ -1,8 +1,8 @@
-
 import { useState } from "react";
 import { X } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Slideshow from "../components/Slideshow";
+import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 
 const News = () => {
@@ -12,21 +12,27 @@ const News = () => {
   const newsArticles = [
     {
       id: 1,
-      title: "New Community Center Opening Soon",
-      date: "May 1, 2025",
-      summary: "The much-awaited community center at Tallawarra will be opening its doors next month, offering residents access to state-of-the-art facilities."
+      title: "Stage 1 DA Lodged",
+      date: "April 15, 2025",
+      summary: "The much awaited Stage 1 DA application has been formally accepted by WCC. We look forward to exhibition period and are ready to start work on site following the determination."
     },
     {
       id: 2,
-      title: "Phase 2 Development Approved",
-      date: "April 15, 2025",
-      summary: "We're excited to announce that the council has approved plans for Phase 2 of our development, adding 50 more premium homes to the Tallawarra community."
-    },
-    {
-      id: 3,
-      title: "Sustainability Award Recognition",
+      title: "Bridgehill Recognised By International Property Awards",
       date: "March 28, 2025",
-      summary: "Tallawarra has been recognized with a Regional Sustainability Award for its eco-friendly design and conservation efforts."
+      summary: (
+        <>
+          Every year since 2015 Bridgehill has been recognised Internationally with multiple category awards. Our projects provide exceptionally design dwellings to our future homeowners. Our goal in Tallawarra is to continue this humble tradition. For more visit:{" "}
+          <a 
+            href="https://www.bridgehill.com.au/news-media/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-white hover:text-white/80 underline transition-colors"
+          >
+            https://www.bridgehill.com.au/news-media/
+          </a>
+        </>
+      )
     }
   ];
 
@@ -36,11 +42,11 @@ const News = () => {
   };
 
   return (
-    <main className="relative min-h-screen">
+    <main className="relative min-h-screen flex flex-col">
       <Slideshow />
       <Navbar />
       
-      <section className="container relative min-h-screen pt-28 pb-16">
+      <section className="container relative flex-1 pt-28 pb-8">
         {showNews && (
           <div className="glass-morphism rounded-lg p-8 text-white relative">
             <button 
@@ -65,6 +71,9 @@ const News = () => {
           </div>
         )}
       </section>
+      
+      {/* Footer */}
+      <Footer />
     </main>
   );
 };
