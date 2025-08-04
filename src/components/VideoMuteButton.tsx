@@ -22,7 +22,7 @@ export const VideoMuteButton = () => {
       onClick={toggleMute}
       variant="outline"
       size="sm"
-      className="fixed top-20 right-4 z-50 bg-background/80 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 hover:text-white"
+      className="bg-white/20 backdrop-blur-lg border border-white/60 text-white hover:bg-white/30 hover:text-white transition-all duration-300"
     >
       {isMuted ? (
         <>

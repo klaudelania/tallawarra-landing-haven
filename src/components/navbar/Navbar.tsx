@@ -6,6 +6,7 @@ import { NavLinks } from "./NavLinks";
 import { MobileMenu } from "./MobileMenu";
 import { Logo } from "./Logo";
 import { AuthButtons } from "./AuthButtons";
+import { VideoMuteButton } from "../VideoMuteButton";
 import { publicMenuItems, protectedMenuItems } from "./menuItems";
 
 const Navbar = () => {
@@ -35,12 +36,17 @@ const Navbar = () => {
       }`}
     >
       <div className="container">
-        <div className="flex flex-wrap items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between w-full">
           {/* Logo and title - always on first row, left aligned */}
           <Logo />
 
+          {/* Center: Mute Button */}
+          <div className="flex-1 flex justify-center">
+            <VideoMuteButton />
+          </div>
+
           {/* Navigation links and buttons with consistent alignment */}
-          <div className="w-full sm:w-auto flex flex-wrap items-center gap-2 sm:gap-4 mt-2 sm:mt-0">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-4">
             <NavLinks 
               publicMenuItems={publicMenuItems}
               protectedMenuItems={protectedMenuItems}
