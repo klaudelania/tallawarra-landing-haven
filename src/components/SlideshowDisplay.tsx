@@ -95,10 +95,10 @@ const SlideshowDisplay: React.FC<SlideshowDisplayProps> = ({ mediaUrls }) => {
                 src={media.src}
                 className="object-cover w-full h-full"
                 autoPlay
-                muted={false}
+                muted={true}
                 loop={true}
                 playsInline
-                controls={true}
+                controls={false}
                 preload="auto"
                 onLoadStart={() => console.log(`Video load started: ${media.src}`)}
                 onLoadedData={() => {
