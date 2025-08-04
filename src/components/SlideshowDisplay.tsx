@@ -36,13 +36,15 @@ const SlideshowDisplay: React.FC<SlideshowDisplayProps> = ({ mediaUrls }) => {
 
   useEffect(() => {
     const currentMedia = mediaUrls[currentMediaIndex];
-    const duration = currentMedia?.type === 'video' ? 15000 : 5000; // 15s for videos, 5s for images
     
-    const timer = setInterval(() => {
-      goToNextSlide();
-    }, duration);
+    // Only use timer for images, videos will transition on 'ended' event
+    if (currentMedia?.type === 'image') {
+      const timer = setInterval(() => {
+        goToNextSlide();
+      }, 5000); // 5 seconds for images
 
-    return () => clearInterval(timer);
+      return () => clearInterval(timer);
+    }
   }, [goToNextSlide, currentMediaIndex, mediaUrls]);
 
   // Pre-cache media to check if it loads properly
@@ -73,9 +75,9 @@ const SlideshowDisplay: React.FC<SlideshowDisplayProps> = ({ mediaUrls }) => {
                 src={media.src}
                 className="object-cover w-full h-full"
                 autoPlay
-                muted
-                loop
+                loop={false}
                 playsInline
+                controls={false}
                 onLoadedData={() => {
                   console.log(`Video loaded: ${media.src}`);
                   handleMediaLoad(index);
@@ -86,6 +88,13 @@ const SlideshowDisplay: React.FC<SlideshowDisplayProps> = ({ mediaUrls }) => {
                   e.currentTarget.style.display = 'none';
                 }}
                 onPlay={() => console.log(`Video started playing: ${media.src}`)}
+                onEnded={() => {
+                  console.log(`Video ended: ${media.src}, transitioning to next slide`);
+                  goToNextSlide();
+                }}
+                onLoadedMetadata={(e) => {
+                  console.log(`Video duration: ${e.currentTarget.duration} seconds`);
+                }}
               />
             ) : (
               <img
