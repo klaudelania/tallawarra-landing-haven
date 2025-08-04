@@ -23,22 +23,27 @@ const SlideshowDisplay: React.FC<SlideshowDisplayProps> = ({ mediaUrls }) => {
   const goToNextSlide = useCallback(() => {
     if (mediaUrls.length === 0) return;
     
+    console.log(`Transitioning from slide ${currentMediaIndex} to ${nextMediaIndex}`);
     setTransitioning(true);
     setNextMediaIndex((prevNextIndex) => (prevNextIndex + 1) % mediaUrls.length);
     
     setTimeout(() => {
       setCurrentMediaIndex(nextMediaIndex);
       setTransitioning(false);
+      console.log(`Now showing slide ${nextMediaIndex}`);
     }, 1000);
-  }, [nextMediaIndex, mediaUrls.length]);
+  }, [nextMediaIndex, mediaUrls.length, currentMediaIndex]);
 
   useEffect(() => {
+    const currentMedia = mediaUrls[currentMediaIndex];
+    const duration = currentMedia?.type === 'video' ? 15000 : 5000; // 15s for videos, 5s for images
+    
     const timer = setInterval(() => {
       goToNextSlide();
-    }, 5000); // Back to 5 seconds for images
+    }, duration);
 
     return () => clearInterval(timer);
-  }, [goToNextSlide]);
+  }, [goToNextSlide, currentMediaIndex, mediaUrls]);
 
   // Pre-cache media to check if it loads properly
   const handleMediaLoad = (index: number) => {
@@ -50,46 +55,53 @@ const SlideshowDisplay: React.FC<SlideshowDisplayProps> = ({ mediaUrls }) => {
 
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden">
-      {mediaUrls.map((media, index) => (
-        <div
-          key={index}
-          className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ${
-            index === currentMediaIndex 
-              ? "opacity-100" 
-              : index === nextMediaIndex && transitioning 
-                ? "opacity-30" 
-                : "opacity-0"
-          }`}
-        >
-          {media.type === 'video' ? (
-            <video
-              src={media.src}
-              className="object-cover w-full h-full"
-              autoPlay
-              muted
-              loop
-              playsInline
-              onLoadedData={() => handleMediaLoad(index)}
-              onError={(e) => {
-                console.error(`Error loading video at runtime: ${media.src}`);
-                // For videos, we'll hide the element on error rather than show a fallback image
-                e.currentTarget.style.display = 'none';
-              }}
-            />
-          ) : (
-            <img
-              src={media.src}
-              alt={`Tallawarra project media ${index + 1}`}
-              className="object-cover w-full h-full"
-              onLoad={() => handleMediaLoad(index)}
-              onError={(e) => {
-                console.error(`Error loading image at runtime: ${media.src}`);
-                e.currentTarget.src = fallbackImages[index % fallbackImages.length];
-              }}
-            />
-          )}
-        </div>
-      ))}
+      {mediaUrls.map((media, index) => {
+        console.log(`Rendering media ${index}: type=${media.type}, src=${media.src}, currentIndex=${currentMediaIndex}`);
+        return (
+          <div
+            key={index}
+            className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ${
+              index === currentMediaIndex 
+                ? "opacity-100" 
+                : index === nextMediaIndex && transitioning 
+                  ? "opacity-30" 
+                  : "opacity-0"
+            }`}
+          >
+            {media.type === 'video' ? (
+              <video
+                src={media.src}
+                className="object-cover w-full h-full"
+                autoPlay
+                muted
+                loop
+                playsInline
+                onLoadedData={() => {
+                  console.log(`Video loaded: ${media.src}`);
+                  handleMediaLoad(index);
+                }}
+                onError={(e) => {
+                  console.error(`Error loading video at runtime: ${media.src}`);
+                  // For videos, we'll hide the element on error rather than show a fallback image
+                  e.currentTarget.style.display = 'none';
+                }}
+                onPlay={() => console.log(`Video started playing: ${media.src}`)}
+              />
+            ) : (
+              <img
+                src={media.src}
+                alt={`Tallawarra project media ${index + 1}`}
+                className="object-cover w-full h-full"
+                onLoad={() => handleMediaLoad(index)}
+                onError={(e) => {
+                  console.error(`Error loading image at runtime: ${media.src}`);
+                  e.currentTarget.src = fallbackImages[index % fallbackImages.length];
+                }}
+              />
+            )}
+          </div>
+        );
+      })}
       <div className="absolute inset-0 bg-black/25"></div>
     </div>
   );
