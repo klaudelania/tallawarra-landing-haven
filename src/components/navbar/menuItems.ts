@@ -27,13 +27,6 @@ export const protectedMenuItems: MenuItem[] = [
     ]
   },
   { 
-    title: "Explore", 
-    path: "/explore",
-    submenu: [
-      { title: "Video 1", path: "/video-1" }
-    ]
-  },
-  { 
     title: "Invest", 
     path: "/invest",
     submenu: [
