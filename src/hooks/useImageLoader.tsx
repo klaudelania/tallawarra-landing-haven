@@ -1,21 +1,11 @@
 import { useState, useEffect } from "react";
 import { useToast } from "./use-toast";
 
-// Define slideshow media - images and video
+// Define slideshow media - video and select images only
 const slideshowMedia = [
   { type: 'video', src: "/slideshow/H264 Master Tallawarra Final 01.mp4" }, // YouTube video as MP4
-  { type: 'image', src: "/lovable-uploads/95f8d4a4-fa0f-4fa6-85ea-0fb1925c2ba1.png" }, // replaced image1
-  { type: 'image', src: "/slideshow/image2.jpg" },
-  { type: 'image', src: "/slideshow/image3.jpg" },
-  { type: 'image', src: "/slideshow/image4.jpg" },
-  { type: 'image', src: "/slideshow/image5.jpg" },
-  { type: 'image', src: "/slideshow/image6.jpg" },
-  { type: 'image', src: "/slideshow/image7.jpg" },
-  { type: 'image', src: "/slideshow/image8.jpg" },
-  { type: 'image', src: "/lovable-uploads/cffd4e4d-b7c2-4c74-be6c-c1216dabcd69.png" }, // replaced image9
-  { type: 'image', src: "/lovable-uploads/149c7448-094b-4181-bf68-47c09b0a8dfc.png" }, // replaced image10
-  { type: 'image', src: "/lovable-uploads/94d765c4-60ca-4389-9468-7b99c3efb0f1.png" }, // replaced image11
-  { type: 'image', src: "/lovable-uploads/f65ea3d5-3339-4f57-ab2e-8432afa2d976.png" }  // replaced image12
+  { type: 'image', src: "/lovable-uploads/95f8d4a4-fa0f-4fa6-85ea-0fb1925c2ba1.png" }, // image 1
+  { type: 'image', src: "/lovable-uploads/f65ea3d5-3339-4f57-ab2e-8432afa2d976.png" }  // image 12
 ];
 
 // Keep fallback images for error cases
