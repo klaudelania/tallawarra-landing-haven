@@ -55,6 +55,9 @@ const SlideshowDisplay: React.FC<SlideshowDisplayProps> = ({ mediaUrls }) => {
     }));
   };
 
+  console.log("SlideshowDisplay - mediaUrls received:", mediaUrls);
+  console.log("SlideshowDisplay - currentMediaIndex:", currentMediaIndex);
+
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden">
       {mediaUrls.map((media, index) => {
@@ -75,20 +78,28 @@ const SlideshowDisplay: React.FC<SlideshowDisplayProps> = ({ mediaUrls }) => {
                 src={media.src}
                 className="object-cover w-full h-full"
                 autoPlay
+                muted={false}
                 loop={true}
                 playsInline
-                controls={false}
+                controls={true}
+                preload="auto"
+                onLoadStart={() => console.log(`Video load started: ${media.src}`)}
                 onLoadedData={() => {
                   console.log(`Video loaded: ${media.src}`);
                   handleMediaLoad(index);
                 }}
+                onCanPlay={() => console.log(`Video can play: ${media.src}`)}
                 onError={(e) => {
-                  console.error(`Error loading video at runtime: ${media.src}`);
-                  e.currentTarget.style.display = 'none';
+                  console.error(`Error loading video:`, e);
+                  console.error(`Video src: ${media.src}`);
+                  console.error(`Error details:`, e.currentTarget.error);
                 }}
                 onPlay={() => console.log(`Video started playing: ${media.src}`)}
                 onLoadedMetadata={(e) => {
                   console.log(`Video duration: ${e.currentTarget.duration} seconds`);
+                }}
+                style={{
+                  display: index === currentMediaIndex ? 'block' : 'none'
                 }}
               />
             ) : (
