@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Volume2, VolumeX } from 'lucide-react';
 
 export const VideoMuteButton = () => {
-  const [isMuted, setIsMuted] = useState(false);
+  const [isMuted, setIsMuted] = useState(true); // Start muted for autoplay
 
   useEffect(() => {
     // Find all video elements and apply mute state
@@ -27,12 +27,12 @@ export const VideoMuteButton = () => {
       {isMuted ? (
         <>
           <VolumeX className="h-4 w-4 mr-2" />
-          Unmute
+          Audio
         </>
       ) : (
         <>
           <Volume2 className="h-4 w-4 mr-2" />
-          Mute
+          Audio
         </>
       )}
     </Button>
