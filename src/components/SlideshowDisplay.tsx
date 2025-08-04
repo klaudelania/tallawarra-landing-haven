@@ -75,7 +75,7 @@ const SlideshowDisplay: React.FC<SlideshowDisplayProps> = ({ mediaUrls }) => {
                 src={media.src}
                 className="object-cover w-full h-full"
                 autoPlay
-                loop={false}
+                loop={true}
                 playsInline
                 controls={false}
                 onLoadedData={() => {
@@ -84,14 +84,9 @@ const SlideshowDisplay: React.FC<SlideshowDisplayProps> = ({ mediaUrls }) => {
                 }}
                 onError={(e) => {
                   console.error(`Error loading video at runtime: ${media.src}`);
-                  // For videos, we'll hide the element on error rather than show a fallback image
                   e.currentTarget.style.display = 'none';
                 }}
                 onPlay={() => console.log(`Video started playing: ${media.src}`)}
-                onEnded={() => {
-                  console.log(`Video ended: ${media.src}, transitioning to next slide`);
-                  goToNextSlide();
-                }}
                 onLoadedMetadata={(e) => {
                   console.log(`Video duration: ${e.currentTarget.duration} seconds`);
                 }}
