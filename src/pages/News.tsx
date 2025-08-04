@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { X } from "lucide-react";
 import Navbar from "../components/Navbar";
-import Slideshow from "../components/Slideshow";
+
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 
@@ -43,7 +43,7 @@ const News = () => {
 
   return (
     <main className="relative min-h-screen flex flex-col">
-      <Slideshow />
+      {/* Background Slideshow moved to App.tsx */}
       <Navbar />
       
       <section className="container relative flex-1 pt-28 pb-8">

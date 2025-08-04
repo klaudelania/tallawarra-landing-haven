@@ -1,7 +1,7 @@
 
 import { useAuth } from "../context/AuthContext";
 import { Button } from "@/components/ui/button";
-import Slideshow from "../components/Slideshow";
+
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
@@ -22,8 +22,7 @@ const Dashboard = () => {
 
   return (
     <div className="relative min-h-screen flex flex-col">
-      {/* Background Slideshow */}
-      <Slideshow />
+      {/* Background Slideshow moved to App.tsx */}
       
       {/* Navbar with logout */}
       <nav className="bg-white/20 backdrop-blur-lg text-white shadow-md border-b border-white/20">

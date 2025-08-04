@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../components/Navbar";
-import Slideshow from "../components/Slideshow";
+
 import Footer from "../components/Footer";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
@@ -98,8 +98,7 @@ const FAQ = () => {
 
   return (
     <div className="relative min-h-screen flex flex-col">
-      {/* Background Slideshow */}
-      <Slideshow />
+      {/* Background Slideshow moved to App.tsx */}
       
       <Navbar />
       

@@ -20,6 +20,7 @@ import Placeholder from "./pages/Placeholder";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./context/AuthContext";
 import TallawarraHome from "./pages/TallawarraHome";
+import Slideshow from "./components/Slideshow";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
       <TooltipProvider>
+        <Slideshow />
         <Toaster />
         <Sonner />
         <BrowserRouter>

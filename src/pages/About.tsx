@@ -1,6 +1,6 @@
 
 import Navbar from "../components/Navbar";
-import Slideshow from "../components/Slideshow";
+
 import Footer from "../components/Footer";
 import { X } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -9,8 +9,7 @@ import { Button } from "@/components/ui/button";
 const About = () => {
   return (
     <main className="relative min-h-screen flex flex-col">
-      {/* Background Slideshow */}
-      <Slideshow />
+      {/* Background Slideshow moved to App.tsx */}
       
       {/* Navbar */}
       <Navbar />

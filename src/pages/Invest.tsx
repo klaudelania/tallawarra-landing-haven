@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
-import Slideshow from '../components/Slideshow';
+
 import Footer from '../components/Footer';
 
 const Invest = () => {
@@ -25,7 +25,7 @@ const Invest = () => {
   
   return (
     <div className="relative min-h-screen flex flex-col">
-      <Slideshow />
+      {/* Background Slideshow moved to App.tsx */}
       <Navbar />
       <div className={`container mx-auto pt-32 px-4 pb-8 flex-1 ${isPageReady ? 'animate-fade-in' : 'opacity-0'}`}>
         <h1 className="text-4xl font-bold text-white mb-6">Invest</h1>

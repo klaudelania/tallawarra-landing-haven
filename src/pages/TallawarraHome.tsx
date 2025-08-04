@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
-import Slideshow from '../components/Slideshow';
+
 
 const TallawarraHome = () => {
   const [isPageReady, setIsPageReady] = useState(false);
@@ -23,7 +23,7 @@ const TallawarraHome = () => {
   
   return (
     <div className="relative min-h-screen">
-      <Slideshow />
+      {/* Background Slideshow moved to App.tsx */}
       <Navbar />
       <div className={`container mx-auto pt-32 px-4 pb-16 ${isPageReady ? 'animate-fade-in' : 'opacity-0'}`}>
         <h1 className="text-4xl font-bold text-white mb-6">How to make Tallawarra home?</h1>

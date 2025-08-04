@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
-import Slideshow from '../components/Slideshow';
+
 import Footer from '../components/Footer';
 import { X } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -80,8 +80,7 @@ const People = () => {
 
   return (
     <main className="relative min-h-screen flex flex-col">
-      {/* Background Slideshow */}
-      <Slideshow />
+      {/* Background Slideshow moved to App.tsx */}
       
       {/* Navbar */}
       <Navbar />

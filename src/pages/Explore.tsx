@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
-import Slideshow from '../components/Slideshow';
+
 import Footer from '../components/Footer';
 import { Button } from '@/components/ui/button';
 
@@ -34,7 +34,7 @@ const Explore = () => {
   
   return (
     <div className="relative min-h-screen flex flex-col">
-      <Slideshow />
+      {/* Background Slideshow moved to App.tsx */}
       <Navbar />
       <div className={`container mx-auto pt-32 px-4 pb-8 flex-1 ${isPageReady ? 'animate-fade-in' : 'opacity-0'}`}>
         <div className="glass-morphism rounded-lg p-6 mb-8 text-white relative">

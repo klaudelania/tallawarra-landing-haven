@@ -1,9 +1,8 @@
 
 import { useEffect, useState } from "react";
-import Slideshow from "../components/Slideshow";
+import HeroContent from "../components/HeroContent";
 import Navbar from "../components/Navbar";
 import ContactCard from "../components/ContactCard";
-import HeroContent from "../components/HeroContent";
 import Footer from "../components/Footer";
 const Index = () => {
   const [showContact, setShowContact] = useState(false);
@@ -27,8 +26,7 @@ const Index = () => {
 
   return (
     <main className="relative min-h-screen flex flex-col">
-      {/* Background Slideshow */}
-      <Slideshow />
+      {/* Background Slideshow moved to App.tsx */}
       
       {/* Navbar */}
       <Navbar />
