@@ -4,7 +4,7 @@ import { useSlideshowContext } from "../context/SlideshowContext";
 
 // Define slideshow media - just video in continuous loop
 const videoMedia = [
-  { type: 'video', src: "/slideshow/tallawarra-video.mp4" }, // YouTube video as MP4 - continuous loop
+  { type: 'video', src: "https://player.vimeo.com/video/1107307354?badge=0&autopause=0&player_id=0&app_id=58479" }, // Vimeo embedded video - continuous loop
 ];
 
 // Define image slideshow media - images 1-12

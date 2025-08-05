@@ -91,31 +91,20 @@ const SlideshowDisplay: React.FC<SlideshowDisplayProps> = ({ mediaUrls }) => {
             }`}
           >
             {media.type === 'video' ? (
-              <video
-                src={media.src}
-                className="object-cover w-full h-full"
-                autoPlay
-                muted={true}
-                loop={true}
-                playsInline
-                controls={false}
-                preload="auto"
-                onLoadStart={() => console.log(`Video load started: ${media.src}`)}
-                onLoadedData={() => {
-                  console.log(`Video loaded: ${media.src}`);
-                  handleMediaLoad(index);
-                }}
-                onCanPlay={() => console.log(`Video can play: ${media.src}`)}
-                onError={(e) => {
-                  console.error(`Error loading video:`, e);
-                  console.error(`Video src: ${media.src}`);
-                  console.error(`Error details:`, e.currentTarget.error);
-                }}
-                onPlay={() => console.log(`Video started playing: ${media.src}`)}
-                onLoadedMetadata={(e) => {
-                  console.log(`Video duration: ${e.currentTarget.duration} seconds`);
-                }}
-              />
+              <div className="w-full h-full relative">
+                <iframe
+                  src={media.src}
+                  className="absolute top-0 left-0 w-full h-full"
+                  frameBorder="0"
+                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  title="Tallawarra Video"
+                  onLoad={() => {
+                    console.log(`Video iframe loaded: ${media.src}`);
+                    handleMediaLoad(index);
+                  }}
+                />
+              </div>
             ) : (
               <img
                 src={media.src}
