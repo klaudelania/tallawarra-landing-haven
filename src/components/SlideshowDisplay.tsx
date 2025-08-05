@@ -20,7 +20,55 @@ const SlideshowDisplay: React.FC<SlideshowDisplayProps> = ({ mediaUrls }) => {
   const [nextMediaIndex, setNextMediaIndex] = useState(1);
   const [transitioning, setTransitioning] = useState(false);
   const [loadedMedia, setLoadedMedia] = useState<Record<number, boolean>>({});
+  const [videoScale, setVideoScale] = useState(1);
   const { isImageMode, setIsImageMode } = useSlideshowContext();
+
+  // Calculate optimal video scale based on screen dimensions
+  const calculateVideoScale = useCallback(() => {
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+    const screenRatio = screenWidth / screenHeight;
+    
+    // Assuming video is 16:9 ratio (most common for Vimeo)
+    const videoRatio = 16 / 9;
+    
+    let scale;
+    if (screenRatio > videoRatio) {
+      // Screen is wider than video - scale to fit width
+      scale = screenWidth / (screenHeight * videoRatio);
+    } else {
+      // Screen is taller than video - scale to fit height
+      scale = screenHeight / (screenWidth / videoRatio);
+    }
+    
+    // Ensure minimum scale of 1 and reasonable maximum
+    scale = Math.max(1, Math.min(scale, 2.5));
+    
+    console.log(`Screen: ${screenWidth}x${screenHeight}, Ratio: ${screenRatio.toFixed(2)}, Video Scale: ${scale.toFixed(2)}`);
+    setVideoScale(scale);
+  }, []);
+
+  // Update scale on window resize and orientation change
+  useEffect(() => {
+    calculateVideoScale();
+    
+    const handleResize = () => {
+      calculateVideoScale();
+    };
+    
+    const handleOrientationChange = () => {
+      // Small delay to ensure dimensions are updated after orientation change
+      setTimeout(calculateVideoScale, 100);
+    };
+
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('orientationchange', handleOrientationChange);
+    
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('orientationchange', handleOrientationChange);
+    };
+  }, [calculateVideoScale]);
 
   const goToNextSlide = useCallback(() => {
     if (mediaUrls.length === 0) return;
@@ -97,7 +145,7 @@ const SlideshowDisplay: React.FC<SlideshowDisplayProps> = ({ mediaUrls }) => {
                   frameBorder="0"
                   allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
                   referrerPolicy="strict-origin-when-cross-origin"
-                  className="absolute inset-0 w-full h-full border-none object-cover"
+                  className="absolute inset-0 w-full h-full border-none"
                   style={{
                     position: 'absolute',
                     top: '50%',
@@ -106,7 +154,7 @@ const SlideshowDisplay: React.FC<SlideshowDisplayProps> = ({ mediaUrls }) => {
                     height: '100vh', 
                     minWidth: '100vw',
                     minHeight: '100vh',
-                    transform: 'translate(-50%, -50%) scale(2.0)',
+                    transform: `translate(-50%, -50%) scale(${videoScale})`,
                     transformOrigin: 'center',
                     filter: 'brightness(1.05)',
                     objectFit: 'cover'
