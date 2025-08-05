@@ -103,9 +103,10 @@ const SlideshowDisplay: React.FC<SlideshowDisplayProps> = ({ mediaUrls }) => {
                     height: '100vh', 
                     minWidth: '100vw',
                     minHeight: '100vh',
-                    transform: 'scale(1.1)',
+                    transform: 'scale(1.5)',
                     transformOrigin: 'center',
-                    filter: 'brightness(1.05)'
+                    filter: 'brightness(1.05)',
+                    objectFit: 'cover'
                   }}
                   title="H264_Master_Tallawarra_Final_01"
                   id="vimeo-player"
