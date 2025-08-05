@@ -16,7 +16,7 @@ export const HeartToggleButton = ({ onToggle, isContentVisible }: HeartToggleBut
           <Heart 
             className={`w-8 h-8 transition-all duration-300 ${
               isContentVisible 
-                ? "text-white/80 hover:text-red-400 fill-transparent" 
+                ? "text-red-400 hover:text-red-300 fill-transparent" 
                 : "text-red-400 fill-red-400 animate-pulse"
             }`} 
           />
