@@ -53,6 +53,7 @@ const partners: Partner[] = [
   }
 ];
 
+// Partners page component
 const People = () => {
   const [isPageReady, setIsPageReady] = useState(false);
 
