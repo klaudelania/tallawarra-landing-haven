@@ -26,11 +26,16 @@ export const VideoMuteButton = () => {
       if (iframe && window.Vimeo) {
         const player = new window.Vimeo.Player(iframe);
         
-        // Set volume based on mute state
-        const volume = isMuted ? 0 : 0.7; // Use 0.7 for better audio control
-        player.setVolume(volume).catch(console.error);
+        // Set volume based on mute state without stopping playback
+        const volume = isMuted ? 0 : 0.8;
+        player.setVolume(volume).then(() => {
+          // Ensure video continues playing after volume change
+          player.play().catch(() => {
+            // Ignore play errors as video might already be playing
+          });
+        }).catch(console.error);
       }
-    }, 1500); // Wait 1.5 seconds for iframe to fully load
+    }, 2000); // Increased wait time for better compatibility
 
     return () => clearTimeout(timer);
   }, [isMuted]);
