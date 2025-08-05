@@ -95,7 +95,7 @@ const People = () => {
               <div className="flex justify-center mb-8">
                 <div className="w-full max-w-sm">
                   <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
-                    <div className="w-36 h-36 mx-auto mb-4 rounded-full overflow-hidden bg-white/90 border-2 border-white/30 flex items-center justify-center p-2">
+                    <div className="w-40 h-40 mx-auto mb-4 rounded-full overflow-hidden bg-white/90 border-2 border-white/30 flex items-center justify-center p-2">
                       <img 
                         src={partners[0].image} 
                         alt={partners[0].name} 
@@ -103,7 +103,7 @@ const People = () => {
                       />
                     </div>
                     <h3 className="text-xl font-semibold text-white text-center">{partners[0].name}</h3>
-                    <p className="text-blue-200 mb-3 text-center font-medium">{partners[0].role}</p>
+                    <p className="text-white mb-3 text-center font-medium">{partners[0].role}</p>
                     <p className="text-white/90 text-center">{partners[0].description}</p>
                   </div>
                 </div>
@@ -113,7 +113,7 @@ const People = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {partners.slice(1).map((partner) => (
                   <div key={partner.id} className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
-                    <div className="w-36 h-36 mx-auto mb-4 rounded-full overflow-hidden bg-white/90 border-2 border-white/30 flex items-center justify-center p-2">
+                    <div className="w-40 h-40 mx-auto mb-4 rounded-full overflow-hidden bg-white/90 border-2 border-white/30 flex items-center justify-center p-2">
                       <img 
                         src={partner.image} 
                         alt={partner.name} 
@@ -121,7 +121,7 @@ const People = () => {
                       />
                     </div>
                     <h3 className="text-xl font-semibold text-white text-center">{partner.name}</h3>
-                    <p className="text-blue-200 mb-3 text-center font-medium">{partner.role}</p>
+                    <p className="text-white mb-3 text-center font-medium">{partner.role}</p>
                     <p className="text-white/90 text-center">{partner.description}</p>
                   </div>
                 ))}
