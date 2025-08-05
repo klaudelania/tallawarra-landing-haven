@@ -127,7 +127,7 @@ const SlideshowDisplay: React.FC<SlideshowDisplayProps> = ({ mediaUrls }) => {
           </div>
         );
       })}
-      <div className="absolute inset-0 bg-black/25"></div>
+      
     </div>
   );
 };
