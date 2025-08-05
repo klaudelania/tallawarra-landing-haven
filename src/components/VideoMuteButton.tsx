@@ -2,11 +2,34 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Volume2, VolumeX } from 'lucide-react';
 
+// Extend window interface for Vimeo Player
+declare global {
+  interface Window {
+    Vimeo?: {
+      Player: new (element: HTMLIFrameElement) => {
+        setVolume: (volume: number) => Promise<number>;
+        getVolume: () => Promise<number>;
+      };
+    };
+  }
+}
+
 export const VideoMuteButton = () => {
   const [isMuted, setIsMuted] = useState(true); // Start muted for autoplay
 
   useEffect(() => {
-    // Find all video elements and apply mute state
+    // Control Vimeo player audio
+    const iframe = document.querySelector('iframe[src*="vimeo.com"]') as HTMLIFrameElement;
+    if (iframe && window.Vimeo) {
+      const player = new window.Vimeo.Player(iframe);
+      if (isMuted) {
+        player.setVolume(0).catch(console.error);
+      } else {
+        player.setVolume(1).catch(console.error);
+      }
+    }
+    
+    // Fallback for HTML5 video elements
     const videos = document.querySelectorAll('video');
     videos.forEach(video => {
       video.muted = isMuted;

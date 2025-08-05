@@ -99,9 +99,16 @@ const SlideshowDisplay: React.FC<SlideshowDisplayProps> = ({ mediaUrls }) => {
                   referrerPolicy="strict-origin-when-cross-origin"
                   style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'}}
                   title="H264_Master_Tallawarra_Final_01"
+                  id="vimeo-player"
                   onLoad={() => {
                     console.log(`Video iframe loaded: ${media.src}`);
                     handleMediaLoad(index);
+                    // Load Vimeo Player API script if not already loaded
+                    if (!(window as any).Vimeo && !document.querySelector('script[src*="player.vimeo.com"]')) {
+                      const script = document.createElement('script');
+                      script.src = 'https://player.vimeo.com/api/player.js';
+                      document.head.appendChild(script);
+                    }
                   }}
                 />
               </div>
