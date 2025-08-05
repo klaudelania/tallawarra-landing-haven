@@ -99,11 +99,14 @@ const SlideshowDisplay: React.FC<SlideshowDisplayProps> = ({ mediaUrls }) => {
                   referrerPolicy="strict-origin-when-cross-origin"
                   className="absolute inset-0 w-full h-full border-none object-cover"
                   style={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
                     width: '100vw', 
                     height: '100vh', 
                     minWidth: '100vw',
                     minHeight: '100vh',
-                    transform: 'scale(1.5)',
+                    transform: 'translate(-50%, -50%) scale(2.0)',
                     transformOrigin: 'center',
                     filter: 'brightness(1.05)',
                     objectFit: 'cover'
