@@ -17,7 +17,7 @@ declare global {
 }
 
 export const VideoMuteButton = () => {
-  const [isMuted, setIsMuted] = useState(false); // Start unmuted now that video has audio enabled
+  const [isMuted, setIsMuted] = useState(true); // Start muted for autoplay compatibility
   const [isIOS, setIsIOS] = useState(false);
 
   // Detect iOS devices
