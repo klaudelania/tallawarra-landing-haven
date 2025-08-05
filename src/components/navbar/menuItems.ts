@@ -11,7 +11,7 @@ export const publicMenuItems: MenuItem[] = [
     title: "About", 
     path: "/about",
     submenu: [
-      { title: "People", path: "/people" }
+      { title: "Our Partners", path: "/people" }
     ]
   },
   { title: "FAQ", path: "/faq" },

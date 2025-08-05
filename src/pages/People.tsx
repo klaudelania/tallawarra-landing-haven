@@ -7,7 +7,7 @@ import { X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
-type TeamMember = {
+type Partner = {
   id: number;
   name: string;
   role: string;
@@ -15,55 +15,41 @@ type TeamMember = {
   image: string;
 };
 
-const teamMembers: TeamMember[] = [
+const partners: Partner[] = [
   {
     id: 1,
-    name: "Yibin Xu",
-    role: "Managing Director Bridgehill Tallawarra",
-    description: "Yibin leads the strategic direction and overall management of the Tallawarra Point development project.",
-    image: "/placeholder.svg"
+    name: "Stantec",
+    role: "Engineering & Planning Partner",
+    description: "Leading engineering and planning consultancy providing comprehensive technical expertise for the Tallawarra Point development.",
+    image: "/lovable-uploads/8e050b5b-9ebf-4a9f-9f4d-39212bce3762.png"
   },
   {
     id: 2,
-    name: "Klaude Lania",
-    role: "Project Development Director Bridgehill Tallawarra",
-    description: "Klaude oversees the development process and ensures project milestones are met effectively.",
-    image: "/placeholder.svg"
+    name: "3EM Architects",
+    role: "Architectural Design Partner",
+    description: "Innovative architectural firm specializing in sustainable and contemporary design solutions for residential developments.",
+    image: "/lovable-uploads/2e472cd2-7509-487b-ba37-cdeb0dcf2be4.png"
   },
   {
     id: 3,
-    name: "Andrzej Pieńkowski",
-    role: "Construction Manager Bridgehill Tallawarra",
-    description: "Andrzej manages all construction activities and ensures quality delivery of the development.",
-    image: "/placeholder.svg"
+    name: "Biosis",
+    role: "Environmental Consulting Partner",
+    description: "Environmental consulting specialists providing ecological assessment and biodiversity management for sustainable development.",
+    image: "/lovable-uploads/d2906550-9373-45a3-b271-5550074b05c3.png"
   },
   {
     id: 4,
-    name: "Craig Hood",
-    role: "Practice Leader – Civil Engineering Stantec",
-    description: "Craig leads the civil engineering aspects of the project with expertise in infrastructure development.",
-    image: "/placeholder.svg"
+    name: "Ausconnex",
+    role: "Infrastructure & Connectivity Partner",
+    description: "Infrastructure and connectivity solutions provider ensuring seamless integration of modern utilities and communications.",
+    image: "/lovable-uploads/308cc9ef-5dcb-4a8a-86d5-da0380116bab.png"
   },
   {
     id: 5,
-    name: "Jen Southan",
-    role: "Principal Planner & Project Technical Lead (Planning) Stantec",
-    description: "Jen provides planning expertise and technical leadership for the project's planning requirements.",
-    image: "/placeholder.svg"
-  },
-  {
-    id: 6,
-    name: "Ellen Rowles",
-    role: "Town Planner Stantec",
-    description: "Ellen manages town planning processes and regulatory compliance for the development.",
-    image: "/placeholder.svg"
-  },
-  {
-    id: 7,
-    name: "Lee Morton",
-    role: "National Practice Leader Stantec Senior Principal Communications & Engagement",
-    description: "Lee leads communications and community engagement strategies for the project.",
-    image: "/placeholder.svg"
+    name: "Ecoplanning",
+    role: "Ecological Planning Partner",
+    description: "Specialized ecological planning consultancy focused on environmental impact assessment and sustainable development practices.",
+    image: "/lovable-uploads/25accd8c-adf0-4431-8cc7-6759b407a80e.png"
   }
 ];
 
@@ -95,47 +81,47 @@ const People = () => {
               </Button>
             </Link>
             
-            <h1 className="text-4xl font-bold mb-6 text-center text-white">Tallawarra Point Team</h1>
+            <h1 className="text-4xl font-bold mb-6 text-center text-white">Our Partners</h1>
             
             <p className="text-center text-white/90 mb-10 max-w-3xl mx-auto">
-              Meet the dedicated professionals behind Tallawarra Point. Our diverse team combines expertise 
-              in urban planning, sustainability, community engagement, and design to create 
-              exceptional living environments.
+              Meet our trusted partners who bring specialized expertise to the Tallawarra Point development. 
+              Together, we combine excellence in engineering, architecture, environmental consulting, 
+              and sustainable planning to create exceptional communities.
             </p>
             
             <div className={`${isPageReady ? 'animate-fade-in' : 'opacity-0'}`}>
-              {/* First row - Yibin Xu centered */}
+              {/* First row - Stantec centered */}
               <div className="flex justify-center mb-8">
                 <div className="w-full max-w-sm">
                   <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
-                    <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden bg-white/20 border-2 border-white/30">
+                    <div className="w-32 h-32 mx-auto mb-4 rounded-lg overflow-hidden bg-white/90 border-2 border-white/30 flex items-center justify-center p-4">
                       <img 
-                        src={teamMembers[0].image} 
-                        alt={teamMembers[0].name} 
-                        className="w-full h-full object-cover"
+                        src={partners[0].image} 
+                        alt={partners[0].name} 
+                        className="w-full h-full object-contain"
                       />
                     </div>
-                    <h3 className="text-xl font-semibold text-white text-center">{teamMembers[0].name}</h3>
-                    <p className="text-blue-200 mb-3 text-center font-medium">{teamMembers[0].role}</p>
-                    <p className="text-white/90 text-center">{teamMembers[0].description}</p>
+                    <h3 className="text-xl font-semibold text-white text-center">{partners[0].name}</h3>
+                    <p className="text-blue-200 mb-3 text-center font-medium">{partners[0].role}</p>
+                    <p className="text-white/90 text-center">{partners[0].description}</p>
                   </div>
                 </div>
               </div>
               
-              {/* Remaining rows - 3 cards per row */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {teamMembers.slice(1).map((member) => (
-                  <div key={member.id} className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
-                    <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden bg-white/20 border-2 border-white/30">
+              {/* Remaining rows - 2 cards per row for better layout */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {partners.slice(1).map((partner) => (
+                  <div key={partner.id} className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
+                    <div className="w-32 h-32 mx-auto mb-4 rounded-lg overflow-hidden bg-white/90 border-2 border-white/30 flex items-center justify-center p-4">
                       <img 
-                        src={member.image} 
-                        alt={member.name} 
-                        className="w-full h-full object-cover"
+                        src={partner.image} 
+                        alt={partner.name} 
+                        className="w-full h-full object-contain"
                       />
                     </div>
-                    <h3 className="text-xl font-semibold text-white text-center">{member.name}</h3>
-                    <p className="text-blue-200 mb-3 text-center font-medium">{member.role}</p>
-                    <p className="text-white/90 text-center">{member.description}</p>
+                    <h3 className="text-xl font-semibold text-white text-center">{partner.name}</h3>
+                    <p className="text-blue-200 mb-3 text-center font-medium">{partner.role}</p>
+                    <p className="text-white/90 text-center">{partner.description}</p>
                   </div>
                 ))}
               </div>
