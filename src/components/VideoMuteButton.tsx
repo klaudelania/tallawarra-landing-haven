@@ -9,6 +9,8 @@ declare global {
       Player: new (element: HTMLIFrameElement) => {
         setVolume: (volume: number) => Promise<number>;
         getVolume: () => Promise<number>;
+        pause: () => Promise<void>;
+        play: () => Promise<void>;
       };
     };
   }
@@ -18,22 +20,19 @@ export const VideoMuteButton = () => {
   const [isMuted, setIsMuted] = useState(true); // Start muted for autoplay
 
   useEffect(() => {
-    // Control Vimeo player audio
-    const iframe = document.querySelector('iframe[src*="vimeo.com"]') as HTMLIFrameElement;
-    if (iframe && window.Vimeo) {
-      const player = new window.Vimeo.Player(iframe);
-      if (isMuted) {
-        player.setVolume(0).catch(console.error);
-      } else {
-        player.setVolume(1).catch(console.error);
+    // Wait for Vimeo player to load before controlling it
+    const timer = setTimeout(() => {
+      const iframe = document.querySelector('iframe[src*="vimeo.com"]') as HTMLIFrameElement;
+      if (iframe && window.Vimeo) {
+        const player = new window.Vimeo.Player(iframe);
+        
+        // Set volume based on mute state
+        const volume = isMuted ? 0 : 0.7; // Use 0.7 for better audio control
+        player.setVolume(volume).catch(console.error);
       }
-    }
-    
-    // Fallback for HTML5 video elements
-    const videos = document.querySelectorAll('video');
-    videos.forEach(video => {
-      video.muted = isMuted;
-    });
+    }, 1500); // Wait 1.5 seconds for iframe to fully load
+
+    return () => clearTimeout(timer);
   }, [isMuted]);
 
   const toggleMute = () => {
