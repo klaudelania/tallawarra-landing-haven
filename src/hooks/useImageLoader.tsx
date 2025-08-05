@@ -4,7 +4,7 @@ import { useSlideshowContext } from "../context/SlideshowContext";
 
 // Define slideshow media - just video in continuous loop
 const videoMedia = [
-  { type: 'video', src: "https://player.vimeo.com/video/1107307354?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&transparent=0" }, // Vimeo embedded video with all UI elements hidden
+  { type: 'video', src: "https://player.vimeo.com/video/1107307354?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1&muted=0&controls=0&title=0&byline=0&portrait=0&transparent=0" }, // Vimeo embedded video with audio enabled
 ];
 
 // Define image slideshow media - images 1-12

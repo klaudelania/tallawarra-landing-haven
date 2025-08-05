@@ -17,7 +17,14 @@ declare global {
 }
 
 export const VideoMuteButton = () => {
-  const [isMuted, setIsMuted] = useState(true); // Start muted for autoplay
+  const [isMuted, setIsMuted] = useState(false); // Start unmuted now that video has audio enabled
+  const [isIOS, setIsIOS] = useState(false);
+
+  // Detect iOS devices
+  useEffect(() => {
+    const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    setIsIOS(iOS);
+  }, []);
 
   useEffect(() => {
     // Wait for Vimeo player to load before controlling it
@@ -29,18 +36,37 @@ export const VideoMuteButton = () => {
         // Set volume based on mute state without stopping playback
         const volume = isMuted ? 0 : 0.8;
         player.setVolume(volume).then(() => {
-          // Ensure video continues playing after volume change
-          player.play().catch(() => {
-            // Ignore play errors as video might already be playing
-          });
+          // For iOS devices, ensure audio context is properly activated
+          if (isIOS && !isMuted) {
+            // Trigger user interaction requirement for iOS audio
+            player.play().catch(() => {
+              console.log('iOS requires user interaction for audio');
+            });
+          } else if (!isMuted) {
+            // Ensure video continues playing after volume change
+            player.play().catch(() => {
+              // Ignore play errors as video might already be playing
+            });
+          }
         }).catch(console.error);
       }
     }, 2000); // Increased wait time for better compatibility
 
     return () => clearTimeout(timer);
-  }, [isMuted]);
+  }, [isMuted, isIOS]);
 
   const toggleMute = () => {
+    // For iOS, we need to handle audio context activation on first user interaction
+    if (isIOS && isMuted) {
+      // Create audio context if needed for iOS
+      const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
+      if (AudioContext) {
+        const audioContext = new AudioContext();
+        if (audioContext.state === 'suspended') {
+          audioContext.resume();
+        }
+      }
+    }
     setIsMuted(!isMuted);
   };
 
