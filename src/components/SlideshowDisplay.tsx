@@ -91,14 +91,14 @@ const SlideshowDisplay: React.FC<SlideshowDisplayProps> = ({ mediaUrls }) => {
             }`}
           >
             {media.type === 'video' ? (
-              <div className="w-full h-full relative">
+              <div className="w-full h-full relative" style={{padding: '56.25% 0 0 0', position: 'relative'}}>
                 <iframe
                   src={media.src}
-                  className="absolute top-0 left-0 w-full h-full"
                   frameBorder="0"
                   allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
                   referrerPolicy="strict-origin-when-cross-origin"
-                  title="Tallawarra Video"
+                  style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'}}
+                  title="H264_Master_Tallawarra_Final_01"
                   onLoad={() => {
                     console.log(`Video iframe loaded: ${media.src}`);
                     handleMediaLoad(index);
