@@ -91,13 +91,13 @@ const SlideshowDisplay: React.FC<SlideshowDisplayProps> = ({ mediaUrls }) => {
             }`}
           >
             {media.type === 'video' ? (
-              <div className="absolute inset-0 w-full h-full">
+              <div className="absolute inset-0 w-full h-full overflow-hidden">
                 <iframe
                   src={media.src}
                   frameBorder="0"
                   allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
                   referrerPolicy="strict-origin-when-cross-origin"
-                  style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover'}}
+                  style={{position: 'absolute', top: 0, left: 0, width: '100vw', height: '100vh', border: 'none', transform: 'scale(1.2)', transformOrigin: 'center'}}
                   title="H264_Master_Tallawarra_Final_01"
                   id="vimeo-player"
                   onLoad={() => {
