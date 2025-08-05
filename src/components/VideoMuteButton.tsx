@@ -27,25 +27,30 @@ export const VideoMuteButton = () => {
   }, []);
 
   useEffect(() => {
-    // Wait for Vimeo player to load before controlling it
-    const timer = setTimeout(() => {
-      const iframe = document.querySelector('iframe[src*="vimeo.com"]') as HTMLIFrameElement;
-      if (iframe && window.Vimeo) {
-        const player = new window.Vimeo.Player(iframe);
-        
-        // Only set volume, don't interfere with playback
-        const volume = isMuted ? 0 : 0.8;
-        player.setVolume(volume).catch(error => {
-          console.error('Error setting volume:', error);
-        });
-      }
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, [isMuted]);
+    // For iOS/Safari, audio in embedded videos is very restrictive
+    // Show a message to user about audio limitations
+    if (isIOS && !isMuted) {
+      console.log('Audio requested on iOS - may require user to tap video directly');
+    }
+  }, [isMuted, isIOS]);
 
   const toggleMute = () => {
+    // Simple toggle without interfering with video playback
     setIsMuted(!isMuted);
+    
+    // Post message to iframe to try to control audio (if supported)
+    const iframe = document.querySelector('iframe[src*="vimeo.com"]') as HTMLIFrameElement;
+    if (iframe && iframe.contentWindow) {
+      try {
+        const message = {
+          method: 'setVolume',
+          value: isMuted ? 0.8 : 0
+        };
+        iframe.contentWindow.postMessage(JSON.stringify(message), '*');
+      } catch (error) {
+        console.log('PostMessage audio control not supported');
+      }
+    }
   };
 
   return (
