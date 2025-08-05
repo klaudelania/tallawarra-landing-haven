@@ -97,7 +97,16 @@ const SlideshowDisplay: React.FC<SlideshowDisplayProps> = ({ mediaUrls }) => {
                   frameBorder="0"
                   allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
                   referrerPolicy="strict-origin-when-cross-origin"
-                  style={{position: 'absolute', top: 0, left: 0, width: '100vw', height: '100vh', border: 'none', transform: 'scale(1.2)', transformOrigin: 'center', filter: 'brightness(1.05)'}}
+                  className="absolute inset-0 w-full h-full border-none object-cover"
+                  style={{
+                    width: '100vw', 
+                    height: '100vh', 
+                    minWidth: '100vw',
+                    minHeight: '100vh',
+                    transform: 'scale(1.1)',
+                    transformOrigin: 'center',
+                    filter: 'brightness(1.05)'
+                  }}
                   title="H264_Master_Tallawarra_Final_01"
                   id="vimeo-player"
                   onLoad={() => {
