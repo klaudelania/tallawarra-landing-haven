@@ -17,7 +17,7 @@ export const SlideshowToggleButton = ({ onToggle, isImageMode }: SlideshowToggle
       onClick={toggleSlideshow}
       variant="outline"
       size="sm"
-      className="bg-white/20 backdrop-blur-lg border border-white/60 text-white hover:bg-white/30 hover:text-white transition-all duration-300"
+      className="!bg-white/20 backdrop-blur-lg border border-white/60 text-white hover:!bg-white/30 hover:text-white transition-all duration-300"
     >
       {isImageMode ? (
         <>
