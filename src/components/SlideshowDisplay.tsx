@@ -115,9 +115,6 @@ const SlideshowDisplay: React.FC<SlideshowDisplayProps> = ({ mediaUrls }) => {
                 onLoadedMetadata={(e) => {
                   console.log(`Video duration: ${e.currentTarget.duration} seconds`);
                 }}
-                style={{
-                  display: index === currentMediaIndex ? 'block' : 'none'
-                }}
               />
             ) : (
               <img
