@@ -39,16 +39,20 @@ const SlideshowDisplay: React.FC<SlideshowDisplayProps> = ({ mediaUrls }) => {
       // Mobile portrait - use 4.5x scaling to ensure full coverage
       scale = 4.5;
     } else {
-      // Landscape or desktop
+      // Landscape or desktop - also be aggressive to ensure full coverage
       if (screenRatio > videoRatio) {
+        // Screen is wider than video - scale to cover height
         scale = screenHeight / (screenWidth / videoRatio);
       } else {
+        // Screen is taller than video - scale to cover width
         scale = screenWidth / (screenHeight * videoRatio);
       }
+      // Add buffer for landscape to ensure full coverage
+      scale = scale * 1.2;
     }
     
     // Ensure minimum scale and allow higher maximum for mobile
-    const maxScale = screenHeight > screenWidth ? 4.5 : 3;
+    const maxScale = screenHeight > screenWidth ? 4.5 : 4;
     scale = Math.max(1.2, Math.min(scale, maxScale));
     
     console.log(`Screen: ${screenWidth}x${screenHeight}, Ratio: ${screenRatio.toFixed(2)}, Video Scale: ${scale.toFixed(2)}`);
