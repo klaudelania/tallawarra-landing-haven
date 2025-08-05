@@ -33,40 +33,46 @@ export const VideoMuteButton = () => {
       if (iframe && window.Vimeo) {
         const player = new window.Vimeo.Player(iframe);
         
-        // Set volume based on mute state without stopping playback
-        const volume = isMuted ? 0 : 0.8;
+        // Set volume based on mute state
+        const volume = isMuted ? 0 : 1; // Use full volume when unmuted
         player.setVolume(volume).then(() => {
-          // For iOS devices, ensure audio context is properly activated
-          if (isIOS && !isMuted) {
-            // Trigger user interaction requirement for iOS audio
-            player.play().catch(() => {
-              console.log('iOS requires user interaction for audio');
-            });
-          } else if (!isMuted) {
-            // Ensure video continues playing after volume change
-            player.play().catch(() => {
-              // Ignore play errors as video might already be playing
-            });
-          }
-        }).catch(console.error);
+          console.log(`Volume set to ${volume} for ${isIOS ? 'iOS' : 'other'} device`);
+        }).catch(error => {
+          console.error('Error setting volume:', error);
+        });
       }
-    }, 2000); // Increased wait time for better compatibility
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, [isMuted, isIOS]);
 
-  const toggleMute = () => {
-    // For iOS, we need to handle audio context activation on first user interaction
+  const toggleMute = async () => {
+    console.log(`Toggling mute from ${isMuted} to ${!isMuted} on ${isIOS ? 'iOS' : 'other'} device`);
+    
+    // For iOS, handle audio context activation on first user interaction
     if (isIOS && isMuted) {
-      // Create audio context if needed for iOS
-      const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
-      if (AudioContext) {
-        const audioContext = new AudioContext();
-        if (audioContext.state === 'suspended') {
-          audioContext.resume();
+      try {
+        const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
+        if (AudioContext) {
+          const audioContext = new AudioContext();
+          if (audioContext.state === 'suspended') {
+            await audioContext.resume();
+            console.log('iOS audio context resumed');
+          }
         }
+        
+        // Also try to interact with the iframe for iOS
+        const iframe = document.querySelector('iframe[src*="vimeo.com"]') as HTMLIFrameElement;
+        if (iframe && window.Vimeo) {
+          const player = new window.Vimeo.Player(iframe);
+          await player.setVolume(1);
+          console.log('iOS: Set volume to 1 via direct interaction');
+        }
+      } catch (error) {
+        console.error('iOS audio activation error:', error);
       }
     }
+    
     setIsMuted(!isMuted);
   };
 
