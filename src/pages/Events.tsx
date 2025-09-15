@@ -19,10 +19,10 @@ const Events = () => {
     {
       id: 1,
       title: "Our First Stakeholder Engagement Meeting This Year",
-      date: "August 15, 2025",
-      time: "5:00 PM",
+      date: "September 23, 2025",
+      time: "6:00 PM",
       location: "Stantect Office - 16 Burelli St, Wollongong NSW 2500",
-      description: "We are excited to announce our Our First Stakeholder Engagement Meeting This Year. The meeting will be held on Friday 15 August 2025 at Stantect office address: 16 Burelli St, Wollongong NSW 2500 at 17:00. Stay tuned for future dates and meetings."
+      description: "We are excited to announce our Our First Stakeholder Engagement Meeting This Year. The meeting will be held on Tuesday 23 Spetember 2025 at Stantect office address: 16 Burelli St, Wollongong NSW 2500 at 6:00PM. Stay tuned for future dates and meetings."
     },
     {
       id: 2,
@@ -60,15 +60,15 @@ const Events = () => {
     }
 
     // Create calendar event details
-    const eventDate = new Date('2025-08-15T17:00:00');
-    const endDate = new Date('2025-08-15T18:00:00');
+    const eventDate = new Date('2025-09-23T18:00:00');
+    const endDate = new Date('2025-09-23T19:00:00');
     
     // Format dates for calendar
     const startTime = eventDate.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
     const endTime = endDate.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
     
     // Create calendar URL (Google Calendar)
-    const calendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('Our First Stakeholder Engagement Meeting This Year')}&dates=${startTime}/${endTime}&details=${encodeURIComponent('We are excited to announce our Our First Stakeholder Engagement Meeting This Year. The meeting will be held on Friday 15 August 2025 at Stantect office address: 16 Burelli St, Wollongong NSW 2500 at 17:00.')}&location=${encodeURIComponent('Stantect Office - 16 Burelli St, Wollongong NSW 2500')}`;
+    const calendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('Our First Stakeholder Engagement Meeting This Year')}&dates=${startTime}/${endTime}&details=${encodeURIComponent('We are excited to announce our Our First Stakeholder Engagement Meeting This Year. The meeting will be held on Tuesday 23 Spetember 2025 at Stantect office address: 16 Burelli St, Wollongong NSW 2500 at 6:00PM.')}&location=${encodeURIComponent('Stantect Office - 16 Burelli St, Wollongong NSW 2500')}`;
     
     // Create mailto link with calendar invite
     const subject = encodeURIComponent('Calendar Invite: Our First Stakeholder Engagement Meeting This Year');
@@ -77,8 +77,8 @@ const Events = () => {
 You have requested a calendar invite for our upcoming stakeholder engagement meeting.
 
 Event Details:
-- Date: August 15, 2025
-- Time: 5:00 PM
+- Date: September 23, 2025
+- Time: 6:00 PM
 - Location: Stantect Office - 16 Burelli St, Wollongong NSW 2500
 
 Please add this event to your calendar using the following link:
