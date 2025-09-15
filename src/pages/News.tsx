@@ -13,7 +13,7 @@ const News = () => {
     {
       id: 1,
       title: "Stage 1 DA Lodged",
-      date: "April 15, 2025",
+      date: "12 June 2025",
       summary: "The much awaited Stage 1 DA application has been formally accepted by WCC. We look forward to exhibition period and are ready to start work on site following the determination."
     },
     {
