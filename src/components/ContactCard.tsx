@@ -22,8 +22,8 @@ const ContactCard = () => {
     {
       icon: <Mail className="h-5 w-5 text-white" />,
       label: "Email",
-      value: "info@bridgehill.com.au",
-      link: "mailto:info@bridgehill.com.au"
+      value: "info-tallawarra@bridgehill.com.au",
+      link: "mailto:info-tallawarra@bridgehill.com.au"
     },
     {
       icon: <Globe className="h-5 w-5 text-white" />,
