@@ -1,10 +1,17 @@
 
 import React, { useEffect, useState } from 'react';
+import { X } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import Navbar from '../components/Navbar';
 
 
 const TallawarraHome = () => {
   const [isPageReady, setIsPageReady] = useState(false);
+  const navigate = useNavigate();
+
+  const handleClose = () => {
+    navigate('/', { replace: true });
+  };
 
   useEffect(() => {
     // Force scroll to top when component mounts
@@ -26,7 +33,16 @@ const TallawarraHome = () => {
       {/* Background Slideshow moved to App.tsx */}
       <Navbar />
       <div className={`container mx-auto pt-32 px-4 pb-16 ${isPageReady ? 'animate-fade-in' : 'opacity-0'}`}>
-        <h1 className="text-4xl font-bold text-white mb-6">How to make Tallawarra home?</h1>
+        <div className="relative">
+          <button 
+            onClick={handleClose}
+            className="absolute top-0 right-0 p-2 rounded-full hover:bg-white/30 transition-colors text-white z-10"
+            aria-label="Close page"
+          >
+            <X size={24} />
+          </button>
+          <h1 className="text-4xl font-bold text-white mb-6">How to make Tallawarra home?</h1>
+        </div>
         <div className="glass-morphism rounded-lg p-6 mb-8 text-white">
           <p className="mb-4">
             Tallawarra is one of many new exciting projects delivered by Bridgehill. If you are interested in exploring our offer visit Bridgehill company website or contact us directly via email or phone.
